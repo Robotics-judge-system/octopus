@@ -5,8 +5,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import ru.anarcom.octopus.entity.basic.BaseEntity;
 
 /*
@@ -26,7 +27,8 @@ CREATE TABLE users
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Accessors(chain = true)
 public class User extends BaseEntity {
 
   @Column(name = "name")
