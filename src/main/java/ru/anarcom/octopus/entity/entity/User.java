@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.entity;
+package ru.anarcom.octopus.entity.entity;
 
 import java.util.Date;
 import javax.persistence.Column;
