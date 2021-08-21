@@ -22,7 +22,7 @@ class UserServiceImpl(
             User(
                 name = name,
                 email = email,
-                passwordHash = bCryptPasswordEncoder.encode(password)
+                passwordHash = bCryptPasswordEncoder.encode(password),
             )
         )
 }

@@ -10,5 +10,5 @@ CREATE TABLE users
     updated_at     timestamp default CURRENT_TIMESTAMP not null,
     status         varchar(10)                         not null,
     password_hash  varchar(255)                        not null,
-    last_online_at timestamp default CURRENT_TIMESTAMP not null
+    last_online_at timestamp
 );

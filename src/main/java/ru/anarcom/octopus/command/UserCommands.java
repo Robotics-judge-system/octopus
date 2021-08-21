@@ -1,12 +1,13 @@
 package ru.anarcom.octopus.command;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.shell.standard.ShellComponent;
-import ru.anarcom.octopus.service.UserService;
-
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import ru.anarcom.octopus.entity.User;
+import ru.anarcom.octopus.service.UserService;
 
 @ShellComponent
 @Slf4j
@@ -19,19 +20,21 @@ public class UserCommands {
     this.userService = userService;
   }
 
-  //name: String, email: String, password:String
   @ShellMethod("Create std user")
   public String createUser(
       @ShellOption("name") String name,
-      @ShellOption("password") String password,
-      @ShellOption("email") String email
+      @ShellOption("email") String email,
+      @ShellOption("password") String password
+
   ) {
     log.info(
         "creating user (std) with name = {} and mail = {} from console",
         name,
         email
     );
-    return "OK";
+    User user = userService.registerUser(name, password, email);
+    log.info("Created user (std) = {}", user);
+    return user.toString();
   }
 
 }

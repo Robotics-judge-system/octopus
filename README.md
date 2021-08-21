@@ -15,7 +15,7 @@ db = octopus
 # Создание тестового пользователя (или пользователя без прав)
 (Все команды для консоли приложения - как только оно поднялось - просто введи эту команду)
 ```shell
-shell:> create-user "test" "test" "mail@mail.ru"
+shell:> create-user "test" "test" "test@test.ts"
 ```
 Весь список команд
 ```shell
