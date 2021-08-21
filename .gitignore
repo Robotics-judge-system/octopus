@@ -37,5 +37,5 @@ out/
 .vscode/
 
 ### Work and develop proc ###
-spring-shell.log
 req_local/data/*
+*.log
