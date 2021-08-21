@@ -1,0 +1,7 @@
+1629558473051:help
+1629558493485:create-user name mail pass
+1629558512638:create-user "name" "mail" "pass"
+1629558539088:create-user --name "name"
+1629558557442:create-user --name="name"
+1629558613703:create-user --name="test" --password="test" --email="mailmail.ru"
+1629558650368:create-user "test" "test" "mail@mail.ru"
