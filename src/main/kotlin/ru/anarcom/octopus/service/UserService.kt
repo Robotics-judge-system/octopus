@@ -8,4 +8,6 @@ interface UserService {
     fun getUserByEmail(email: String): User
 
     fun registerUser(name: String, email: String, password:String): User
+
+    fun activateUser(email: String): User
 }

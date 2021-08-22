@@ -1,7 +1,6 @@
 package ru.anarcom.octopus.command;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -37,4 +36,10 @@ public class UserCommands {
     return user.toString();
   }
 
+  @ShellMethod("Activate user")
+  public String activateUser(
+      @ShellOption("email") String email
+  ) {
+      return userService.activateUser(email).toString();
+  }
 }

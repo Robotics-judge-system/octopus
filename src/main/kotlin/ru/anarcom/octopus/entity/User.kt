@@ -25,7 +25,7 @@ CREATE TABLE users
 @Table(name = "users")
 data class User(
     @Column(name = "name")
-    val name: String? = null,
+    val name: String = "",
     val email: @Email String? = null,
     val passwordHash: String? = null,
     val lastOnlineAt: Date? = null,

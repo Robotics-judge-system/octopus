@@ -19,6 +19,11 @@ db = octopus
 ```shell
 shell:> create-user "test" "test" "test@test.ts"
 ```
+Затем требуется активировать пользователя (позднее будет джоба, отправляющая сообщения, но это
+потом)
+```shell
+shell:>activate-user "test@test.ts"
+```
 Весь список команд
 ```shell
 shell:> help

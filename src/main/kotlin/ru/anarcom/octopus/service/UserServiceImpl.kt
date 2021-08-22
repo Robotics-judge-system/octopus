@@ -4,6 +4,7 @@ import javassist.NotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.User
+import ru.anarcom.octopus.entity.basic.EntityStatus
 import ru.anarcom.octopus.repos.UserRepository
 
 @Service
@@ -25,4 +26,10 @@ class UserServiceImpl(
                 passwordHash = bCryptPasswordEncoder.encode(password),
             )
         )
+
+    override fun activateUser(email: String): User {
+        val user = getUserByEmail(email)
+        user.status = EntityStatus.ACTIVE
+        return userRepository.save(user)
+    }
 }

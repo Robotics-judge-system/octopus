@@ -31,6 +31,8 @@ dependencies {
 	implementation("org.springframework.shell:spring-shell-starter:2.0.1.RELEASE")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
+	implementation("org.apache.commons:commons-lang3:3.0")
+
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
