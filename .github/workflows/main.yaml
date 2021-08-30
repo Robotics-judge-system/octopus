@@ -1,0 +1,30 @@
+name: Java CI
+# Тригеры для сработки
+on:
+  push:
+  #for running by button
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install java (11)
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: name
+        run: sudo apt-get update -y
+      - name: Install dos2unix
+        run: sudo apt-get install -y dos2unix
+      - name: Convert file
+        run: dos2unix ./gradlew
+      - name: Make executable
+        run: chmod +x ./gradlew
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      - name: Run tests
+        run: ./gradlew test
