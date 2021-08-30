@@ -20,7 +20,7 @@ import ru.anarcom.octopus.security.jwt.JwtTokenProvider;
 import ru.anarcom.octopus.service.UserService;
 
 /**
- * REST controller for authentication requests (login, logout, register, etc.)
+ * REST controller for authentication requests (login)
  *
  * @author Eugene Suleimanov
  * @version 1.0
