@@ -54,12 +54,14 @@ public class AuthenticationRestControllerV1 {
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
 
-            String token = jwtTokenProvider.createToken(username, user.getRoles());
+            var pair = jwtTokenProvider.createToken(username, user.getRoles());
 
             Map<Object, Object> response = new HashMap<>();
+            // TODO: Завести DTO для ответа
             response.put("username", username);
-            response.put("token", token);
-
+            response.put("token", pair.component1());
+            response.put("expires_after_sec", pair.component2());
+            response.put("refresh_token", "");
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
