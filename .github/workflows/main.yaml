@@ -2,7 +2,8 @@ name: Java CI
 # Тригеры для сработки
 on:
   push:
-  #for running by button
+#for running by button
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -16,6 +17,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+#          cache: gradle
       - name: name
         run: sudo apt-get update -y
       - name: Install dos2unix
@@ -27,4 +29,4 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Run tests
-        run: ./gradlew test
+        run: ./gradlew test --info

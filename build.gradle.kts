@@ -43,6 +43,8 @@ dependencies {
 	testImplementation("io.zonky.test:embedded-postgres:1.3.1")
 
 	testImplementation("org.mockito:mockito-all:1.10.19")
+	testImplementation("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
+	testImplementation("org.dbunit:dbunit:2.7.0")
 }
 
 tasks.withType<KotlinCompile> {
