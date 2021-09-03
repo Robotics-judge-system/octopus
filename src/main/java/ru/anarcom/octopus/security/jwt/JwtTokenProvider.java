@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import kotlin.Pair;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,7 @@ import ru.anarcom.octopus.model.Role;
  */
 
 @Component
+@Slf4j
 public class JwtTokenProvider {
 
     @Value("${jwt.token.secret}")
@@ -73,12 +75,22 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(
+            getUsernameFromJwtToken(token)
+        );
+        return new UsernamePasswordAuthenticationToken(
+            userDetails,
+            "",
+            userDetails.getAuthorities()
+        );
     }
 
-    public String getUsername(String token) {
+    public String getUsernameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String getBodyOfHeaderToken(String token){
+        return token.substring(7, token.length());
     }
 
     public String resolveToken(HttpServletRequest req) {

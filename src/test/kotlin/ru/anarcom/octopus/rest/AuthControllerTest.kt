@@ -2,14 +2,18 @@ package ru.anarcom.octopus.rest
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.springtestdbunit.annotation.DatabaseSetup
+import com.github.springtestdbunit.annotation.ExpectedDatabase
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode
 import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import ru.anarcom.octopus.OctopusApplicationTests
@@ -21,6 +25,10 @@ class AuthControllerTest : OctopusApplicationTests() {
 
     @Test
     @DatabaseSetup("/db/auth/user.xml")
+    @ExpectedDatabase(
+        value = "/db/auth/user.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT
+    )
     fun correctAuthAndSelfDataTest() {
         val result: MvcResult = mockMvc
             .perform(
@@ -37,14 +45,26 @@ class AuthControllerTest : OctopusApplicationTests() {
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.username", `is`("username")))
             .andReturn()
-        val content = result.response.contentAsString
-        val resp_data: MutableMap<*, *>? = ObjectMapper()
+        val respData: MutableMap<*, *>? = ObjectMapper()
             .readValue(
-                content,
+                result.response.contentAsString,
                 MutableMap::class.java
             )
-        println(resp_data)
-        var token = resp_data?.get("token")
+        val token = respData?.get("token")
+        mockMvc
+            .perform(
+                get("/api/v1/self")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(
+                MockMvcResultMatchers.content().json(
+                    "{\"id\":1," +
+                            "\"username\":\"username\"," +
+                            "\"name\":\"name\"," +
+                            "\"email\":\"email@email.ts\"}"
+                )
+            )
     }
 
     // TODO: add not correct password and login test
