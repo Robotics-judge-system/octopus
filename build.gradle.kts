@@ -28,7 +28,6 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("javax.validation:validation-api:2.0.1.Final")
-//	implementation("org.springframework.shell:spring-shell-starter:2.0.1.RELEASE")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.apache.commons:commons-lang3:3.0")
@@ -39,6 +38,11 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+
+	testImplementation("io.zonky.test:embedded-database-spring-test:2.1.0")
+	testImplementation("io.zonky.test:embedded-postgres:1.3.1")
+
+	testImplementation("org.mockito:mockito-all:1.10.19")
 }
 
 tasks.withType<KotlinCompile> {
