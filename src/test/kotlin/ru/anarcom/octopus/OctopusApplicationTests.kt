@@ -1,13 +1,28 @@
 package ru.anarcom.octopus
 
-import org.junit.jupiter.api.Test
+import com.github.springtestdbunit.DbUnitTestExecutionListener
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase.DatabaseProvider
+import org.junit.runner.RunWith
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.TestExecutionListeners
+import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener
+import org.springframework.transaction.annotation.Transactional
 
+@AutoConfigureEmbeddedDatabase(
+	provider = DatabaseProvider.DEFAULT,
+	refresh = AutoConfigureEmbeddedDatabase.RefreshMode.BEFORE_EACH_TEST_METHOD
+)
+@RunWith(SpringRunner::class)
 @SpringBootTest
-class OctopusApplicationTests {
-
-	@Test
-	fun contextLoads() {
-	}
-
-}
+@Transactional
+@TestExecutionListeners(
+	DependencyInjectionTestExecutionListener::class,
+	DirtiesContextTestExecutionListener::class,
+	TransactionalTestExecutionListener::class,
+	DbUnitTestExecutionListener::class,
+)
+class OctopusApplicationTests
