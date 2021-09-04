@@ -20,4 +20,12 @@ public interface UserService {
     User findById(Long id);
 
     void delete(Long id);
+
+    User registerUser(
+        String username,
+        String email,
+        String name,
+        String password
+    );
+
 }
