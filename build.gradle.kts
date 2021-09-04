@@ -46,6 +46,8 @@ dependencies {
 	testImplementation("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
 	testImplementation("org.dbunit:dbunit:2.7.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.google.guava:guava:11.0.2")
+
 }
 
 tasks.withType<KotlinCompile> {

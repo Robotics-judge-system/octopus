@@ -24,11 +24,11 @@
         />
       </column>
 
-      <column name="created" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+      <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
         <constraints nullable="false"/>
       </column>
 
-      <column name="updated" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+      <column name="updated" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
         <constraints nullable="false"/>
       </column>
       <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">

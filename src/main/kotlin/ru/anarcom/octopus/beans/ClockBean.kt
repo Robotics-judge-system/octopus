@@ -1,11 +1,13 @@
 package ru.anarcom.octopus.beans
 
+import Util.TestClock
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import org.springframework.stereotype.Component
 import java.time.Clock
 
-@Configuration
+@Component
 class ClockBean {
+
     @Bean
-    fun getClock():Clock = Clock.systemDefaultZone()
+    fun getClock():Clock = TestClock()
 }

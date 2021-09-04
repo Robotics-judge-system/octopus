@@ -1,9 +1,9 @@
 package ru.anarcom.octopus.service.impl;
 
-import java.util.Date;
+import java.time.Clock;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.anarcom.octopus.model.Status;
@@ -21,16 +21,12 @@ import ru.anarcom.octopus.service.UserService;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository,BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final Clock clock;
 
     @Override
     public List<User> getAll() {
@@ -72,8 +68,8 @@ public class UserServiceImpl implements UserService {
         user.setName(name);
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
-        user.setCreated(new Date());
-        user.setUpdated(new Date());
+        user.setCreated(clock.instant());
+        user.setUpdated(clock.instant());
         user.setStatus(Status.ACTIVE);
         return userRepository.save(user);
     }

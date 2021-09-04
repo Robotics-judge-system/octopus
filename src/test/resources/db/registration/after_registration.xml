@@ -16,5 +16,7 @@
     name="Василий"
     email="email@email.email"
     status="ACTIVE"
+    created="2021-09-01 00:00:00.0 +0000"
+    updated="2021-09-01 00:00:00.0 +0000"
     />
 </dataset>

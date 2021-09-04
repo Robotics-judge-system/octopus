@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional
 	provider = DatabaseProvider.DEFAULT,
 	refresh = AutoConfigureEmbeddedDatabase.RefreshMode.BEFORE_EACH_TEST_METHOD
 )
-@RunWith(SpringRunner::class)
+@RunWith(
+	SpringRunner::class
+)
 @SpringBootTest(
 	webEnvironment = SpringBootTest.WebEnvironment.MOCK
 )

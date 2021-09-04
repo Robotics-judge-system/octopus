@@ -1,6 +1,6 @@
 package ru.anarcom.octopus.model;
 
-import java.util.Date;
+import java.time.Instant;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,11 +30,11 @@ public class BaseEntity {
 
     @CreatedDate
     @Column(name = "created")
-    public Date created;
+    public Instant created;
 
     @LastModifiedDate
     @Column(name = "updated")
-    public Date updated;
+    public Instant updated;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

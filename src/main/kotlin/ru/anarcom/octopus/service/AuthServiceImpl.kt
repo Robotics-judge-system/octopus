@@ -7,11 +7,12 @@ import ru.anarcom.octopus.entity.Auth
 import ru.anarcom.octopus.model.Status
 import ru.anarcom.octopus.model.User
 import ru.anarcom.octopus.repo.AuthRepository
-import java.util.*
+import java.time.Clock
 
 @Service
 class AuthServiceImpl(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val clock: Clock
 ) : AuthService {
     override fun getNewRefreshTokenForUser(user: User): String {
         var refreshToken: String = ""
@@ -25,8 +26,8 @@ class AuthServiceImpl(
             user = user
         )
 
-        auth.created = Date()
-        auth.updated = Date()
+        auth.created = clock.instant()
+        auth.updated = clock.instant()
         auth.status = Status.ACTIVE
         authRepository.save(auth)
         return refreshToken
@@ -37,7 +38,7 @@ class AuthServiceImpl(
             throw NotFoundException("User with that refresh token not found")
         }
         val auth = authRepository.findByRefreshTokenAndStatus(token, Status.ACTIVE)
-        auth.updated = Date()
+        auth.updated = clock.instant()
         authRepository.save(auth)
         return auth.user!!
     }
