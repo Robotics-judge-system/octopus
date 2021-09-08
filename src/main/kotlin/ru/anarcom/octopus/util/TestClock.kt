@@ -1,4 +1,4 @@
-package Util
+package ru.anarcom.octopus.util
 
 import com.google.common.annotations.VisibleForTesting
 import org.springframework.stereotype.Component

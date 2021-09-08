@@ -1,6 +1,5 @@
 package ru.anarcom.octopus.rest
 
-import Util.TestClock
 import com.github.springtestdbunit.annotation.DatabaseSetup
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -13,6 +12,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import ru.anarcom.octopus.OctopusApplicationTests
 import ru.anarcom.octopus.repository.UserRepository
+import ru.anarcom.octopus.util.TestClock
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
