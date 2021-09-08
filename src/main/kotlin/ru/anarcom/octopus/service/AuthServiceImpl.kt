@@ -15,7 +15,7 @@ class AuthServiceImpl(
     private val clock: Clock
 ) : AuthService {
     override fun getNewRefreshTokenForUser(user: User): String {
-        var refreshToken: String = ""
+        var refreshToken: String
 
         do {
             refreshToken = RandomStringUtils.random(20, true, true)

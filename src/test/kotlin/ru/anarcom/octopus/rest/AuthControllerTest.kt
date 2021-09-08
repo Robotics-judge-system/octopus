@@ -41,7 +41,7 @@ class AuthControllerTest : TestWithDb() {
             )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(status().isOk)
-            .andExpect(jsonPath("$.username", `is`("$username")))
+            .andExpect(jsonPath("$.username", `is`(username)))
             .andReturn()
         val respData: MutableMap<*, *>? = ObjectMapper()
             .readValue(

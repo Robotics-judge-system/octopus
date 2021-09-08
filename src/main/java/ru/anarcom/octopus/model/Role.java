@@ -1,6 +1,7 @@
 package ru.anarcom.octopus.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Simple domain object that represents application user's role - ADMIN, USER, etc.
@@ -9,6 +10,7 @@ import lombok.Data;
  * @version 1.0
  */
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class Role extends BaseEntity {
 
