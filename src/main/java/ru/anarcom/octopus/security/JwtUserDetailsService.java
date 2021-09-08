@@ -1,7 +1,7 @@
 package ru.anarcom.octopus.security;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,14 +20,10 @@ import ru.anarcom.octopus.service.UserService;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
 
     private final UserService userService;
-
-    @Autowired
-    public JwtUserDetailsService(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

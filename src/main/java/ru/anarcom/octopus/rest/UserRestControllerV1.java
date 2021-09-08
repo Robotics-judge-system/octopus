@@ -1,7 +1,7 @@
 package ru.anarcom.octopus.rest;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +21,10 @@ import ru.anarcom.octopus.service.UserService;
 
 @RestController
 @RequestMapping(value = "/api/v1/users/")
+@RequiredArgsConstructor
 public class UserRestControllerV1 {
 
   private final UserService userService;
-
-  @Autowired
-  public UserRestControllerV1(UserService userService) {
-    this.userService = userService;
-  }
 
   @GetMapping(value = "{id}")
   public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Long id) {

@@ -10,7 +10,6 @@ import ru.anarcom.octopus.model.User;
  * @author Eugene Suleimanov
  * @version 1.0
  */
-
 public interface UserService {
 
     List<User> getAll();
