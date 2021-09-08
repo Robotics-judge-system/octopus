@@ -6,9 +6,9 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import ru.anarcom.octopus.OctopusApplicationTests
+import ru.anarcom.octopus.TestWithDb
 
-class StateControllerTest : OctopusApplicationTests() {
+class StateControllerTest : TestWithDb() {
     @Autowired
     private lateinit var mockMvc: MockMvc
 

@@ -31,4 +31,4 @@ import org.springframework.transaction.annotation.Transactional
 	DbUnitTestExecutionListener::class,
 )
 @AutoConfigureMockMvc
-class OctopusApplicationTests
+class TestWithDb

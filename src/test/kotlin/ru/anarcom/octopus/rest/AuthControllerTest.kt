@@ -16,10 +16,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import ru.anarcom.octopus.OctopusApplicationTests
+import ru.anarcom.octopus.TestWithDb
 
 
-class AuthControllerTest : OctopusApplicationTests() {
+class AuthControllerTest : TestWithDb() {
     @Autowired
     private lateinit var mockMvc: MockMvc
 
