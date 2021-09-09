@@ -1,9 +1,8 @@
-package ru.anarcom.octopus.entity;
+package ru.anarcom.octopus.entity
 
 /**
  * Statuses of object.
  */
-
-public enum Status {
+enum class Status {
     ACTIVE, NOT_ACTIVE, DELETED
 }

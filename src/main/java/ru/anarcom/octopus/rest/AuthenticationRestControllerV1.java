@@ -1,8 +1,6 @@
 package ru.anarcom.octopus.rest;
 
 
-import java.util.HashMap;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.anarcom.octopus.dto.AuthenticationRequestDto;
+import ru.anarcom.octopus.dto.LoginResponseDto;
 import ru.anarcom.octopus.dto.RefreshTokenDto;
 import ru.anarcom.octopus.entity.User;
 import ru.anarcom.octopus.security.jwt.JwtTokenProvider;
@@ -51,14 +50,14 @@ public class AuthenticationRestControllerV1 {
             }
 
             var pair = jwtTokenProvider.createToken(username, user.getRoles());
-
-            Map<Object, Object> response = new HashMap<>();
-            // TODO: Завести DTO для ответа
-            response.put("username", username);
-            response.put("token", pair.component1());
-            response.put("expires_after_sec", pair.component2());
-            response.put("refresh_token", authService.getNewRefreshTokenForUser(user));
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(
+                new LoginResponseDto(
+                    username,
+                    pair.component1(),
+                    authService.getNewRefreshTokenForUser(user),
+                    pair.component2()
+                )
+            );
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
@@ -75,13 +74,14 @@ public class AuthenticationRestControllerV1 {
                 user.getRoles()
             );
 
-            Map<Object, Object> response = new HashMap<>();
-            // TODO: Завести DTO для ответа
-            response.put("username", user.getUsername());
-            response.put("token", pair.component1());
-            response.put("expires_after_sec", pair.component2());
-            response.put("refresh_token", token);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(
+                new LoginResponseDto(
+                    user.getUsername(),
+                    pair.component1(),
+                    token,
+                    pair.component2()
+                )
+            );
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
