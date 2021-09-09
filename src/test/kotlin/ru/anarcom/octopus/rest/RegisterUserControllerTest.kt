@@ -38,7 +38,6 @@ class RegisterUserControllerTest : TestWithDb() {
     @Test
     @DisplayName("Registration user test")
     @DatabaseSetup("/db/auth/user.xml")
-    // TODO: CLOCK FIX
     fun registrationUserTest() {
         mockMvc
             .perform(
