@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.anarcom.octopus.model.Status;
-import ru.anarcom.octopus.model.User;
+import ru.anarcom.octopus.entity.Status;
+import ru.anarcom.octopus.entity.User;
 import ru.anarcom.octopus.repository.UserRepository;
 import ru.anarcom.octopus.service.UserService;
 

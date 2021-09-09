@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.model;
+package ru.anarcom.octopus.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

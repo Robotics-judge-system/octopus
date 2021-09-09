@@ -2,8 +2,8 @@ package ru.anarcom.octopus.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import ru.anarcom.octopus.model.Status;
-import ru.anarcom.octopus.model.User;
+import ru.anarcom.octopus.entity.Status;
+import ru.anarcom.octopus.entity.User;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

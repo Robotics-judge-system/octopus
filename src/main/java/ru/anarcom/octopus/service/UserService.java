@@ -1,7 +1,7 @@
 package ru.anarcom.octopus.service;
 
 
-import ru.anarcom.octopus.model.User;
+import ru.anarcom.octopus.entity.User;
 
 public interface UserService {
 

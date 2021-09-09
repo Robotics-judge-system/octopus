@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.anarcom.octopus.dto.AuthenticationRequestDto;
 import ru.anarcom.octopus.dto.RefreshTokenDto;
-import ru.anarcom.octopus.model.User;
+import ru.anarcom.octopus.entity.User;
 import ru.anarcom.octopus.security.jwt.JwtTokenProvider;
 import ru.anarcom.octopus.service.AuthService;
 import ru.anarcom.octopus.service.UserService;

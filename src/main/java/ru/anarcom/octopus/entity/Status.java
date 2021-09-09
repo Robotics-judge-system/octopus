@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.model;
+package ru.anarcom.octopus.entity;
 
 /**
  * Statuses of object.

@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * Spring Security wrapper for class {@link ru.anarcom.octopus.model.User}.
+ * Spring Security wrapper for class {@link ru.anarcom.octopus.entity.User}.
  *
  */
 

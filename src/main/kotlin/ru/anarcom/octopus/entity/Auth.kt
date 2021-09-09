@@ -1,8 +1,6 @@
 package ru.anarcom.octopus.entity
 
 import org.hibernate.Hibernate
-import ru.anarcom.octopus.model.BaseEntity
-import ru.anarcom.octopus.model.User
 import javax.persistence.*
 
 /**

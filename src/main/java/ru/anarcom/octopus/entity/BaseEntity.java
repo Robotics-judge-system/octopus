@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.model;
+package ru.anarcom.octopus.entity;
 
 import java.time.Instant;
 import java.util.Objects;

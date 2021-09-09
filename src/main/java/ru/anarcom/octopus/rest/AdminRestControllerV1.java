@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.anarcom.octopus.dto.AdminUserDto;
-import ru.anarcom.octopus.model.User;
+import ru.anarcom.octopus.entity.User;
 import ru.anarcom.octopus.service.UserService;
 
 @RestController
