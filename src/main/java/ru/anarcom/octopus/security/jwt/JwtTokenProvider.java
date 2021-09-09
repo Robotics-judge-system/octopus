@@ -5,10 +5,10 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import kotlin.Pair;
@@ -22,14 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.anarcom.octopus.model.Role;
-
-/**
- * Util class that provides methods for generation, validation, etc. of JWT token.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
+import ru.anarcom.octopus.entity.Role;
 
 @Component
 @Slf4j
@@ -90,13 +83,13 @@ public class JwtTokenProvider {
     }
 
     public String getBodyOfHeaderToken(String token){
-        return token.substring(7, token.length());
+        return token.substring(7);
     }
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(7);
         }
         return null;
     }
@@ -105,23 +98,15 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
 
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-
-            return true;
+            return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtAuthenticationException("JWT token is expired or invalid");
         }
     }
 
     private List<String> getRoleNames(List<Role> userRoles) {
-        List<String> result = new ArrayList<>();
-
-        userRoles.forEach(role -> {
-            result.add(role.getName());
-        });
-
-        return result;
+        return userRoles.stream()
+            .map(Role::getName)
+            .collect(Collectors.toList());
     }
 }

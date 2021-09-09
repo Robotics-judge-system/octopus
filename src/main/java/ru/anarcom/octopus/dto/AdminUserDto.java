@@ -2,15 +2,8 @@ package ru.anarcom.octopus.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import ru.anarcom.octopus.model.Status;
-import ru.anarcom.octopus.model.User;
-
-/**
- * DTO class for user requests by ROLE_ADMIN
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
+import ru.anarcom.octopus.entity.Status;
+import ru.anarcom.octopus.entity.User;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

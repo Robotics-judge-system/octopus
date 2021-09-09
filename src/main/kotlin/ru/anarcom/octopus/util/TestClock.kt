@@ -1,4 +1,4 @@
-package Util
+package ru.anarcom.octopus.util
 
 import com.google.common.annotations.VisibleForTesting
 import org.springframework.stereotype.Component
@@ -6,6 +6,9 @@ import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
 
+/**
+ * Testable clock
+ */
 @Component
 class TestClock : Clock() {
     val clock: Clock = systemDefaultZone()
@@ -29,11 +32,14 @@ class TestClock : Clock() {
         else
             testClock!!.instant()
 
+    /**
+     * Fixes time. Do not use it in Production.
+     */
     @VisibleForTesting
     fun setFixed(
         instant: Instant,
         zoneId: ZoneId
     ){
-        testClock = Clock.fixed(instant, zoneId)
+        testClock = fixed(instant, zoneId)
     }
 }

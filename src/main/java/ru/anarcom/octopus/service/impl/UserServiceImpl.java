@@ -1,27 +1,19 @@
 package ru.anarcom.octopus.service.impl;
 
 import java.time.Clock;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.anarcom.octopus.model.Status;
-import ru.anarcom.octopus.model.User;
+import ru.anarcom.octopus.entity.Status;
+import ru.anarcom.octopus.entity.User;
 import ru.anarcom.octopus.repository.UserRepository;
 import ru.anarcom.octopus.service.UserService;
-
-/**
- * Implementation of {@link UserService} interface.
- * Wrapper for {@link UserRepository} + business logic.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
+//TODO change logger messages
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -29,36 +21,27 @@ public class UserServiceImpl implements UserService {
     private final Clock clock;
 
     @Override
-    public List<User> getAll() {
-        List<User> result = userRepository.findAll();
-        log.info("IN getAll - {} users found", result.size());
-        return result;
-    }
-
-    @Override
     public User findByUsername(String username) {
         User result = userRepository.findByUsername(username);
-        log.info("IN findByUsername - user: {} found by username: {}", result, username);
         return result;
     }
 
     @Override
     public User findById(Long id) {
-        User result = userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
+    }
 
-        if (result == null) {
-            log.warn("IN findById - no user found by id: {}", id);
-            return null;
-        }
-
-        log.info("IN findById - user: {} found by id: {}", result, id);
-        return result;
+    @Override
+    public void deleteHard(Long id) {
+        userRepository.deleteById(id);
+        log.info("IN delete - user with id: {} successfully (hard) deleted", id);
     }
 
     @Override
     public void delete(Long id) {
-        userRepository.deleteById(id);
-        log.info("IN delete - user with id: {} successfully deleted", id);
+        User user = findById(id);
+        user.setStatus(Status.DELETED);
+        userRepository.save(user);
     }
 
     @Override

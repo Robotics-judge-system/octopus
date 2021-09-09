@@ -5,15 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import ru.anarcom.octopus.model.Role;
-import ru.anarcom.octopus.model.Status;
-import ru.anarcom.octopus.model.User;
+import ru.anarcom.octopus.entity.Role;
+import ru.anarcom.octopus.entity.Status;
+import ru.anarcom.octopus.entity.User;
 
 /**
  * Implementation of Factory Method for class {@link JwtUser}.
  *
- * @author Eugene Suleimanov
- * @version 1.0
  */
 
 public final class JwtUserFactory {

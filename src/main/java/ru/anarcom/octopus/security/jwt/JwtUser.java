@@ -6,10 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * Spring Security wrapper for class {@link ru.anarcom.octopus.model.User}.
+ * Spring Security wrapper for class {@link ru.anarcom.octopus.entity.User}.
  *
- * @author Eugene Suleimanov
- * @version 1.0
  */
 
 public class JwtUser implements UserDetails {
