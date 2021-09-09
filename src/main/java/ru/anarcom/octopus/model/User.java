@@ -14,10 +14,7 @@ import org.hibernate.Hibernate;
 
 
 /**
- * Simple domain object that represents application user.
- *
- * @author Eugene Suleimanov
- * @version 1.0
+ * Entity with User information.
  */
 
 @Entity

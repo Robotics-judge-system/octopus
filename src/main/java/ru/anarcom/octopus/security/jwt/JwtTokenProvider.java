@@ -24,13 +24,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.anarcom.octopus.model.Role;
 
-/**
- * ru.anarcom.octopus.Util class that provides methods for generation, validation, etc. of JWT token.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
-
 @Component
 @Slf4j
 public class JwtTokenProvider {

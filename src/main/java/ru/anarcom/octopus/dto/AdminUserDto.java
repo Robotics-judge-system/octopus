@@ -5,13 +5,6 @@ import lombok.Data;
 import ru.anarcom.octopus.model.Status;
 import ru.anarcom.octopus.model.User;
 
-/**
- * DTO class for user requests by ROLE_ADMIN
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
-
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AdminUserDto {

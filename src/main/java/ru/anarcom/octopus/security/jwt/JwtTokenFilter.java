@@ -13,8 +13,6 @@ import org.springframework.web.filter.GenericFilterBean;
 /**
  * JWT token filter that handles all HTTP requests to application.
  *
- * @author Eugene Suliemanov
- * @version 1.0
  */
 
 public class JwtTokenFilter extends GenericFilterBean {

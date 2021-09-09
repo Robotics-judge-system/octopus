@@ -11,13 +11,6 @@ import ru.anarcom.octopus.security.jwt.JwtUser;
 import ru.anarcom.octopus.security.jwt.JwtUserFactory;
 import ru.anarcom.octopus.service.UserService;
 
-/**
- * Implementation of {@link UserDetailsService} interface for {@link JwtUser}.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -25,6 +18,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     private final UserService userService;
 
+    /**
+     *
+     * @param username Username of user to search.
+     * @return User if was found
+     * @throws UsernameNotFoundException If user was not found.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByUsername(username);

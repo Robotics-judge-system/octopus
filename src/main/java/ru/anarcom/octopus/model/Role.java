@@ -4,17 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Simple domain object that represents application user's role - ADMIN, USER, etc.
- *
- * @author Eugene Suleimanov
- * @version 1.0
+ * Simple Role object. In future it will be base for ABAC access model.
  */
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Role extends BaseEntity {
-
     private String name;
-//    private List<User> users;
-
 }

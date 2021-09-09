@@ -1,10 +1,7 @@
 package ru.anarcom.octopus.model;
 
 /**
- * Enumeration that represents status of domain objects - ACTIVE, DELETED, etc.
- *
- * @author Eugene Suleimanov
- * @version 1.0
+ * Statuses of object.
  */
 
 public enum Status {

@@ -11,13 +11,6 @@ import ru.anarcom.octopus.dto.AdminUserDto;
 import ru.anarcom.octopus.model.User;
 import ru.anarcom.octopus.service.UserService;
 
-/**
- * REST controller for ROLE_ADMIN requests.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
-
 @RestController
 @RequestMapping(value = "/api/v1/admin/")
 @RequiredArgsConstructor

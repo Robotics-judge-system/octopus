@@ -24,8 +24,6 @@ import ru.anarcom.octopus.service.UserService;
 /**
  * REST controller for authentication requests (login)
  *
- * @author Eugene Suleimanov
- * @version 1.0
  */
 
 @RestController
