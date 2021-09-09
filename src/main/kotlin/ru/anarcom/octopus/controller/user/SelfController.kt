@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import ru.anarcom.octopus.dto.UserDto
+import ru.anarcom.octopus.dto.AdminUserDto
 import ru.anarcom.octopus.security.jwt.JwtTokenProvider
 import ru.anarcom.octopus.service.UserService
 
@@ -17,8 +17,8 @@ class SelfController(
     @GetMapping("self")
     fun getSelfInformation(
         @RequestHeader(name = "Authorization") token: String
-    ): UserDto =
-        UserDto.fromUser(
+    ): AdminUserDto =
+        AdminUserDto.fromUser(
             userService.findByUsername(
                 jwtTokenProvider.getUsernameFromJwtToken(
                     jwtTokenProvider.getBodyOfHeaderToken(token)

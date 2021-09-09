@@ -5,10 +5,10 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import kotlin.Pair;
@@ -83,13 +83,13 @@ public class JwtTokenProvider {
     }
 
     public String getBodyOfHeaderToken(String token){
-        return token.substring(7, token.length());
+        return token.substring(7);
     }
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(7);
         }
         return null;
     }
@@ -105,12 +105,8 @@ public class JwtTokenProvider {
     }
 
     private List<String> getRoleNames(List<Role> userRoles) {
-        List<String> result = new ArrayList<>();
-
-        userRoles.forEach(role -> {
-            result.add(role.getName());
-        });
-
-        return result;
+        return userRoles.stream()
+            .map(Role::getName)
+            .collect(Collectors.toList());
     }
 }

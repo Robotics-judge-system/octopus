@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import ru.anarcom.octopus.dto.AdminUserDto
 import ru.anarcom.octopus.dto.RegistrationUserDto
-import ru.anarcom.octopus.dto.UserDto
 import ru.anarcom.octopus.service.UserService
 
 @RestController
@@ -16,7 +16,7 @@ class UserRegistationController(
     @GetMapping("register")
     fun registerUser(
         @RequestBody registrationUserDto: RegistrationUserDto
-    ): UserDto = UserDto.fromUser(
+    ) = AdminUserDto.fromUser(
         userService.registerUser(
             registrationUserDto.username,
             registrationUserDto.email,

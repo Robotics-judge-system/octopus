@@ -40,6 +40,6 @@ class TestClock : Clock() {
         instant: Instant,
         zoneId: ZoneId
     ){
-        testClock = Clock.fixed(instant, zoneId)
+        testClock = fixed(instant, zoneId)
     }
 }
