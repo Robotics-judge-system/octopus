@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.anarcom.octopus.entity.Status;
 import ru.anarcom.octopus.entity.User;
+import ru.anarcom.octopus.exceptions.IncorrectPasswordException;
 import ru.anarcom.octopus.repository.UserRepository;
 import ru.anarcom.octopus.service.UserService;
 
@@ -54,6 +55,31 @@ public class UserServiceImpl implements UserService {
         user.setCreated(clock.instant());
         user.setUpdated(clock.instant());
         user.setStatus(Status.ACTIVE);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(String name, User user) {
+        if (name != null) {
+            user.setName(name);
+        }
+        user.setUpdated(clock.instant());
+        return user;
+    }
+
+    @Override
+    public User changePassword(User user, String oldPassword, String newPassword) {
+        if (!passwordEncoder.matches(
+            oldPassword,
+            user.getPassword()
+
+        )) {
+            throw new IncorrectPasswordException("Password incorrect");
+        }
+        user.setPassword(
+            passwordEncoder.encode(newPassword)
+        );
+        user.setUpdated(clock.instant());
         return userRepository.save(user);
     }
 }

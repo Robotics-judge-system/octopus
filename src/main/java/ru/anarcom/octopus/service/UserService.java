@@ -40,4 +40,24 @@ public interface UserService {
         String password
     );
 
+    /**
+     * Updates user if field is not null.
+     */
+    User updateUser(
+        String name,
+        User user
+    );
+
+    /**
+     * Changes user password
+     * @param user User to change password
+     * @param oldPassword old User password
+     * @param newPassword new User password
+     * @return User with new Password
+     */
+    User changePassword(
+        User user,
+        String oldPassword,
+        String newPassword
+    );
 }
