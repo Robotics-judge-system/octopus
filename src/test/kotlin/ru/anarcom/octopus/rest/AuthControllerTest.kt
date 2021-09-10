@@ -12,6 +12,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -30,7 +31,7 @@ class AuthControllerTest : TestWithDb() {
     ): String {
         val result: MvcResult = mockMvc
             .perform(
-                get("/api/v1/auth/login")
+                post("/api/v1/auth/login")
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .content(
                         "{\n" +
@@ -88,7 +89,7 @@ class AuthControllerTest : TestWithDb() {
     fun refreshTokenTest() {
         val result: MvcResult = mockMvc
             .perform(
-                get("/api/v1/auth/login")
+                post("/api/v1/auth/login")
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .content(
                         "{\n" +
@@ -124,7 +125,7 @@ class AuthControllerTest : TestWithDb() {
             )
         mockMvc
             .perform(
-                get("/api/v1/auth/refresh")
+                post("/api/v1/auth/refresh")
                     .content(
                         "{\n" +
                                 "    \"refresh\":\"$refreshToken\"\n" +
