@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
             user.setName(name);
         }
         user.setUpdated(clock.instant());
-        return user;
+        return userRepository.save(user);
     }
 
     @Override
