@@ -62,6 +62,7 @@ public class AuthenticationRestControllerV1 {
             throw new BadCredentialsException("Invalid username or password");
         }
     }
+
     @PostMapping("refresh")
     public ResponseEntity<?> getNewTokenFromRefresh(
         @RequestBody RefreshTokenDto refreshTokenDto
