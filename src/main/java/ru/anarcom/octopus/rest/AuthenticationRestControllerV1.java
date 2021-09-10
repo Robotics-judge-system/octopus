@@ -8,7 +8,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +38,7 @@ public class AuthenticationRestControllerV1 {
 
     private final AuthService authService;
 
-    @GetMapping("login")
+    @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             String username = requestDto.getUsername();
@@ -62,7 +62,8 @@ public class AuthenticationRestControllerV1 {
             throw new BadCredentialsException("Invalid username or password");
         }
     }
-    @GetMapping("refresh")
+
+    @PostMapping("refresh")
     public ResponseEntity<?> getNewTokenFromRefresh(
         @RequestBody RefreshTokenDto refreshTokenDto
     ){
