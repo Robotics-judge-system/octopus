@@ -41,7 +41,7 @@ class RegisterUserControllerTest : TestWithDb() {
     fun registrationUserTest() {
         mockMvc
             .perform(
-                MockMvcRequestBuilders.get("/api/v1/register")
+                MockMvcRequestBuilders.post("/api/v1/register")
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .content(
                         "{" +
@@ -65,5 +65,6 @@ class RegisterUserControllerTest : TestWithDb() {
                 )
             )
         assert(userRepository.count().toInt() == 2)
+        //TODO normal validation (may be soft assert)
     }
 }
