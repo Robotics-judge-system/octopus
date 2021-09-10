@@ -1,6 +1,7 @@
 package ru.anarcom.octopus.rest
 
 import com.github.springtestdbunit.annotation.DatabaseSetup
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -11,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import ru.anarcom.octopus.TestWithDb
+import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.repository.UserRepository
 import ru.anarcom.octopus.util.TestClock
 import java.time.Clock
@@ -65,6 +67,14 @@ class RegisterUserControllerTest : TestWithDb() {
                 )
             )
         assert(userRepository.count().toInt() == 2)
-        //TODO normal validation (may be soft assert)
+
+        val registeredUser = userRepository.getById(2)
+        assertEquals( 2, registeredUser.id)
+        assertEquals("email@email.email", registeredUser.email)
+        assertEquals("Василий", registeredUser.name)
+        assertEquals("username_1", registeredUser.username)
+        assertEquals(registeredUser.created, registeredUser.updated)
+        assertEquals(Instant.parse("2021-09-01T00:00:00.00Z"), registeredUser.updated)
+        assertEquals(Status.ACTIVE,registeredUser.status)
     }
 }

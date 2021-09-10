@@ -36,4 +36,21 @@
       </column>
     </createTable>
   </changeSet>
+
+  <changeSet id="auth-1.0.1" author="AnarCom">
+    <dropForeignKeyConstraint
+      baseTableName="auths"
+      constraintName="fk_user_id_for_refresh"
+    />
+  </changeSet>
+
+  <changeSet id="auth-1.0.2" author="AnarCom">
+    <addForeignKeyConstraint
+      baseTableName="auths"
+      baseColumnNames="user_id"
+      constraintName="fk_user_id_for_refresh"
+      referencedTableName="users"
+      referencedColumnNames="id"
+      onDelete="CASCADE"/>
+  </changeSet>
 </databaseChangeLog>
