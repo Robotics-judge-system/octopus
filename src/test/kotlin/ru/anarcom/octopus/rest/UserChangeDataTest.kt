@@ -2,6 +2,8 @@ package ru.anarcom.octopus.rest
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.springtestdbunit.annotation.DatabaseSetup
+import com.github.springtestdbunit.annotation.ExpectedDatabase
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -65,6 +67,10 @@ class UserChangeDataTest:TestWithDb() {
 
     @DatabaseSetup("/db/auth/user.xml")
     @Test
+    @ExpectedDatabase(
+        "/db/change_user_data/after_name_changing.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT
+    )
     fun changeUserData(){
         mockMvc
             .perform(
