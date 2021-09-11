@@ -1,28 +1,25 @@
 package ru.anarcom.octopus.controller.user
 
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.anarcom.octopus.dto.AdminUserDto
-import ru.anarcom.octopus.security.jwt.JwtTokenProvider
 import ru.anarcom.octopus.service.UserService
+import java.security.Principal
 
 @RestController
 @RequestMapping("api/v1")
 class SelfController(
-    private var jwtTokenProvider: JwtTokenProvider,
     private var userService: UserService
 ) {
     @GetMapping("self")
     fun getSelfInformation(
-        @RequestHeader(name = "Authorization") token: String
-    ): AdminUserDto =
-        AdminUserDto.fromUser(
+        principal: Principal,
+    ): AdminUserDto {
+        return AdminUserDto.fromUser(
             userService.findByUsername(
-                jwtTokenProvider.getUsernameFromJwtToken(
-                    jwtTokenProvider.getBodyOfHeaderToken(token)
-                )
+                principal.name
             )
         )
+    }
 }

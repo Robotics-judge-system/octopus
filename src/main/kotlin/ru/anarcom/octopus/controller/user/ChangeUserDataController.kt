@@ -1,54 +1,52 @@
 package ru.anarcom.octopus.controller.user
 
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import ru.anarcom.octopus.dto.AdminUserDto
 import ru.anarcom.octopus.dto.ChangeUserInfoDto
 import ru.anarcom.octopus.dto.ChangeUserPasswordDto
-import ru.anarcom.octopus.security.jwt.JwtTokenProvider
 import ru.anarcom.octopus.service.UserService
 import ru.anarcom.octopus.util.logger
+import java.security.Principal
 
 @RestController
 @RequestMapping("api/v1/user/change")
 class ChangeUserDataController(
     private val userService: UserService,
-    private var jwtTokenProvider: JwtTokenProvider,
 ) {
-
     val logger = logger()
 
     @PostMapping("data")
     fun changeUserData(
-        @RequestHeader(name = "Authorization") token: String,
+        principal: Principal,
         @RequestBody changeUserInfoDto: ChangeUserInfoDto
-    ): AdminUserDto {
-        val user = userService.findByUsername(
-            jwtTokenProvider.getUsernameFromJwtToken(
-                jwtTokenProvider.getBodyOfHeaderToken(token)
+    ): AdminUserDto = AdminUserDto.fromUser(
+        userService.updateUser(
+            changeUserInfoDto.name,
+            userService.findByUsername(
+                principal.name
             )
         )
-        return AdminUserDto.fromUser(
-            userService.updateUser(
-                changeUserInfoDto.name,
-                user
-            )
-        )
+    ).apply {
+        logger.info("User {username = ${principal.name}} changed name data to " +
+                "{${changeUserInfoDto.name}}")
     }
 
     @PostMapping("password")
     fun changeUserPassword(
-        @RequestHeader(name = "Authorization") token: String,
+        principal: Principal,
         @RequestBody changeUserPasswordDto: ChangeUserPasswordDto
-    ) = AdminUserDto.fromUser(
+    ): AdminUserDto = AdminUserDto.fromUser(
         userService.changePassword(
             userService.findByUsername(
-                jwtTokenProvider.getUsernameFromJwtToken(
-                    jwtTokenProvider.getBodyOfHeaderToken(token)
-                )
+                principal.name
             ),
             changeUserPasswordDto.oldPassword,
             changeUserPasswordDto.newPassword
         )
-    )
-
+    ).apply {
+        logger.info("User {username = ${principal.name}} changed password")
+    }
 }
