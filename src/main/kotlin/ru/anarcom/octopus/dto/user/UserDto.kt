@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.dto
+package ru.anarcom.octopus.dto.user
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import lombok.Data

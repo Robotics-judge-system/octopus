@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import ru.anarcom.octopus.dto.ChangeUserInfoDto
-import ru.anarcom.octopus.dto.ChangeUserPasswordDto
-import ru.anarcom.octopus.dto.UserDto
+import ru.anarcom.octopus.dto.user.ChangeUserInfoDto
+import ru.anarcom.octopus.dto.user.ChangeUserPasswordDto
+import ru.anarcom.octopus.dto.user.UserDto
 import ru.anarcom.octopus.service.UserService
 import ru.anarcom.octopus.util.logger
 import java.security.Principal

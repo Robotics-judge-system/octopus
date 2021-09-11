@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import ru.anarcom.octopus.dto.RegistrationUserDto
-import ru.anarcom.octopus.dto.UserDto
+import ru.anarcom.octopus.dto.user.RegistrationUserDto
+import ru.anarcom.octopus.dto.user.UserDto
 import ru.anarcom.octopus.service.UserService
 
 @RestController

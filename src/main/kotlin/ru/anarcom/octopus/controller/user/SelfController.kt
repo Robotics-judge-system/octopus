@@ -3,7 +3,7 @@ package ru.anarcom.octopus.controller.user
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import ru.anarcom.octopus.dto.UserDto
+import ru.anarcom.octopus.dto.user.UserDto
 import ru.anarcom.octopus.service.UserService
 import java.security.Principal
 
