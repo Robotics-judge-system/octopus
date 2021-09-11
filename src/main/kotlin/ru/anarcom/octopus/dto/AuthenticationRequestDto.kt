@@ -1,12 +1,9 @@
-package ru.anarcom.octopus.dto;
-
-import lombok.Data;
+package ru.anarcom.octopus.dto
 
 /**
  * DTO with information for Login.
  */
-@Data
-public class AuthenticationRequestDto {
-    private String username;
-    private String password;
-}
+data class AuthenticationRequestDto(
+    val username: String = "",
+    val password: String = "",
+)
