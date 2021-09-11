@@ -24,5 +24,5 @@ abstract class BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    var status: Status? = null
+    var status: Status = Status.NONE
 }
