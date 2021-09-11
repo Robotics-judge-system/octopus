@@ -4,7 +4,6 @@ package ru.anarcom.octopus.rest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +15,7 @@ import ru.anarcom.octopus.dto.AuthenticationRequestDto;
 import ru.anarcom.octopus.dto.LoginResponseDto;
 import ru.anarcom.octopus.dto.RefreshTokenDto;
 import ru.anarcom.octopus.entity.User;
+import ru.anarcom.octopus.exceptions.InvalidLoginOrPasswordException;
 import ru.anarcom.octopus.security.jwt.JwtTokenProvider;
 import ru.anarcom.octopus.service.AuthService;
 import ru.anarcom.octopus.service.UserService;
@@ -59,7 +59,7 @@ public class AuthenticationRestControllerV1 {
                 )
             );
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new InvalidLoginOrPasswordException();
         }
     }
 
@@ -84,7 +84,7 @@ public class AuthenticationRestControllerV1 {
                 )
             );
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new InvalidLoginOrPasswordException();
         }
     }
 }
