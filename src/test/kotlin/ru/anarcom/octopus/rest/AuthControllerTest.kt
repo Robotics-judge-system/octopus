@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import ru.anarcom.octopus.TestWithDb
 
@@ -71,7 +70,7 @@ class AuthControllerTest : TestWithDb() {
             )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
-                MockMvcResultMatchers.content().json(
+                content().json(
                     "{\"id\":1," +
                             "\"username\":\"username\"," +
                             "\"name\":\"name\"," +
@@ -116,7 +115,7 @@ class AuthControllerTest : TestWithDb() {
             )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
-                MockMvcResultMatchers.content().json(
+                content().json(
                     "{\"id\":1," +
                             "\"username\":\"username\"," +
                             "\"name\":\"name\"," +
