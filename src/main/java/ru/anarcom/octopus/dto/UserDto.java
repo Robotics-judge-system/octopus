@@ -7,7 +7,7 @@ import ru.anarcom.octopus.entity.User;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AdminUserDto {
+public class UserDto {
     private Long id;
     private String username;
     private String name;
@@ -24,13 +24,13 @@ public class AdminUserDto {
         return user;
     }
 
-    public static AdminUserDto fromUser(User user) {
-        AdminUserDto adminUserDto = new AdminUserDto();
-        adminUserDto.setId(user.getId());
-        adminUserDto.setUsername(user.getUsername());
-        adminUserDto.setName(user.getName());
-        adminUserDto.setEmail(user.getEmail());
-        adminUserDto.setStatus(user.getStatus().name());
-        return adminUserDto;
+    public static UserDto fromUser(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setName(user.getName());
+        userDto.setEmail(user.getEmail());
+        userDto.setStatus(user.getStatus().name());
+        return userDto;
     }
 }
