@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup
 import com.github.springtestdbunit.annotation.ExpectedDatabase
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode
 import org.hamcrest.Matchers.`is`
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
@@ -15,8 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import ru.anarcom.octopus.TestWithDb
 
 
@@ -138,5 +138,52 @@ class AuthControllerTest : TestWithDb() {
             .andExpect(jsonPath("$.refresh_token", `is`(refreshToken)))
     }
 
-    // TODO: add not correct password and login test
+    @Test
+    @DisplayName("Incorrect login and password")
+    @DatabaseSetup("/db/auth/user.xml")
+    fun loginWithIncorrectLoginTest() {
+        mockMvc
+            .perform(
+                post("/api/v1/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(
+                        "{\n" +
+                                "    \"username\":\"wrong_login\",\n" +
+                                "    \"password\":\"test\"\n" +
+                                "}"
+                    )
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isForbidden)
+            .andExpect(
+                content().json(
+                    "{" +
+                            "\"human_message\":\"Login or password is incorrect.\"," +
+                            "\"exception_message\":\"Invalid username or password.\"" +
+                            "}"
+                )
+            )
+
+        mockMvc
+            .perform(
+                post("/api/v1/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(
+                        "{\n" +
+                                "    \"username\":\"username\",\n" +
+                                "    \"password\":\"wrong_test\"\n" +
+                                "}"
+                    )
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isForbidden)
+            .andExpect(
+                content().json(
+                    "{" +
+                            "\"human_message\":\"Login or password is incorrect.\"," +
+                            "\"exception_message\":\"Invalid username or password.\"" +
+                            "}"
+                )
+            )
+    }
 }
