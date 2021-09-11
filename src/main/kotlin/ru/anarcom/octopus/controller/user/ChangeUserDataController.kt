@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import ru.anarcom.octopus.dto.AdminUserDto
-import ru.anarcom.octopus.dto.ChangeUserInfoDto
-import ru.anarcom.octopus.dto.ChangeUserPasswordDto
+import ru.anarcom.octopus.dto.user.ChangeUserInfoDto
+import ru.anarcom.octopus.dto.user.ChangeUserPasswordDto
+import ru.anarcom.octopus.dto.user.UserDto
 import ru.anarcom.octopus.service.UserService
 import ru.anarcom.octopus.util.logger
 import java.security.Principal
@@ -22,7 +22,7 @@ class ChangeUserDataController(
     fun changeUserData(
         principal: Principal,
         @RequestBody changeUserInfoDto: ChangeUserInfoDto
-    ): AdminUserDto = AdminUserDto.fromUser(
+    ): UserDto = UserDto.fromUser(
         userService.updateUser(
             changeUserInfoDto.name,
             userService.findByUsername(
@@ -38,7 +38,7 @@ class ChangeUserDataController(
     fun changeUserPassword(
         principal: Principal,
         @RequestBody changeUserPasswordDto: ChangeUserPasswordDto
-    ): AdminUserDto = AdminUserDto.fromUser(
+    ): UserDto = UserDto.fromUser(
         userService.changePassword(
             userService.findByUsername(
                 principal.name

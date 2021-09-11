@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.dto
+package ru.anarcom.octopus.dto.login
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
