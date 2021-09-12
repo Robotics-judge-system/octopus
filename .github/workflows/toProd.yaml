@@ -14,7 +14,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-#          cache: gradle
+      #          cache: gradle
       - name: name
         run: sudo apt-get update -y
       - name: Install dos2unix
@@ -27,6 +27,8 @@ jobs:
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Build application
         run: ./gradlew build -x test
+      - name: Copy .jar file
+        run: mv ./build/libs/octopus-0.0.1-SNAPSHOT.jar ./octopus.jar
       - name: Send file via scp
         uses: appleboy/scp-action@master
         with:
@@ -34,17 +36,18 @@ jobs:
           username: ${{ secrets.SSH_DEV_USERNAME }}
           password: ${{ secrets.SSH_DEV_PASSWORD }}
           port: ${{ secrets.SSH_DEV_PORT }}
-          source: "./build/libs/octopus-0.0.1-SNAPSHOT.jar"
-          target: "./prod_docker/octopus.jar"
-      - name: starting docker containers
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_DEV_HOST }}
-          username: ${{ secrets.SSH_DEV_USERNAME }}
-          password: ${{ secrets.SSH_DEV_PASSWORD }}
-          port: ${{ secrets.SSH_DEV_PORT }}
-          script: |
-            cd ./prod_docker
-            sudo ./down.sh
-            sudo ./up.sh
-#octopus-0.0.1-SNAPSHOT.jar
+          source: "./octopus.jar"
+          target: "./prod_docker/"
+#      - name: starting docker containers
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.SSH_DEV_HOST }}
+#          username: ${{ secrets.SSH_DEV_USERNAME }}
+#          password: ${{ secrets.SSH_DEV_PASSWORD }}
+#          port: ${{ secrets.SSH_DEV_PORT }}
+#          script: |
+#            cd ./prod_docker
+#            sudo ./down.sh
+#            sudo docker build -t anarcom/joust-backend .
+#            sudo docker push anarcom/joust-backend
+#            sudo ./up.sh
