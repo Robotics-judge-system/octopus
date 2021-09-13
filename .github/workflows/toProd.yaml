@@ -38,16 +38,16 @@ jobs:
           port: ${{ secrets.SSH_DEV_PORT }}
           source: "./octopus.jar"
           target: "./prod_docker/"
-#      - name: starting docker containers
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.SSH_DEV_HOST }}
-#          username: ${{ secrets.SSH_DEV_USERNAME }}
-#          password: ${{ secrets.SSH_DEV_PASSWORD }}
-#          port: ${{ secrets.SSH_DEV_PORT }}
-#          script: |
-#            cd ./prod_docker
-#            sudo ./down.sh
-#            sudo docker build -t anarcom/joust-backend .
-#            sudo docker push anarcom/joust-backend
-#            sudo ./up.sh
+      - name: starting docker containers
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_DEV_HOST }}
+          username: ${{ secrets.SSH_DEV_USERNAME }}
+          password: ${{ secrets.SSH_DEV_PASSWORD }}
+          port: ${{ secrets.SSH_DEV_PORT }}
+          script: |
+            cd ./prod_docker
+            sudo ./down.sh
+            sudo docker build -t anarcom/joust-backend -t anarcom/joust-backend:latest .
+            sudo docker push anarcom/joust-backend
+            sudo ./up.sh
