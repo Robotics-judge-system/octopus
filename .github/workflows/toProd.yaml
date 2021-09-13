@@ -35,4 +35,4 @@ jobs:
       - name: build container
         run: docker build -t anarcom/joust-backend:${GITHUB_REF:11} -t anarcom/joust-backend:latest -f Dockerfile .
       - name: push container
-        run: docker push --all-tags anarcom/joust-backend:${GITHUB_REF:11}
+        run: docker image push --all-tags anarcom/joust-backend:${GITHUB_REF:11}
