@@ -28,6 +28,8 @@ jobs:
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Build application
         run: ./gradlew build -x test
+      - name: Copy .jar file
+        run: mv ./build/libs/octopus-0.0.1-SNAPSHOT.jar ./octopus.jar
       - name: login docker
         run: echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
       - name: build container
