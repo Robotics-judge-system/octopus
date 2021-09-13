@@ -6,4 +6,5 @@ import ru.anarcom.octopus.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String name);
+    User findByEmail(String email);
 }
