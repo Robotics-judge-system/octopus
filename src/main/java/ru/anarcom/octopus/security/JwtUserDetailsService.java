@@ -7,16 +7,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.anarcom.octopus.entity.User;
+import ru.anarcom.octopus.repository.UserRepository;
 import ru.anarcom.octopus.security.jwt.JwtUser;
 import ru.anarcom.octopus.security.jwt.JwtUserFactory;
-import ru.anarcom.octopus.service.UserService;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
 
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     /**
      *
@@ -26,7 +26,7 @@ public class JwtUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByUsername(username);
+        User user = userRepository.findByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User with username: " + username + " not found");
