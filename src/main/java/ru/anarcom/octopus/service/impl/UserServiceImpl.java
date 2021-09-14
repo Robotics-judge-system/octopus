@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.anarcom.octopus.entity.Status;
 import ru.anarcom.octopus.entity.User;
 import ru.anarcom.octopus.exceptions.IncorrectPasswordException;
-import ru.anarcom.octopus.repository.UserRepository;
+import ru.anarcom.octopus.repo.UserRepository;
 import ru.anarcom.octopus.service.UserService;
 
 @Service
@@ -23,8 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        User result = userRepository.findByUsername(username);
-        return result;
+        return userRepository.findByUsername(username);
     }
 
     @Override
