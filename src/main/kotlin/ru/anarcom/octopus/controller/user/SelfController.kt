@@ -19,7 +19,7 @@ class SelfController(
         return UserDto.fromUser(
             userService.findByUsername(
                 principal.name
-            )
+            )!!
         )
     }
 }
