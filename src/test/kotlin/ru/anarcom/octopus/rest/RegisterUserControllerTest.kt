@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import ru.anarcom.octopus.TestWithDb
 import ru.anarcom.octopus.entity.Status
-import ru.anarcom.octopus.repository.UserRepository
+import ru.anarcom.octopus.repo.UserRepository
 import ru.anarcom.octopus.util.TestClock
 import java.time.Clock
 import java.time.Instant

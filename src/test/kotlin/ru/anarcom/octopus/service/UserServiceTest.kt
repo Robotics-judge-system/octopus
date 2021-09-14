@@ -2,7 +2,7 @@ package ru.anarcom.octopus.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import ru.anarcom.octopus.TestWithDb
-import ru.anarcom.octopus.repository.UserRepository
+import ru.anarcom.octopus.repo.UserRepository
 
 class UserServiceTest:TestWithDb() {
     @Autowired
