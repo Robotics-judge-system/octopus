@@ -1,29 +1,27 @@
-package ru.anarcom.octopus.service;
+package ru.anarcom.octopus.service
 
+import ru.anarcom.octopus.entity.User
 
-import ru.anarcom.octopus.entity.User;
-
-public interface UserService {
-
-    User findByUsername(String username);
-
-    User findById(Long id);
+interface UserService {
+    fun findByUsername(username: String): User?
+    fun findById(id: Long): User?
 
     /**
      * Hard deletes user from DB.
-     * <p>
+     *
+     *
      * Note: Be sure that it is a time to delete User from DB, may be you have to use delete?
-     * </p>
+     *
      *
      * @param id Id of user to delete.
      */
-    void deleteHard(Long id);
+    fun deleteHard(id: Long)
 
     /**
      * Deletes user by id (STATUS = DELETED).
      * @param id Id of user to delete.
      */
-    void delete(Long id);
+    fun delete(id: Long)
 
     /**
      * Registers user with some information.
@@ -33,20 +31,20 @@ public interface UserService {
      * @param password Not Encrypted password of new User.
      * @return New user (if was created).
      */
-    User registerUser(
-        String username,
-        String email,
-        String name,
-        String password
-    );
+    fun registerUser(
+        username: String,
+        email: String,
+        name: String,
+        password: String
+    ): User
 
     /**
      * Updates user if field is not null.
      */
-    User updateUser(
-        String name,
-        User user
-    );
+    fun updateUser(
+        name: String?,
+        user: User?
+    ): User
 
     /**
      * Changes user password
@@ -55,9 +53,9 @@ public interface UserService {
      * @param newPassword new User password
      * @return User with new Password
      */
-    User changePassword(
-        User user,
-        String oldPassword,
-        String newPassword
-    );
+    fun changePassword(
+        user: User,
+        oldPassword: String,
+        newPassword: String
+    ): User
 }
