@@ -1,5 +1,6 @@
 package ru.anarcom.octopus.controller.user
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -42,7 +43,7 @@ class ChangeUserDataController(
         userService.changePassword(
             userService.findByUsername(
                 principal.name
-            ),
+            )?:throw UsernameNotFoundException("User not found"),
             changeUserPasswordDto.oldPassword,
             changeUserPasswordDto.newPassword
         )
