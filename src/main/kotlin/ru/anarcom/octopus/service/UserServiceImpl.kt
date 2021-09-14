@@ -1,17 +1,15 @@
 package ru.anarcom.octopus.service
 
 
-import lombok.extern.slf4j.Slf4j
 import lombok.RequiredArgsConstructor
+import lombok.extern.slf4j.Slf4j
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-import ru.anarcom.octopus.service.UserService
-import ru.anarcom.octopus.repo.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
-
 import ru.anarcom.octopus.exceptions.IncorrectPasswordException
+import ru.anarcom.octopus.repo.UserRepository
 import ru.anarcom.octopus.util.logger
 import java.time.Clock
 
@@ -76,4 +74,10 @@ class UserServiceImpl(
         user.updated = clock.instant()
         return userRepository.save(user)
     }
+
+    override fun existsByUsername(username: String): Boolean =
+        userRepository.existsByUsername(username)
+
+    override fun existsByEmail(email: String): Boolean =
+        userRepository.existsByEmail(email)
 }

@@ -28,7 +28,7 @@ data class Auth(
         ) return false
         other as Auth
 
-        return id != null && id == other.id
+        return id == other.id
     }
 
     override fun hashCode(): Int = 1057601825

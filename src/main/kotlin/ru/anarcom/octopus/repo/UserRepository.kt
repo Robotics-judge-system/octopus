@@ -5,5 +5,6 @@ import ru.anarcom.octopus.entity.User
 
 interface UserRepository : JpaRepository<User, Long> {
     fun findByUsername(name: String): User?
-    fun findByEmail(email: String): User?
+    fun existsByUsername(username: String): Boolean
+    fun existsByEmail(email: String): Boolean
 }

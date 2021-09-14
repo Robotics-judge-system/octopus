@@ -58,4 +58,15 @@ interface UserService {
         oldPassword: String,
         newPassword: String
     ): User
+
+    /**
+     * Return true if username is already used.
+     */
+    fun existsByUsername(username: String): Boolean
+
+    /**
+     * Return true if email is already used.
+     */
+    fun existsByEmail(email: String): Boolean
+
 }
