@@ -1,10 +1,8 @@
 package ru.anarcom.octopus.rest
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.springtestdbunit.annotation.DatabaseSetup
 import com.github.springtestdbunit.annotation.ExpectedDatabase
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode
-import org.hamcrest.Matchers
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -14,7 +12,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -38,34 +35,6 @@ class UserChangeDataTest:TestWithDb() {
 
     @Autowired
     private lateinit var passwordEncoder: BCryptPasswordEncoder
-
-    private fun getTokenAndValidateUsername(
-        login: String,
-        password: String,
-        username: String
-    ): String {
-        val result: MvcResult = mockMvc
-            .perform(
-                MockMvcRequestBuilders.post("/api/v1/auth/login")
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(
-                        "{\n" +
-                                "    \"username\":\"$login\",\n" +
-                                "    \"password\":\"$password\"\n" +
-                                "}"
-                    )
-            )
-            .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().isOk)
-            .andExpect(MockMvcResultMatchers.jsonPath("$.username", Matchers.`is`(username)))
-            .andReturn()
-        val respData: MutableMap<*, *>? = ObjectMapper()
-            .readValue(
-                result.response.contentAsString,
-                MutableMap::class.java
-            )
-        return respData?.get("token") as String
-    }
 
     @BeforeEach
     fun fixClock() {

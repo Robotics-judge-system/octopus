@@ -80,4 +80,7 @@ class UserServiceImpl(
 
     override fun existsByEmail(email: String): Boolean =
         userRepository.existsByEmail(email)
+
+    override fun findByEmail(email: String): User? =
+        userRepository.findByEmail(email)
 }

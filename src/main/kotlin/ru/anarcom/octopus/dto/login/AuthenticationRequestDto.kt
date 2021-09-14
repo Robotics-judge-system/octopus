@@ -4,6 +4,6 @@ package ru.anarcom.octopus.dto.login
  * DTO with information for Login.
  */
 data class AuthenticationRequestDto(
-    val username: String = "",
+    val login: String = "",
     val password: String = "",
 )
