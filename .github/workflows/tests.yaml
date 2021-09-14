@@ -1,9 +1,8 @@
 name: Java CI
 # Тригеры для сработки
 on:
-  push:
-#for running by button
   pull_request:
+#for running by button
   workflow_dispatch:
 
 jobs:
