@@ -26,7 +26,7 @@ class RegistrationValidationController(
     @PostMapping("email")
     fun validateByEmail(
         @RequestBody emailValidationDto: EmailValidationDto
-    ) = if (userService.existsByEmail(emailValidationDto.email)) {
+    ) = if (!userService.existsByEmail(emailValidationDto.email)) {
         ValidationMessageDto(OK_MESSAGE)
     } else {
         ValidationMessageDto(ALREADY_USED_MESSAGE)
