@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.rest
+package ru.anarcom.octopus.controller.user
 
 
 import org.springframework.web.bind.annotation.RestController
