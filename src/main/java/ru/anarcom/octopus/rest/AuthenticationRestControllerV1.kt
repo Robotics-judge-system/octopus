@@ -1,90 +1,78 @@
-package ru.anarcom.octopus.rest;
+package ru.anarcom.octopus.rest
 
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.anarcom.octopus.dto.login.AuthenticationRequestDto;
-import ru.anarcom.octopus.dto.login.LoginResponseDto;
-import ru.anarcom.octopus.dto.login.RefreshTokenDto;
-import ru.anarcom.octopus.entity.User;
-import ru.anarcom.octopus.exceptions.InvalidLoginOrPasswordException;
-import ru.anarcom.octopus.security.jwt.JwtTokenProvider;
-import ru.anarcom.octopus.service.AuthService;
-import ru.anarcom.octopus.service.UserService;
+import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.RequestMapping
+import ru.anarcom.octopus.security.jwt.JwtTokenProvider
+import ru.anarcom.octopus.service.UserService
+import ru.anarcom.octopus.service.AuthService
+import org.springframework.web.bind.annotation.PostMapping
+import ru.anarcom.octopus.dto.login.AuthenticationRequestDto
+import org.springframework.http.ResponseEntity
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.web.bind.annotation.RequestBody
+import ru.anarcom.octopus.dto.login.LoginResponseDto
+import ru.anarcom.octopus.exceptions.InvalidLoginOrPasswordException
+import ru.anarcom.octopus.dto.login.RefreshTokenDto
 
 /**
  * REST controller for authentication requests (login)
  *
  */
-
 @RestController
-@RequestMapping(value = "/api/v1/auth/")
-@RequiredArgsConstructor
-public class AuthenticationRestControllerV1 {
-
-    private final AuthenticationManager authenticationManager;
-
-    private final JwtTokenProvider jwtTokenProvider;
-
-    private final UserService userService;
-
-    private final AuthService authService;
+@RequestMapping(value = ["/api/v1/auth/"])
+class AuthenticationRestControllerV1(
+    private val authenticationManager: AuthenticationManager,
+    private val jwtTokenProvider: JwtTokenProvider,
+    private val userService: UserService,
+    private val authService: AuthService,
+) {
 
     @PostMapping("login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationRequestDto requestDto) {
-        try {
-            String username = requestDto.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
-            User user = userService.findByUsername(username);
-
-            if (user == null) {
-                throw new UsernameNotFoundException("User with username: " + username + " not found");
-            }
-
-            var pair = jwtTokenProvider.createToken(username, user.getRoles());
-            return ResponseEntity.ok(
-                new LoginResponseDto(
+    fun login(@RequestBody requestDto: AuthenticationRequestDto): ResponseEntity<*> {
+        return try {
+            val username = requestDto.username
+            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, requestDto.password))
+            val user = userService.findByUsername(username)
+                ?: throw UsernameNotFoundException("User with username: $username not found")
+            val pair = jwtTokenProvider.createToken(username, user.roles)
+            ResponseEntity.ok(
+                LoginResponseDto(
                     username,
                     pair.component1(),
                     authService.getNewRefreshTokenForUser(user),
                     pair.component2()
                 )
-            );
-        } catch (AuthenticationException e) {
-            throw new InvalidLoginOrPasswordException();
+            )
+        } catch (e: AuthenticationException) {
+            throw InvalidLoginOrPasswordException()
         }
     }
 
     @PostMapping("refresh")
-    public ResponseEntity<?> getNewTokenFromRefresh(
-        @RequestBody RefreshTokenDto refreshTokenDto
-    ){
-        try {
-            var token = refreshTokenDto.getRefresh();
-            User user = authService.getUserByRefreshToken(token);
-            var pair = jwtTokenProvider.createToken(
-                user.getUsername(),
-                user.getRoles()
-            );
-
-            return ResponseEntity.ok(
-                new LoginResponseDto(
-                    user.getUsername(),
+    fun getNewTokenFromRefresh(
+        @RequestBody refreshTokenDto: RefreshTokenDto
+    ): ResponseEntity<*> {
+        return try {
+            val token = refreshTokenDto.refresh
+            val user = authService.getUserByRefreshToken(token)
+            val pair = jwtTokenProvider.createToken(
+                user!!.username,
+                user.roles
+            )
+            ResponseEntity.ok(
+                LoginResponseDto(
+                    user.username,
                     pair.component1(),
                     token,
                     pair.component2()
                 )
-            );
-        } catch (AuthenticationException e) {
-            throw new InvalidLoginOrPasswordException();
+            )
+        } catch (e: AuthenticationException) {
+            throw InvalidLoginOrPasswordException()
         }
     }
 }
