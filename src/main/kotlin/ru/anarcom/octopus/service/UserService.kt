@@ -69,4 +69,9 @@ interface UserService {
      */
     fun existsByEmail(email: String): Boolean
 
+    /**
+     * Finds user for email.
+     */
+    fun findUserByEmail(email: String):User?
+
 }
