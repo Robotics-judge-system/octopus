@@ -23,34 +23,6 @@ class AuthControllerTest : TestWithDb() {
     @Autowired
     private lateinit var mockMvc: MockMvc
 
-    private fun getTokenAndValidateUsername(
-        login: String,
-        password: String,
-        username: String
-    ): String {
-        val result: MvcResult = mockMvc
-            .perform(
-                post("/api/v1/auth/login")
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(
-                        "{\n" +
-                                "    \"username\":\"$login\",\n" +
-                                "    \"password\":\"$password\"\n" +
-                                "}"
-                    )
-            )
-            .andDo(MockMvcResultHandlers.print())
-            .andExpect(status().isOk)
-            .andExpect(jsonPath("$.username", `is`(username)))
-            .andReturn()
-        val respData: MutableMap<*, *>? = ObjectMapper()
-            .readValue(
-                result.response.contentAsString,
-                MutableMap::class.java
-            )
-        return respData?.get("token") as String
-    }
-
     @Test
     @DatabaseSetup("/db/auth/user.xml")
     @ExpectedDatabase(
@@ -92,7 +64,7 @@ class AuthControllerTest : TestWithDb() {
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .content(
                         "{\n" +
-                                "    \"username\":\"username\",\n" +
+                                "    \"login\":\"username\",\n" +
                                 "    \"password\":\"test\"\n" +
                                 "}"
                     )

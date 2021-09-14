@@ -72,6 +72,6 @@ interface UserService {
     /**
      * Finds user for email.
      */
-    fun findUserByEmail(email: String):User?
+    fun findByEmail(email: String):User?
 
 }
