@@ -1,11 +1,10 @@
 name: To prod
-# Тригеры для сработки
+# Task for sending file to dev server. Only by action button.
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
 
 jobs:
-  build_and_send_to_prod:
+  build_and_send_to_dev:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,9 +29,23 @@ jobs:
         run: ./gradlew build -x test
       - name: Copy .jar file
         run: mv ./build/libs/octopus-0.0.1-SNAPSHOT.jar ./octopus.jar
-      - name: login docker
-        run: echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
-      - name: build container
-        run: docker build -t anarcom/joust-backend:${GITHUB_REF:11} -t anarcom/joust-backend:latest -f Dockerfile .
-      - name: push container
-        run: docker image push --all-tags anarcom/joust-backend
+      - name: Send to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_DEV_HOST }}
+          username: ${{ secrets.SSH_DEV_USERNAME }}
+          password: ${{ secrets.SSH_DEV_PASSWORD }}
+          port: ${{ secrets.SSH_DEV_PORT }}
+          source: "./octopus.jar"
+          target: "./prod_docker/"
+      - name: Start dev server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_DEV_HOST }}
+          username: ${{ secrets.SSH_DEV_USERNAME }}
+          password: ${{ secrets.SSH_DEV_PASSWORD }}
+          port: ${{ secrets.SSH_DEV_PORT }}
+          script: |
+            cd ./prod_docker
+            sudo ./down.sh
+            sudo ./up.sh
