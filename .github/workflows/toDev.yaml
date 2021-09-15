@@ -1,0 +1,51 @@
+name: To prod
+# Task for sending file to dev server. Only by action button.
+on:
+  workflow_dispatch:
+
+jobs:
+  build_and_send_to_dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install java (11)
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+#          cache: gradle
+      - name: name
+        run: sudo apt-get update -y
+      - name: Install dos2unix
+        run: sudo apt-get install -y dos2unix
+      - name: Convert file
+        run: dos2unix ./gradlew
+      - name: Make executable
+        run: chmod +x ./gradlew
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      - name: Build application
+        run: ./gradlew build -x test
+      - name: Copy .jar file
+        run: mv ./build/libs/octopus-0.0.1-SNAPSHOT.jar ./octopus.jar
+      - name: Send to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_DEV_HOST }}
+          username: ${{ secrets.SSH_DEV_USERNAME }}
+          password: ${{ secrets.SSH_DEV_PASSWORD }}
+          port: ${{ secrets.SSH_DEV_PORT }}
+          source: "./octopus.jar"
+          target: "./prod_docker/"
+      - name: Start dev server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_DEV_HOST }}
+          username: ${{ secrets.SSH_DEV_USERNAME }}
+          password: ${{ secrets.SSH_DEV_PASSWORD }}
+          port: ${{ secrets.SSH_DEV_PORT }}
+          script: |
+            cd ./prod_docker
+            sudo ./down.sh
+            sudo ./up.sh
