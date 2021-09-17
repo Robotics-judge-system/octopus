@@ -1,0 +1,47 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="competitions-1-0-0" author="KillReal">
+        <createTable tableName="competitions">
+            <column name="id" type="bigserial" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="date_from" type="TIMESTAMPTZ">
+                <constraints nullable="true"/>
+            </column>
+            <column name="date_to" type="TIMESTAMPTZ">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="user_id" type="BIGSERIAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="competiton_1_0_1" author="kirillbronnikov">
+        <addForeignKeyConstraint
+                baseTableName="competitions"
+                baseColumnNames="user_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_competiton_user"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+</databaseChangeLog>
