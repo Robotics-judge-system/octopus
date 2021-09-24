@@ -4,14 +4,14 @@ import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.Competition
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
-import ru.anarcom.octopus.repo.CompetitonRepository
+import ru.anarcom.octopus.repo.CompetitionRepository
 import ru.anarcom.octopus.util.logger
 import java.time.Clock
 import java.time.Instant
 
 @Service
 class CompetitionServiceImpl(
-    private val competitionRepository: CompetitonRepository,
+    private val competitionRepository: CompetitionRepository,
     private val clock: Clock
 ):CompetitionService {
     private val log = logger()

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <competitions
+    id="1"
+    name="Awesome competition"
+    user_id="1"
+    status="ACTIVE"
+    created="2021-09-01 00:00:00 +0000"
+    updated="2021-09-01 00:00:00 +0000"
+    date_from="2020-09-01 00:00:00 +0000"
+    date_to="2020-09-01 00:00:10 +0000"
+  />
+</dataset>
