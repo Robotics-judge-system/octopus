@@ -5,9 +5,9 @@ import ru.anarcom.octopus.entity.User
 import java.time.Instant
 
 interface CompetitionService {
-    fun deleteById(id: Long)
+    fun deleteById(id: Long):Competition
 
-    fun delete(competition: Competition)
+    fun delete(competition: Competition):Competition
 
     fun create(
         user: User,
@@ -16,9 +16,15 @@ interface CompetitionService {
         dateTo: Instant? = null,
     ): Competition
 
-    fun findByUser(user: User): List<Competition>
+    fun findAllActiveByUser(user: User): List<Competition>
 
     fun hardDelete(competition: Competition)
 
     fun hardDeleteById(id: Long)
+
+    fun rename(user:User, id:Long, name: String):Competition
+
+    fun getById(id:Long):Competition
+
+    fun deleteByIdAndUser(user: User, id: Long):Competition
 }

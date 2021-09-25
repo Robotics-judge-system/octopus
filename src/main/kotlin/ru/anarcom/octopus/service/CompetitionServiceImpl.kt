@@ -1,5 +1,6 @@
 package ru.anarcom.octopus.service
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.Competition
 import ru.anarcom.octopus.entity.Status
@@ -16,12 +17,12 @@ class CompetitionServiceImpl(
 ):CompetitionService {
     private val log = logger()
 
-    override fun deleteById(id: Long) =
+    override fun deleteById(id: Long):Competition =
         delete(competitionRepository.findById(id).orElseThrow())
 
-    override fun delete(competition: Competition) {
+    override fun delete(competition: Competition):Competition {
         competition.status = Status.DELETED
-        save(competition)
+        return save(competition)
     }
 
     override fun create(
@@ -43,8 +44,8 @@ class CompetitionServiceImpl(
             }
         )
 
-    override fun findByUser(user: User): List<Competition> =
-        competitionRepository.findAllByUser(user)
+    override fun findAllActiveByUser(user: User): List<Competition> =
+        competitionRepository.findAllByUserAndStatus(user, Status.ACTIVE)
 
     override fun hardDelete(competition: Competition) =
         competitionRepository.delete(competition
@@ -58,6 +59,31 @@ class CompetitionServiceImpl(
         competitionRepository.deleteById(id).apply {
             log.info("Competition deleted from db (by id = $id)")
         }
+
+    override fun rename(user: User, id: Long, name: String): Competition {
+        val competition = competitionRepository.getById(id)
+        // !ABAC!
+        if(user.id != competition.id){
+            throw UsernameNotFoundException("This is not competition of current user")
+        }
+        competition.name = name
+        competition.updated = clock.instant()
+        return competitionRepository.save(competition)
+    }
+
+    override fun getById(id: Long): Competition =
+        competitionRepository.getById(id)
+
+    override fun deleteByIdAndUser(user: User, id: Long): Competition {
+        val competition = competitionRepository.getById(id)
+        // !ABAC!
+        if(competition.user!!.id != user.id){
+            throw UsernameNotFoundException("This is not competition of current user")
+        }
+        competition.status = Status.DELETED
+        competition.updated = clock.instant()
+        return competitionRepository.save(competition)
+    }
 
     private fun save(competition: Competition): Competition =
         competitionRepository.save(

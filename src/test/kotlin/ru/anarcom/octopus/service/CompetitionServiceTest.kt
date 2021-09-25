@@ -101,7 +101,7 @@ class CompetitionServiceTest : TestWithDb() {
         ]
     )
     fun findByUserTest() {
-        val a = competitionService.findByUser(userService.findByUsername("username")!!)
+        val a = competitionService.findAllActiveByUser(userService.findByUsername("username")!!)
         assertArrayEquals(
             arrayOf(
                 Competition(

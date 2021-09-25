@@ -14,15 +14,20 @@ data class CompetitionDto(
     var dateTo: Instant?=null,
     @field:JsonProperty("date_from")
     var dateFrom: Instant?=null,
+    var status:String="ACTIVE",
 ){
     companion object{
-        fun fromCompetition(competition: Competition) = CompetitionDto(
+        fun fromCompetition(competition: Competition): CompetitionDto = CompetitionDto(
             id = competition.id,
             name = competition.name,
             created = competition.created,
             updated = competition.updated,
             dateTo = competition.dateTo,
-            dateFrom = competition.dateFrom
+            dateFrom = competition.dateFrom,
+            status = competition.status.toString(),
         )
+
+        fun fromCompetition(competitions: List<Competition>): List<CompetitionDto> =
+            competitions.map { fromCompetition(it) }
     }
 }
