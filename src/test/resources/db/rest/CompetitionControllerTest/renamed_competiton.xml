@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <competitions
+    id="1"
+    name="new_name"
+    user_id="1"
+    status="ACTIVE"
+    created="2017-03-31 09:30:20 +0000"
+    updated="2021-09-01 00:00:00 +0000"
+  />
+</dataset>

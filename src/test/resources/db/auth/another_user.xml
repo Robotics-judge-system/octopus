@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <users
+    id="2"
+    username="username2"
+    name="name2"
+    email="email2@email.ts"
+    password="$2a$12$Z3r0Ua4rqP3smk5bRRR.fO.oR8wP2Lwvgj6sb3RBf/G5W0rZ1ikU6"
+    status="ACTIVE"
+    created="2017-03-31 09:30:20 +0000"
+    updated="2017-03-31 09:30:20 +0000"
+  />
+</dataset>

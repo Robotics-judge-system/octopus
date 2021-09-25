@@ -65,4 +65,11 @@ abstract class TestWithDb {
 			)
 		return respData?.get("token") as String
 	}
+
+	fun getJwtTokenForDefaultUser() = getTokenAndValidateUsername(
+		"username",
+		"test",
+		"username"
+	)
+
 }
