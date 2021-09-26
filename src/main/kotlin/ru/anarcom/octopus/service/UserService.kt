@@ -5,6 +5,8 @@ import ru.anarcom.octopus.entity.User
 interface UserService {
     fun findByUsername(username: String): User?
     fun findById(id: Long): User?
+    fun findByUsernameOrThrow(username:String): User
+
 
     /**
      * Hard deletes user from DB.
@@ -43,7 +45,7 @@ interface UserService {
      */
     fun updateUser(
         name: String?,
-        user: User?
+        user: User
     ): User
 
     /**
