@@ -26,7 +26,7 @@ class ChangeUserDataController(
     ): UserDto = UserDto.fromUser(
         userService.updateUser(
             changeUserInfoDto.name,
-            userService.findByUsername(
+            userService.findByUsernameOrThrow(
                 principal.name
             )
         )

@@ -77,7 +77,7 @@ class CompetitionServiceImpl(
     override fun deleteByIdAndUser(user: User, id: Long): Competition {
         val competition = competitionRepository.getById(id)
         // !ABAC!
-        if(competition.user!!.id != user.id){
+        if(competition.getUserOrThrow().id != user.id){
             throw UsernameNotFoundException("This is not competition of current user")
         }
         competition.status = Status.DELETED

@@ -30,6 +30,10 @@ class UserServiceImpl(
     override fun findById(id: Long): User? =
          userRepository.findById(id).orElse(null)
 
+    override fun findByUsernameOrThrow(username: String): User =
+        userRepository.findByUsername(username)
+            ?: throw UsernameNotFoundException("User with current username was not found")
+
 
     override fun deleteHard(id: Long) {
         userRepository.deleteById(id)
@@ -54,11 +58,11 @@ class UserServiceImpl(
         return userRepository.save(user)
     }
 
-    override fun updateUser(name: String?, user: User?): User {
+    override fun updateUser(name: String?, user: User): User {
         if (name != null) {
-            user!!.name = name
+            user.name = name
         }
-        user!!.updated = clock.instant()
+        user.updated = clock.instant()
         return userRepository.save(user)
     }
 
