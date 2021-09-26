@@ -15,5 +15,5 @@ interface AuthService {
     /**
      * Finds user by refresh token.
      */
-    fun getUserByRefreshToken(token: String): User?
+    fun getUserByRefreshToken(token: String): User
 }

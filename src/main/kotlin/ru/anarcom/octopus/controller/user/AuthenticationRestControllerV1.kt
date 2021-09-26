@@ -65,7 +65,7 @@ class AuthenticationRestControllerV1(
             val token = refreshTokenDto.refresh
             val user = authService.getUserByRefreshToken(token)
             val pair = jwtTokenProvider.createToken(
-                user!!.username,
+                user.username,
                 user.roles
             )
             ResponseEntity.ok(

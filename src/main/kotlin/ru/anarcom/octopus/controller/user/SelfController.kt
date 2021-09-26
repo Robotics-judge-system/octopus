@@ -17,9 +17,9 @@ class SelfController(
         principal: Principal,
     ): UserDto {
         return UserDto.fromUser(
-            userService.findByUsername(
+            userService.findByUsernameOrThrow(
                 principal.name
-            )!!
+            )
         )
     }
 }

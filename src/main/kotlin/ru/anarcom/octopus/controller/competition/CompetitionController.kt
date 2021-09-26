@@ -19,7 +19,7 @@ class CompetitionController(
         @RequestBody competitionDto: CompetitionDto
     ): CompetitionDto = CompetitionDto.fromCompetition(
         competitionService.create(
-            user = userService.findByUsername(principal.name)!!,
+            user = userService.findByUsernameOrThrow(principal.name),
             name = competitionDto.name,
             dateFrom = competitionDto.dateFrom,
             dateTo = competitionDto.dateTo
@@ -33,7 +33,7 @@ class CompetitionController(
         @RequestBody competitionDto: CompetitionDto,
     ): CompetitionDto = CompetitionDto.fromCompetition(
         competitionService.rename(
-            userService.findByUsername(principal.name)!!,
+            userService.findByUsernameOrThrow(principal.name),
             id,
             competitionDto.name
         )
@@ -44,7 +44,7 @@ class CompetitionController(
         principal: Principal,
     ): List<CompetitionDto> = CompetitionDto.fromCompetition(
         competitionService.findAllActiveByUser(
-            userService.findByUsername(principal.name)!!
+            userService.findByUsernameOrThrow(principal.name)
         )
     )
 
@@ -61,7 +61,7 @@ class CompetitionController(
         @PathVariable("id") id: Long,
     ):CompetitionDto = CompetitionDto.fromCompetition(
         competitionService.deleteByIdAndUser(
-            userService.findByUsername(principal.name)!!,
+            userService.findByUsernameOrThrow(principal.name),
             id
         )
     )
