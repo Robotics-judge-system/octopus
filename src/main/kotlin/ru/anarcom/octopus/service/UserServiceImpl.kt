@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
 import ru.anarcom.octopus.exceptions.IncorrectPasswordException
+import ru.anarcom.octopus.exceptions.InvalidLoginOrPasswordException
 import ru.anarcom.octopus.repo.UserRepository
 import ru.anarcom.octopus.util.logger
 import java.time.Clock
@@ -85,6 +86,7 @@ class UserServiceImpl(
     override fun existsByEmail(email: String): Boolean =
         userRepository.existsByEmail(email)
 
-    override fun findByEmail(email: String): User? =
+    override fun findByEmailOrThrow(email: String): User =
         userRepository.findByEmail(email)
+            ?: throw InvalidLoginOrPasswordException()
 }

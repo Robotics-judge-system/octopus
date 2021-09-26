@@ -37,8 +37,7 @@ class AuthenticationRestControllerV1(
         return try {
             val login = requestDto.login
             val user = if (login.contains("@")) {
-                userService.findByEmail(login)
-                    ?: throw InvalidLoginOrPasswordException()
+                userService.findByEmailOrThrow(login)
             } else {
                 userService.findByUsername(login)
                     ?: throw InvalidLoginOrPasswordException()
