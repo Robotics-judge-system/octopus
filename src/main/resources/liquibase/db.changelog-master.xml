@@ -5,4 +5,5 @@
     <include file="classpath:liquibase/db.changelog-1.0.xml"/>
     <include file="liquibase/auth_table/auth-table-main.xml"/>
     <include file="liquibase/competitions_table/competions-table-main.xml"/>
+    <include file="liquibase/categories_table/catogires-table-main.xml"/>
 </databaseChangeLog>
