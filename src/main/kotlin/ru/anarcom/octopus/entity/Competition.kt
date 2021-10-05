@@ -10,7 +10,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "competitions")
-data class Competition(
+class Competition(
     @Column(name = "name")
     var name: String = "",
 
