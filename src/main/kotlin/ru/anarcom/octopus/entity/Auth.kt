@@ -11,7 +11,7 @@ import javax.persistence.*
  */
 @Entity
 @Table(name = "auths")
-data class Auth(
+class Auth(
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)

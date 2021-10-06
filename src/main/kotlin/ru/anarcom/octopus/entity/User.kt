@@ -10,7 +10,7 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name = "users")
-data class User(
+class User(
     @Column(name = "username")
     var username: String = "",
 
