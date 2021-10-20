@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <categories
+    id="1"
+    competition_id="1"
+    name="Senior"
+    created="2021-10-19 00:00:00 +0000"
+    updated="2021-10-19 00:00:00 +0000"
+    date_from="2021-03-30 09:30:20 +0000"
+    date_to="2021-03-31 09:30:20 +0000"
+    status="ACTIVE"
+  />
+</dataset>
