@@ -7,7 +7,7 @@ import javax.persistence.*
 @Table(name = "categories")
 class Category(
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
     @ManyToOne(optional = false)
