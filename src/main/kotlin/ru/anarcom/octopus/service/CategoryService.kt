@@ -1,0 +1,36 @@
+package ru.anarcom.octopus.service
+
+import ru.anarcom.octopus.dto.competition.CategoryDto
+import ru.anarcom.octopus.entity.Category
+import ru.anarcom.octopus.entity.Competition
+import java.time.Instant
+
+interface CategoryService {
+    /**
+     * Adds Category for competition.
+     */
+    fun addCategory(categoryDto: CategoryDto, competition: Competition): Category
+
+    /**
+     * Deletes category by competition and categoryId.
+     */
+    fun deleteCategory(competition: Competition, categoryId: Long): Category
+
+    /**
+     * Updates category by each != field.
+     */
+    fun updateCategory(
+        competition: Competition,
+        categoryId: Long,
+        name: String? = null,
+        dateFrom: Instant? = null,
+        dateTo: Instant? = null
+    ): Category
+
+    /**
+     * Gets list of categories by competition.
+     */
+    fun getByCompetition(
+        competition: Competition
+    ):List<Category>
+}
