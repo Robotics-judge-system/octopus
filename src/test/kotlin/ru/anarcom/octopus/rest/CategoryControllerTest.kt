@@ -155,5 +155,149 @@ class CategoryControllerTest : TestWithDb() {
             )
     }
 
+    @Test
+    @DisplayName("update category test")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/before/default_category.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/CategoryControllerTest/after/default_category.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED
+    )
+    fun updateCategoryTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/1/update"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(
+                    "{\n" +
+                            "        \"name\": \"Senior_1\",\n" +
+                            "        \"date_from\": \"2021-03-29T09:30:20Z\",\n" +
+                            "        \"date_to\": \"2021-03-30T09:30:20Z\"\n" +
+                            "}"
+                )
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json(
+                        "{\n" +
+                                "    \"id\": 1,\n" +
+                                "    \"competition_id\": 1,\n" +
+                                "    \"competition\": {\n" +
+                                "        \"id\": 1,\n" +
+                                "        \"name\": \"name\",\n" +
+                                "        \"created\": \"2017-03-31T09:30:20Z\",\n" +
+                                "        \"updated\": \"2017-03-31T09:30:20Z\",\n" +
+                                "        \"date_to\": null,\n" +
+                                "        \"date_from\": null,\n" +
+                                "        \"status\": \"ACTIVE\"\n" +
+                                "    },\n" +
+                                "    \"name\": \"Senior_1\",\n" +
+                                "    \"date_from\": \"2021-03-29T09:30:20Z\",\n" +
+                                "    \"date_to\": \"2021-03-30T09:30:20Z\",\n" +
+                                "    \"created\": \"2021-10-19T00:00:00Z\",\n" +
+                                "    \"updated\": \"2021-10-20T00:00:00Z\",\n" +
+                                "    \"status\": \"ACTIVE\"\n" +
+                                "}"
+                    )
+            )
+    }
+
+    @Test
+    @DisplayName("update category test")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/before/default_category.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/CategoryControllerTest/after/deleted_category.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED
+    )
+    fun deleteCategoryTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete(
+                "/api/v1/competition/1/category/1/delete"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json(
+                        "{\n" +
+                                "    \"id\": 1,\n" +
+                                "    \"competition_id\": 1,\n" +
+                                "    \"competition\": {\n" +
+                                "        \"id\": 1,\n" +
+                                "        \"name\": \"name\",\n" +
+                                "        \"created\": \"2017-03-31T09:30:20Z\",\n" +
+                                "        \"updated\": \"2017-03-31T09:30:20Z\",\n" +
+                                "        \"date_to\": null,\n" +
+                                "        \"date_from\": null,\n" +
+                                "        \"status\": \"ACTIVE\"\n" +
+                                "    },\n" +
+                                "    \"name\": \"Senior\",\n" +
+                                "    \"date_from\": \"2021-03-30T09:30:20Z\",\n" +
+                                "    \"date_to\": \"2021-03-31T09:30:20Z\",\n" +
+                                "    \"created\": \"2021-10-19T00:00:00Z\",\n" +
+                                "    \"updated\": \"2021-10-20T00:00:00Z\",\n" +
+                                "    \"status\": \"DELETED\"\n" +
+                                "}"
+                    )
+            )
+    }
+
+    @Test
+    @DisplayName("update category test")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/before/default_category.xml",
+        ]
+    )
+    fun getOneByCompetitionAndId(){
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(
+                "/api/v1/competition/1/category/1"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json(
+                        "{\n" +
+                                "    \"id\": 1,\n" +
+                                "    \"competition_id\": 1,\n" +
+                                "    \"competition\": {\n" +
+                                "        \"id\": 1,\n" +
+                                "        \"name\": \"name\",\n" +
+                                "        \"created\": \"2017-03-31T09:30:20Z\",\n" +
+                                "        \"updated\": \"2017-03-31T09:30:20Z\",\n" +
+                                "        \"date_to\": null,\n" +
+                                "        \"date_from\": null,\n" +
+                                "        \"status\": \"ACTIVE\"\n" +
+                                "    },\n" +
+                                "    \"name\": \"Senior\",\n" +
+                                "    \"date_from\": \"2021-03-30T09:30:20Z\",\n" +
+                                "    \"date_to\": \"2021-03-31T09:30:20Z\",\n" +
+                                "    \"created\": \"2021-10-19T00:00:00Z\",\n" +
+                                "    \"updated\": \"2021-10-19T00:00:00Z\",\n" +
+                                "    \"status\": \"ACTIVE\"\n" +
+                                "}"
+                    )
+            )
+    }
 
 }

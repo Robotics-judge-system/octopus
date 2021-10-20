@@ -15,4 +15,9 @@ interface CategoryRepository : JpaRepository<Category, Long> {
         competition: Competition,
         status: Status
     ): List<Category>
+
+    fun getOneByIdAndCompetition(
+        id:Long,
+        competition: Competition
+    ):Category
 }

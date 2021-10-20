@@ -63,6 +63,9 @@ class CategoryServiceImpl(
             Status.ACTIVE,
         )
 
+    override fun getOneCategory(categoryId: Long, competition: Competition): Category =
+        categoryRepository.getOneByIdAndCompetition(categoryId, competition)
+
     /**
      * updates instant and updates 'updated' field
      */

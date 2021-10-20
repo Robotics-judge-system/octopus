@@ -33,4 +33,12 @@ interface CategoryService {
     fun getByCompetition(
         competition: Competition
     ):List<Category>
+
+    /**
+     * Gets one category by id from competition.
+     */
+    fun getOneCategory(
+        categoryId: Long,
+        competition: Competition
+    ):Category
 }

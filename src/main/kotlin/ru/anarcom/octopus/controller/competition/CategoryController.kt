@@ -35,4 +35,20 @@ class CategoryController(
     ): CategoryDto = CategoryDto.fromCategory(
         categoryFacade.updateCategory(categoryId, competitionId, categoryDto)
     )
+
+    @DeleteMapping("{category_id}/delete")
+    fun deleteCategoryForCompetition(
+        @PathVariable("competition_id") competitionId: Long,
+        @PathVariable("category_id") categoryId: Long,
+    ): CategoryDto = CategoryDto.fromCategory(
+        categoryFacade.deleteCategory(categoryId, competitionId)
+    )
+
+    @GetMapping("{category_id}")
+    fun getOneCategory(
+        @PathVariable("competition_id") competitionId: Long,
+        @PathVariable("category_id") categoryId: Long,
+    ): CategoryDto = CategoryDto.fromCategory(
+        categoryFacade.getOneCategory(categoryId, competitionId)
+    )
 }
