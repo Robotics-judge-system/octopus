@@ -18,10 +18,10 @@ class Category(
     var name: String,
 
     @Column(name = "date_from")
-    var dateFrom: Instant,
+    var dateFrom: Instant? = null,
 
     @Column(name = "date_to")
-    var dateTo: Instant,
+    var dateTo: Instant? = null,
 
     @Column(name = "created")
     var created: Instant,

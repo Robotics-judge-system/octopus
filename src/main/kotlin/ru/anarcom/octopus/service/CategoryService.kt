@@ -14,14 +14,14 @@ interface CategoryService {
     /**
      * Deletes category by competition and categoryId.
      */
-    fun deleteCategory(competition: Competition, categoryId: Long): Category
+    fun deleteCategory(categoryId: Long, competition: Competition): Category
 
     /**
      * Updates category by each != field.
      */
     fun updateCategory(
-        competition: Competition,
         categoryId: Long,
+        competition: Competition,
         name: String? = null,
         dateFrom: Instant? = null,
         dateTo: Instant? = null

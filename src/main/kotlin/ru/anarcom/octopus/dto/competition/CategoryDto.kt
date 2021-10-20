@@ -45,6 +45,5 @@ class CategoryDto(
 
         fun fromCategory(categories: List<Category>): List<CategoryDto> =
             categories.map { fromCategory(it) }
-
     }
 }
