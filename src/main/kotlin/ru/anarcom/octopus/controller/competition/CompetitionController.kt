@@ -39,7 +39,7 @@ class CompetitionController(
         )
     )
 
-    @GetMapping("all")
+    @GetMapping()
     fun getAllCompetitionsForUser(
         principal: Principal,
     ): List<CompetitionDto> = CompetitionDto.fromCompetition(
@@ -55,7 +55,7 @@ class CompetitionController(
         competitionService.getById(id)
     )
 
-    @DeleteMapping("{id}/delete")
+    @DeleteMapping("{id}")
     fun deleteCompetitionById(
         principal: Principal,
         @PathVariable("id") id: Long,

@@ -123,7 +123,7 @@ class CompetitionControllerTest : TestWithDb() {
     fun allMethodTest() {
         mockMvc.perform(
             MockMvcRequestBuilders.get(
-                "/api/v1/competition/all"
+                "/api/v1/competition"
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
         )
@@ -210,7 +210,7 @@ class CompetitionControllerTest : TestWithDb() {
     fun deleteMethodTest() {
         mockMvc.perform(
             MockMvcRequestBuilders.delete(
-                "/api/v1/competition/1/delete"
+                "/api/v1/competition/1"
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
         )

@@ -1,8 +1,6 @@
 name: Java CI
-# Тригеры для сработки
 on:
   pull_request:
-#for running by button
   workflow_dispatch:
 
 jobs:
@@ -17,7 +15,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: gradle
-      - name: name
+      - name: apt-get for download dos2unix
         run: sudo apt-get update -y
       - name: Install dos2unix
         run: sudo apt-get install -y dos2unix
