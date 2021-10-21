@@ -38,7 +38,7 @@ class AuthControllerTest : TestWithDb() {
         mockMvc
             .perform(
                 get("/api/v1/self")
-                    .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
             )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
@@ -83,7 +83,7 @@ class AuthControllerTest : TestWithDb() {
         mockMvc
             .perform(
                 get("/api/v1/self")
-                    .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
             )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
