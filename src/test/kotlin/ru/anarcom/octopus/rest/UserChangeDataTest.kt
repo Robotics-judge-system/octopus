@@ -55,7 +55,7 @@ class UserChangeDataTest:TestWithDb() {
         mockMvc
             .perform(
                 MockMvcRequestBuilders.post("/api/v1/user/change/data")
-                    .header(HttpHeaders.AUTHORIZATION, "Bearer_${
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer ${
                         getTokenAndValidateUsername("username", "test", "username")
                     }")
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -88,7 +88,7 @@ class UserChangeDataTest:TestWithDb() {
             .perform(
                 MockMvcRequestBuilders.post("/api/v1/user/change/password")
                     .header(
-                        HttpHeaders.AUTHORIZATION, "Bearer_${
+                        HttpHeaders.AUTHORIZATION, "Bearer ${
                             getTokenAndValidateUsername("username", "test", "username")
                         }"
                     )
@@ -134,7 +134,7 @@ class UserChangeDataTest:TestWithDb() {
             .perform(
                 MockMvcRequestBuilders.post("/api/v1/user/change/password")
                     .header(
-                        HttpHeaders.AUTHORIZATION, "Bearer_${
+                        HttpHeaders.AUTHORIZATION, "Bearer ${
                             getTokenAndValidateUsername("username", "test", "username")
                         }"
                     )

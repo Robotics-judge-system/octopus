@@ -52,7 +52,7 @@ class CompetitionControllerTest : TestWithDb() {
                             "        \"name\":\"competition_name\"\n" +
                             "}"
                 )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
@@ -93,7 +93,7 @@ class CompetitionControllerTest : TestWithDb() {
                             "        \"name\":\"new_name\"\n" +
                             "}"
                 )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
@@ -125,7 +125,7 @@ class CompetitionControllerTest : TestWithDb() {
             MockMvcRequestBuilders.get(
                 "/api/v1/competition"
             )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
@@ -177,7 +177,7 @@ class CompetitionControllerTest : TestWithDb() {
             MockMvcRequestBuilders.get(
                 "/api/v1/competition/1"
             )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
@@ -212,7 +212,7 @@ class CompetitionControllerTest : TestWithDb() {
             MockMvcRequestBuilders.delete(
                 "/api/v1/competition/1"
             )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(

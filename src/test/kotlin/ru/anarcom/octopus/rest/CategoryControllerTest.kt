@@ -52,7 +52,7 @@ class CategoryControllerTest : TestWithDb() {
             MockMvcRequestBuilders.get(
                 "/api/v1/competition/1/category"
             )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
@@ -118,7 +118,7 @@ class CategoryControllerTest : TestWithDb() {
             MockMvcRequestBuilders.post(
                 "/api/v1/competition/1/category"
             )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(
                     "{\n" +
@@ -173,7 +173,7 @@ class CategoryControllerTest : TestWithDb() {
             MockMvcRequestBuilders.post(
                 "/api/v1/competition/1/category/1"
             )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(
                     "{\n" +
@@ -228,7 +228,7 @@ class CategoryControllerTest : TestWithDb() {
             MockMvcRequestBuilders.delete(
                 "/api/v1/competition/1/category/1"
             )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
@@ -271,7 +271,7 @@ class CategoryControllerTest : TestWithDb() {
             MockMvcRequestBuilders.get(
                 "/api/v1/competition/1/category/1"
             )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
@@ -299,5 +299,4 @@ class CategoryControllerTest : TestWithDb() {
                     )
             )
     }
-
 }
