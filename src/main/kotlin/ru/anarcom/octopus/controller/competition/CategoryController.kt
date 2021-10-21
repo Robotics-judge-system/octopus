@@ -9,7 +9,7 @@ import ru.anarcom.octopus.facade.CategoryFacade
 class CategoryController(
     private val categoryFacade: CategoryFacade
 ) {
-    @PostMapping("create")
+    @PostMapping
     fun createCategory(
         @PathVariable("competition_id") competitionId: Long,
         @RequestBody categoryDto: CategoryDto
@@ -20,14 +20,14 @@ class CategoryController(
         )
     )
 
-    @GetMapping("/all")
+    @GetMapping
     fun getCategoryForCompetition(
         @PathVariable("competition_id") competitionId: Long,
     ): List<CategoryDto> = CategoryDto.fromCategory(
         categoryFacade.getByCompetition(competitionId)
     )
 
-    @PostMapping("{category_id}/update")
+    @PostMapping("{category_id}")
     fun updateCategoryForCompetition(
         @PathVariable("competition_id") competitionId: Long,
         @PathVariable("category_id") categoryId: Long,
@@ -36,7 +36,7 @@ class CategoryController(
         categoryFacade.updateCategory(categoryId, competitionId, categoryDto)
     )
 
-    @DeleteMapping("{category_id}/delete")
+    @DeleteMapping("{category_id}")
     fun deleteCategoryForCompetition(
         @PathVariable("competition_id") competitionId: Long,
         @PathVariable("category_id") categoryId: Long,

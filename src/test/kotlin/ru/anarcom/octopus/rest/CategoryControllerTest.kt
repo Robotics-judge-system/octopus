@@ -50,7 +50,7 @@ class CategoryControllerTest : TestWithDb() {
     fun getCategoriesTest() {
         mockMvc.perform(
             MockMvcRequestBuilders.get(
-                "/api/v1/competition/1/category/all"
+                "/api/v1/competition/1/category"
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
         )
@@ -116,7 +116,7 @@ class CategoryControllerTest : TestWithDb() {
     fun createCategoryForCompetitionTest() {
         mockMvc.perform(
             MockMvcRequestBuilders.post(
-                "/api/v1/competition/1/category/create"
+                "/api/v1/competition/1/category"
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -171,7 +171,7 @@ class CategoryControllerTest : TestWithDb() {
     fun updateCategoryTest() {
         mockMvc.perform(
             MockMvcRequestBuilders.post(
-                "/api/v1/competition/1/category/1/update"
+                "/api/v1/competition/1/category/1"
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -226,7 +226,7 @@ class CategoryControllerTest : TestWithDb() {
     fun deleteCategoryTest() {
         mockMvc.perform(
             MockMvcRequestBuilders.delete(
-                "/api/v1/competition/1/category/1/delete"
+                "/api/v1/competition/1/category/1"
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer_$token")
         )
