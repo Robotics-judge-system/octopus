@@ -1,6 +1,9 @@
 package ru.anarcom.octopus.entity
 
-import org.hibernate.Hibernate
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import java.time.Clock
+import java.time.Instant
 import javax.persistence.*
 
 /**
@@ -12,29 +15,26 @@ import javax.persistence.*
 @Entity
 @Table(name = "auths")
 class Auth(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long = 0,
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     var user: User? = null,
 
     @Column(name = "refresh_token", unique = true)
-    var refreshToken:String = "",
-) : BaseEntity() {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(
-                other
-            )
-        ) return false
-        other as Auth
+    var refreshToken: String = "",
 
-        return id == other.id
-    }
+    @CreatedDate
+    @Column(name = "created")
+    var created: Instant = Clock.systemDefaultZone().instant(),
 
-    override fun hashCode(): Int = 1057601825
+    @LastModifiedDate
+    @Column(name = "updated")
+    var updated: Instant = Clock.systemDefaultZone().instant(),
 
-    @Override
-    override fun toString(): String {
-        return this::class.simpleName + "(id = $id , created = $created , updated = $updated , status = $status , user = $user , refreshToken = $refreshToken )"
-    }
-}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    var status: Status = Status.NONE,
+)
