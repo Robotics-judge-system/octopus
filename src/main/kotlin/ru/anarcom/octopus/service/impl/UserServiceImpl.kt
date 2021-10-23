@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.service
+package ru.anarcom.octopus.service.impl
 
 
 import lombok.RequiredArgsConstructor
@@ -11,6 +11,7 @@ import ru.anarcom.octopus.entity.User
 import ru.anarcom.octopus.exceptions.IncorrectPasswordException
 import ru.anarcom.octopus.exceptions.InvalidLoginOrPasswordException
 import ru.anarcom.octopus.repo.UserRepository
+import ru.anarcom.octopus.service.UserService
 import ru.anarcom.octopus.util.logger
 import java.time.Clock
 

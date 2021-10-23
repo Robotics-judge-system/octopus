@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.service
+package ru.anarcom.octopus.service.impl
 
 import javassist.NotFoundException
 import org.apache.commons.lang3.RandomStringUtils
@@ -7,6 +7,7 @@ import ru.anarcom.octopus.entity.Auth
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
 import ru.anarcom.octopus.repo.AuthRepository
+import ru.anarcom.octopus.service.AuthService
 import ru.anarcom.octopus.util.logger
 import java.time.Clock
 
