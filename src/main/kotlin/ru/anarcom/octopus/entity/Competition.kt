@@ -1,16 +1,18 @@
 package ru.anarcom.octopus.entity
 
-
-import org.hibernate.Hibernate
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import java.time.Clock
 import java.time.Instant
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.ManyToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "competitions")
 class Competition(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long = 0,
+
     @Column(name = "name")
     var name: String = "",
 
@@ -21,30 +23,19 @@ class Competition(
     var dateTo: Instant? = null,
 
     @ManyToOne
-    var user: User? = null
-) : BaseEntity() {
+    var user: User? = null,
 
+    @CreatedDate
+    @Column(name = "created")
+    var created: Instant = Clock.systemDefaultZone().instant(),
+
+    @LastModifiedDate
+    @Column(name = "updated")
+    var updated: Instant = Clock.systemDefaultZone().instant(),
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    var status: Status = Status.NONE,
+) {
     fun getUserOrThrow() = user!!
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as Competition
-
-        return id == other.id
-    }
-
-    override fun hashCode(): Int = 0
-
-    @Override
-    override fun toString(): String {
-        return this::class.simpleName + "(id = $id ," +
-                " created = $created ," +
-                " updated = $updated ," +
-                " status = $status ," +
-                " name = $name ," +
-                " dateFrom = $dateFrom ," +
-                " dateTo = $dateTo ," +
-                " user = $user )"
-    }
 }
