@@ -2,15 +2,13 @@ package ru.anarcom.octopus.controller.competition
 
 import org.springframework.web.bind.annotation.*
 import ru.anarcom.octopus.dto.competition.CompetitionDto
-import ru.anarcom.octopus.service.CompetitionService
-import ru.anarcom.octopus.service.UserService
+import ru.anarcom.octopus.facade.CompetitionFacade
 import java.security.Principal
 
 @RestController
 @RequestMapping("api/v1/competition")
 class CompetitionController(
-    private val userService: UserService,
-    private val competitionService: CompetitionService,
+    private val competitionFacade: CompetitionFacade,
 ) {
 
     @PostMapping("create")
@@ -18,11 +16,9 @@ class CompetitionController(
         principal: Principal,
         @RequestBody competitionDto: CompetitionDto
     ): CompetitionDto = CompetitionDto.fromCompetition(
-        competitionService.create(
-            user = userService.findByUsernameOrThrow(principal.name),
-            name = competitionDto.name,
-            dateFrom = competitionDto.dateFrom,
-            dateTo = competitionDto.dateTo
+        competitionFacade.create(
+            principal,
+            competitionDto
         )
     )
 
@@ -32,8 +28,8 @@ class CompetitionController(
         @PathVariable("id") id: Long,
         @RequestBody competitionDto: CompetitionDto,
     ): CompetitionDto = CompetitionDto.fromCompetition(
-        competitionService.rename(
-            userService.findByUsernameOrThrow(principal.name),
+        competitionFacade.rename(
+            principal,
             id,
             competitionDto.name
         )
@@ -43,8 +39,8 @@ class CompetitionController(
     fun getAllCompetitionsForUser(
         principal: Principal,
     ): List<CompetitionDto> = CompetitionDto.fromCompetition(
-        competitionService.findAllActiveByUser(
-            userService.findByUsernameOrThrow(principal.name)
+        competitionFacade.findAllActiveByUser(
+            principal
         )
     )
 
@@ -52,7 +48,7 @@ class CompetitionController(
     fun getCompetitionById(
         @PathVariable("id") id: Long
     ): CompetitionDto = CompetitionDto.fromCompetition(
-        competitionService.getById(id)
+        competitionFacade.getById(id)
     )
 
     @DeleteMapping("{id}")
@@ -60,8 +56,8 @@ class CompetitionController(
         principal: Principal,
         @PathVariable("id") id: Long,
     ):CompetitionDto = CompetitionDto.fromCompetition(
-        competitionService.deleteByIdAndUser(
-            userService.findByUsernameOrThrow(principal.name),
+        competitionFacade.deleteByIdAndUser(
+            principal,
             id
         )
     )
