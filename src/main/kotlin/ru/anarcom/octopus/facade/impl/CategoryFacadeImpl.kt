@@ -1,8 +1,9 @@
-package ru.anarcom.octopus.facade
+package ru.anarcom.octopus.facade.impl
 
 import org.springframework.stereotype.Service
 import ru.anarcom.octopus.dto.competition.CategoryDto
 import ru.anarcom.octopus.entity.Category
+import ru.anarcom.octopus.facade.CategoryFacade
 import ru.anarcom.octopus.service.CategoryService
 import ru.anarcom.octopus.service.CompetitionService
 

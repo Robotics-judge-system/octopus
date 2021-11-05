@@ -1,9 +1,11 @@
 package ru.anarcom.octopus.entity
 
-import org.hibernate.Hibernate
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Table
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import java.time.Clock
+import java.time.Instant
+import javax.persistence.*
+import kotlin.jvm.Transient
 
 /**
  * Entity with User information.
@@ -11,6 +13,10 @@ import javax.persistence.Table
 @Entity
 @Table(name = "users")
 class User(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long = 0,
+
     @Column(name = "username")
     var username: String = "",
 
@@ -23,32 +29,18 @@ class User(
     @Column(name = "password")
     var password: String = "",
 
+    @CreatedDate
+    @Column(name = "created")
+    var created: Instant = Clock.systemDefaultZone().instant(),
+
+    @LastModifiedDate
+    @Column(name = "updated")
+    var updated: Instant = Clock.systemDefaultZone().instant(),
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    var status: Status = Status.NONE,
+
     @Transient
-    var roles: List<Role> = ArrayList()
-) : BaseEntity() {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(
-                other
-            )
-        ) return false
-        other as User
-
-        return id == other.id
-    }
-
-    override fun hashCode(): Int = 562048007
-
-    @Override
-    override fun toString(): String {
-        return this::class.simpleName + "(id = $id ," +
-                " created = $created ," +
-                " updated = $updated ," +
-                " status = $status ," +
-                " username = $username ," +
-                " name = $name ," +
-                " email = $email ," +
-                " password = $password ," +
-                " roles = $roles )"
-    }
-}
+    var roles: List<Role> = ArrayList(),
+)

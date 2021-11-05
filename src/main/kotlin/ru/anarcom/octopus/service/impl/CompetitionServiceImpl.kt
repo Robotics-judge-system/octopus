@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.service
+package ru.anarcom.octopus.service.impl
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
@@ -6,6 +6,7 @@ import ru.anarcom.octopus.entity.Competition
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
 import ru.anarcom.octopus.repo.CompetitionRepository
+import ru.anarcom.octopus.service.CompetitionService
 import ru.anarcom.octopus.util.logger
 import java.time.Clock
 import java.time.Instant
@@ -14,7 +15,7 @@ import java.time.Instant
 class CompetitionServiceImpl(
     private val competitionRepository: CompetitionRepository,
     private val clock: Clock
-):CompetitionService {
+): CompetitionService {
     private val log = logger()
 
     override fun deleteById(id: Long):Competition =

@@ -1,4 +1,4 @@
-package ru.anarcom.octopus.service
+package ru.anarcom.octopus.service.impl
 
 import org.springframework.stereotype.Service
 import ru.anarcom.octopus.dto.competition.CategoryDto
@@ -6,6 +6,7 @@ import ru.anarcom.octopus.entity.Category
 import ru.anarcom.octopus.entity.Competition
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.repo.CategoryRepository
+import ru.anarcom.octopus.service.CategoryService
 import java.time.Clock
 import java.time.Instant
 
