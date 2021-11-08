@@ -157,4 +157,28 @@ class AuthControllerTest : TestWithDb() {
                 )
             )
     }
+
+    @Test
+    @DisplayName("Get all auths")
+    @DatabaseSetup(
+        value = ["/db/auth/user.xml", "/db/auth/auths.xml"]
+    )
+    fun getAllAuthsTest(){
+        val token = getJwtTokenForDefaultUser()
+        mockMvc
+            .perform(
+                get("/api/v1/auth/auth")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk)
+//            .andExpect(
+//                content().json(
+//                    "{" +
+//                            "\"human_message\":\"Login or password is incorrect.\"," +
+//                            "\"exception_message\":\"Invalid username or password.\"" +
+//                            "}"
+//                )
+//            )
+    }
 }
