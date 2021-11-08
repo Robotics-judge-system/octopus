@@ -23,5 +23,5 @@ interface AuthService {
      */
     fun invalidateRefreshTokenById(user: User, id: Long): Auth
 
-    fun getAuthsForUser(user: User): List<Auth>
+    fun getActiveAuthsForUser(user: User): List<Auth>
 }

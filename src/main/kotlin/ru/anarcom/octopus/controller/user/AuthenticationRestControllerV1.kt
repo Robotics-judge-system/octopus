@@ -83,7 +83,7 @@ class AuthenticationRestControllerV1(
     fun getAllAuthsForUser(
         principal: Principal,
     ) = AuthDto.fromInstant(
-        authService.getAuthsForUser(
+        authService.getActiveAuthsForUser(
             userService.findByUsernameOrThrow(principal.name)
         )
     )

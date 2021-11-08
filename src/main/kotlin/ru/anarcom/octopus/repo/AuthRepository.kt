@@ -10,4 +10,5 @@ interface AuthRepository: JpaRepository<Auth, Long> {
     fun existsByRefreshToken(token: String): Boolean
     fun findByIdAndUser(token: Long, user: User): Auth?
     fun findAllByUser(user: User): List<Auth>
+    fun findAllByUserAndStatus(user: User, status: Status): List<Auth>
 }

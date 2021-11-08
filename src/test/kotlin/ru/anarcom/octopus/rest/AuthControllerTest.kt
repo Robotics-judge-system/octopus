@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup
 import com.github.springtestdbunit.annotation.ExpectedDatabase
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode
 import org.hamcrest.Matchers.`is`
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,9 +18,26 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import ru.anarcom.octopus.TestWithDb
+import ru.anarcom.octopus.util.TestClock
+import ru.anarcom.octopus.utilus.ResourceReader
+import java.time.Clock
+import java.time.Instant
+import java.time.ZoneOffset
 
 
 class AuthControllerTest : TestWithDb() {
+
+    @Autowired
+    private lateinit var clock: Clock
+
+    @BeforeEach
+    fun setTime() {
+        (clock as TestClock).setFixed(
+            Instant.parse("2021-09-01T00:00:00.00Z"),
+            ZoneOffset.UTC
+        )
+    }
+
     @Autowired
     private lateinit var mockMvc: MockMvc
 
@@ -172,13 +190,10 @@ class AuthControllerTest : TestWithDb() {
             )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(status().isOk)
-//            .andExpect(
-//                content().json(
-//                    "{" +
-//                            "\"human_message\":\"Login or password is incorrect.\"," +
-//                            "\"exception_message\":\"Invalid username or password.\"" +
-//                            "}"
-//                )
-//            )
+            .andExpect(
+                content().json(
+                    ResourceReader.getResource("json/auth/get_all_auths.json")
+                )
+            )
     }
 }

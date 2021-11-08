@@ -61,8 +61,8 @@ class AuthServiceImpl(
         return save(token)
     }
 
-    override fun getAuthsForUser(user: User): List<Auth> =
-        authRepository.findAllByUser(user)
+    override fun getActiveAuthsForUser(user: User): List<Auth> =
+        authRepository.findAllByUserAndStatus(user, Status.ACTIVE)
 
     private fun save(auth: Auth): Auth {
         auth.updated = clock.instant()
