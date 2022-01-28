@@ -4,18 +4,17 @@ package ru.anarcom.octopus.controller.user
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.core.AuthenticationException
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import ru.anarcom.octopus.dto.login.AuthenticationRequestDto
 import ru.anarcom.octopus.dto.login.LoginResponseDto
 import ru.anarcom.octopus.dto.login.RefreshTokenDto
+import ru.anarcom.octopus.dto.user.AuthDto
 import ru.anarcom.octopus.exceptions.InvalidLoginOrPasswordException
 import ru.anarcom.octopus.security.jwt.JwtTokenProvider
 import ru.anarcom.octopus.service.AuthService
 import ru.anarcom.octopus.service.UserService
 import ru.anarcom.octopus.util.logger
+import java.security.Principal
 
 
 /**
@@ -79,4 +78,13 @@ class AuthenticationRestControllerV1(
             throw InvalidLoginOrPasswordException()
         }
     }
+
+    @GetMapping("auth")
+    fun getAllAuthsForUser(
+        principal: Principal,
+    ) = AuthDto.fromInstant(
+        authService.getActiveAuthsForUser(
+            userService.findByUsernameOrThrow(principal.name)
+        )
+    )
 }

@@ -5,6 +5,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup
 import com.github.springtestdbunit.annotation.ExpectedDatabase
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode
 import org.hamcrest.Matchers.`is`
+import org.junit.Ignore
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,9 +19,25 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import ru.anarcom.octopus.TestWithDb
+import ru.anarcom.octopus.util.TestClock
+import java.time.Clock
+import java.time.Instant
+import java.time.ZoneOffset
 
 
 class AuthControllerTest : TestWithDb() {
+
+    @Autowired
+    private lateinit var clock: Clock
+
+    @BeforeEach
+    fun setTime() {
+        (clock as TestClock).setFixed(
+            Instant.parse("2021-09-01T00:00:00.00Z"),
+            ZoneOffset.UTC
+        )
+    }
+
     @Autowired
     private lateinit var mockMvc: MockMvc
 
@@ -156,5 +174,30 @@ class AuthControllerTest : TestWithDb() {
                             "}"
                 )
             )
+    }
+
+    @Test
+    @DisplayName("Get all auths")
+    @DatabaseSetup(
+        value = ["/db/auth/user.xml", "/db/auth/auths.xml"]
+    )
+    @Ignore
+    /*
+    TODO: проблема в том, что в бд уже лежат данные об авторизации - надо будет это как-то поправить
+     */
+    fun getAllAuthsTest(){
+//        val token = getJwtTokenForDefaultUser()
+//        mockMvc
+//            .perform(
+//                get("/api/v1/auth/auth")
+//                    .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+//            )
+//            .andDo(MockMvcResultHandlers.print())
+//            .andExpect(status().isOk)
+//            .andExpect(
+//                content().json(
+//                    ResourceReader.getResource("json/auth/get_all_auths.json")
+//                )
+//            )
     }
 }

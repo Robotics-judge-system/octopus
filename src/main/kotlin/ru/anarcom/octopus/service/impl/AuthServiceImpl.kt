@@ -3,6 +3,7 @@ package ru.anarcom.octopus.service.impl
 import javassist.NotFoundException
 import org.apache.commons.lang3.RandomStringUtils
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import ru.anarcom.octopus.entity.Auth
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
@@ -39,7 +40,7 @@ class AuthServiceImpl(
     }
 
     override fun getUserByRefreshToken(token: String): User {
-        if (!authRepository.existsByRefreshToken(token)){
+        if (!authRepository.existsByRefreshToken(token)) {
             log.warn("getted not existed refresh token (token)")
             throw NotFoundException("User with that refresh token not found")
         }
@@ -47,5 +48,24 @@ class AuthServiceImpl(
         auth.updated = clock.instant()
         auth = authRepository.save(auth)
         return auth.user!!
+    }
+
+    @Transactional
+    override fun invalidateRefreshTokenById(user: User, id: Long): Auth {
+        val token = authRepository.findByIdAndUser(id, user)
+        if (token == null) {
+            log.warn("person try to delete not user's token (token id=$id, userid=${user.id}")
+            throw NotFoundException("Invalid user or token id")
+        }
+        token.status = Status.DELETED
+        return save(token)
+    }
+
+    override fun getActiveAuthsForUser(user: User): List<Auth> =
+        authRepository.findAllByUserAndStatus(user, Status.ACTIVE)
+
+    private fun save(auth: Auth): Auth {
+        auth.updated = clock.instant()
+        return authRepository.save(auth)
     }
 }
