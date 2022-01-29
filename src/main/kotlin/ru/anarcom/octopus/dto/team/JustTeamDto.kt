@@ -5,7 +5,7 @@ import ru.anarcom.octopus.entity.Team
 import java.time.Clock
 import java.time.Instant
 
-open class JustTeamDto(
+data class JustTeamDto(
     var id: Long? = 0,
     var teamName: String = "",
     var created: Instant? = Clock.systemDefaultZone().instant(),
