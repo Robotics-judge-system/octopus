@@ -1,5 +1,6 @@
 package ru.anarcom.octopus.dto.team
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.Team
 import java.time.Clock
@@ -7,12 +8,17 @@ import java.time.Instant
 
 data class TeamDto(
     var id: Long? = 0,
+
+    @field:JsonProperty("team_name")
     var teamName: String = "",
+
     var created: Instant? = Clock.systemDefaultZone().instant(),
+
     var updated: Instant? = Clock.systemDefaultZone().instant(),
+
     var status: Status = Status.NONE,
-    var coaches:List<ParticipantDto> = emptyList(),
-    var partisipants:List<ParticipantDto> = emptyList(),
+
+    var participants: List<ParticipantDto> = emptyList(),
 ) {
     companion object {
         fun fromTeam(team: Team) = TeamDto(
@@ -21,12 +27,7 @@ data class TeamDto(
             created = team.created,
             updated = team.updated,
             status = team.status,
-//            coaches = team.
-        )
-
-        fun toTeam(teamDto: TeamDto) = Team(
-            id = teamDto.id ?: 0,
-            teamName = teamDto.teamName,
+            participants = team.participants.map { ParticipantDto.fromParticipant(it) }
         )
     }
 }

@@ -31,4 +31,7 @@ class Team(
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     var status: Status = Status.NONE,
+
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    var participants: MutableList<Participant> = mutableListOf(),
 )

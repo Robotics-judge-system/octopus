@@ -7,14 +7,15 @@ import java.time.Instant
 import javax.persistence.*
 
 @Entity
+@Table(name = "team_members")
 class Participant(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "team_id")
-    var team: Team? = null,
+    @JoinColumn(name = "team_id", nullable = false)
+    var team: Team,
 
     @Column(name = "name")
     var name: String = "",
@@ -34,5 +35,4 @@ class Participant(
     @Enumerated(EnumType.STRING)
     @Column(name = "team_role")
     var teamRole: ParticipantRole = ParticipantRole.PARTICIPANT,
-) {
-}
+)

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <teams
+    id="1"
+    team_name="hello robot"
+    created="2022-01-29 00:00:00 +0000"
+    updated="2022-01-29 00:00:00 +0000"
+    status="ACTIVE"
+    />
+  <team_members
+    id="1"
+    team_id="1"
+    created="2022-01-29 00:00:00 +0000"
+    updated="2022-01-29 00:00:00 +0000"
+    status="ACTIVE"
+    team_role="COACH"
+    name="Ivan Ivanov"
+    />
+  <team_members
+    id="2"
+    team_id="1"
+    created="2022-01-29 00:00:00 +0000"
+    updated="2022-01-29 00:00:00 +0000"
+    status="ACTIVE"
+    team_role="PARTICIPANT"
+    name="Семен семенов"
+  />
+  <team_members
+    id="3"
+    team_id="1"
+    created="2022-01-29 00:00:00 +0000"
+    updated="2022-01-29 00:00:00 +0000"
+    status="ACTIVE"
+    team_role="PARTICIPANT"
+    name="Oleg g."
+  />
+</dataset>
