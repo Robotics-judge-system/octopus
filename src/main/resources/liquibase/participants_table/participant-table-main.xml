@@ -12,7 +12,7 @@
     </column>
     <column name="team_id" type="bigserial">
       <constraints nullable="false" foreignKeyName="fk_team_team_members"
-        references="teams(id)"/>
+        references="teams(id)" deleteCascade="true"/>
     </column>
   <column name="team_role" type="varchar(20)">
     <constraints nullable="false"/>

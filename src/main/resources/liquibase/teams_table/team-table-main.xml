@@ -13,7 +13,7 @@
       </column>
       <column name="category_id" type="bigserial">
         <constraints nullable="false" foreignKeyName="team_competition_fk"
-          references="categories(id)"/>
+          references="categories(id)" deleteCascade="true"/>
       </column>
       <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
         <constraints nullable="false"/>
