@@ -38,6 +38,4 @@ class TeamServiceImpl(
     override fun getByCategoryAndId(category: Category, id: Long): Team {
         return teamRepository.getByIdAndCategory(id, category)
     }
-
-
 }
