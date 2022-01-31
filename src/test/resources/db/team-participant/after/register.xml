@@ -2,6 +2,7 @@
 <dataset>
   <teams
     id="1"
+    category_id="11"
     team_name="hello robot"
     created="2022-01-29 00:00:00 +0000"
     updated="2022-01-29 00:00:00 +0000"

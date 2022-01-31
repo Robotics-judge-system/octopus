@@ -32,6 +32,11 @@ class Team(
     @Column(name = "status")
     var status: Status = Status.NONE,
 
+    //TODO: выяснить, почему поле оказывается пустым.
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     var participants: MutableList<Participant> = mutableListOf(),
-)
+){
+    fun getAllActiveParticipants() = participants.filter {
+        it.status != Status.DELETED && it.status != Status.NOT_ACTIVE
+    }
+}

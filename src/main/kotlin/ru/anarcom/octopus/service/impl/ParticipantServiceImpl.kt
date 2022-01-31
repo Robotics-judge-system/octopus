@@ -2,6 +2,7 @@ package ru.anarcom.octopus.service.impl
 
 import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.Participant
+import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.Team
 import ru.anarcom.octopus.repo.ParticipantRepository
 import ru.anarcom.octopus.service.ParticipantService
@@ -24,5 +25,9 @@ class ParticipantServiceImpl(
 
     override fun getByTeam(team: Team): List<Participant> {
         return participantRepository.getAllByTeam(team)
+    }
+
+    override fun getNotDeletedByTeam(team: Team): List<Participant> {
+        return participantRepository.getAllByTeamAndStatusIsNot(team, Status.DELETED)
     }
 }

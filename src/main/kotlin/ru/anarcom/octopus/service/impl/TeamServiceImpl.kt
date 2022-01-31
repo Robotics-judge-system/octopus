@@ -35,7 +35,31 @@ class TeamServiceImpl(
         )
     }
 
-    override fun getByCategoryAndId(category: Category, id: Long): Team {
-        return teamRepository.getByIdAndCategory(id, category)
+    override fun getByCategoryAndId(category: Category, id: Long): Team =
+        teamRepository.getByIdAndCategory(id, category)
+
+    override fun getAllByCategory(category: Category): List<Team> =
+        teamRepository.findAllByCategory(category)
+
+    override fun getAllActiveByCategory(category: Category): List<Team> =
+        teamRepository.findAllByCategoryAndStatusNot(category, Status.DELETED)
+
+    override fun getByIdAndCategory(id: Long, category: Category) =
+        teamRepository.getByIdAndCategory(id, category)
+
+    override fun deleteByIdAndCategory(id: Long, category: Category): Team {
+        val team = teamRepository.getByCategoryAndId(category, id)
+        if (team.status == Status.DELETED)
+            return team
+        team.status = Status.DELETED
+        return save(team)
+    }
+
+    override fun renameTeam(id: Long, category: Category, newName: String): Team {
+        val team = teamRepository.getByIdAndCategory(id, category)
+        if(team.status == Status.DELETED || team.teamName == newName)
+            return team
+        team.teamName = newName
+        return save(team)
     }
 }

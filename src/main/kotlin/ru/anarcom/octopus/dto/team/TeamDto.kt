@@ -29,5 +29,6 @@ data class TeamDto(
             status = team.status,
             participants = team.participants.map { ParticipantDto.fromParticipant(it) }
         )
+        fun fromTeam(teams:List<Team>) = teams.map { Companion.fromTeam(it) }
     }
 }

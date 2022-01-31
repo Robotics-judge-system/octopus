@@ -7,13 +7,12 @@ import ru.anarcom.octopus.facade.TeamParticipantFacade
 import ru.anarcom.octopus.service.TeamService
 
 @RestController
-@RequestMapping("api/v1/competition/{competition_id}/category/{category_id}")
+@RequestMapping("api/v1/competition/{competition_id}/category/{category_id}/team")
 class TeamController(
     private val teamService: TeamService,
     private val categoryFacade: CategoryFacade,
     private val teamParticipantFacade: TeamParticipantFacade
 ) {
-    //TODO: register
     @GetMapping("register")
     fun registerTeam(
         @PathVariable("competition_id") compId: Long,
@@ -30,9 +29,45 @@ class TeamController(
         )
     }
 
+    @GetMapping
+    fun getAllByCompetition(
+        @PathVariable("competition_id") compId: Long,
+        @PathVariable("category_id") catId: Long,
+    ): List<TeamDto> {
+        val category = categoryFacade.getOneCategory(catId, compId)
+        return TeamDto.fromTeam(teamParticipantFacade.getAllNotDeletedByCategory(category))
+    }
 
-    //TODO: get one by id
-    //TODO: get all by competition
-    //TODO: DELETE
-    //TODO: update
+    @GetMapping("{team_id}")
+    fun getOneTeamById(
+        @PathVariable("competition_id") compId: Long,
+        @PathVariable("category_id") catId: Long,
+        @PathVariable("team_id") teamId: Long
+    ): TeamDto {
+        val category = categoryFacade.getOneCategory(catId, compId)
+        return TeamDto.fromTeam(teamParticipantFacade.getOneByIdAndCategory(teamId, category))
+    }
+
+    @DeleteMapping("{team_id}")
+    fun deleteTeam(
+        @PathVariable("competition_id") compId: Long,
+        @PathVariable("category_id") catId: Long,
+        @PathVariable("team_id") teamId: Long
+    ): TeamDto {
+        val category = categoryFacade.getOneCategory(catId, compId)
+        return TeamDto.fromTeam(teamParticipantFacade.deleteTeam(teamId, category))
+    }
+
+    @PostMapping("{team_id}")
+    fun updateName(
+        @PathVariable("competition_id") compId: Long,
+        @PathVariable("category_id") catId: Long,
+        @PathVariable("team_id") teamId: Long,
+        @RequestBody teamDto: TeamDto
+    ): TeamDto {
+        val category = categoryFacade.getOneCategory(catId, compId)
+        return TeamDto.fromTeam(
+            teamService.renameTeam(teamId, category, teamDto.teamName)
+        )
+    }
 }

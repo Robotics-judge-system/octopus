@@ -5,5 +5,6 @@ import ru.anarcom.octopus.entity.Team
 
 interface ParticipantService {
     fun add(participant: Participant): Participant
-    fun getByTeam(team:Team):List<Participant>
+    fun getByTeam(team: Team): List<Participant>
+    fun getNotDeletedByTeam(team: Team): List<Participant>
 }

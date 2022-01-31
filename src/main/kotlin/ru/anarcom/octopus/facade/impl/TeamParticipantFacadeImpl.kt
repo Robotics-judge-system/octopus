@@ -36,4 +36,32 @@ class TeamParticipantFacadeImpl(
             this.participants = participantService.getByTeam(this).toMutableList()
         }
     }
+
+    override fun getAllByCategory(category: Category): List<Team> {
+        val teams = teamService.getAllByCategory(category)
+        teams.forEach {
+            it.participants = participantService.getNotDeletedByTeam(it).toMutableList()
+        }
+        return teams
+    }
+
+    override fun getAllNotDeletedByCategory(category: Category): List<Team> {
+        val teams = teamService.getAllActiveByCategory(category)
+        teams.forEach {
+            it.participants = participantService.getNotDeletedByTeam(it).toMutableList()
+        }
+        return teams
+    }
+
+    override fun getOneByIdAndCategory(id: Long, category: Category): Team {
+        val team = teamService.getByIdAndCategory(id, category)
+        team.participants = participantService.getNotDeletedByTeam(team).toMutableList()
+        return team
+    }
+
+    override fun deleteTeam(id:Long, category: Category): Team{
+        val team = teamService.deleteByIdAndCategory(id, category)
+        team.participants = participantService.getNotDeletedByTeam(team).toMutableList()
+        return team
+    }
 }
