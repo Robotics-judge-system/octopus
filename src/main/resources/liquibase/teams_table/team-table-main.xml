@@ -1,0 +1,29 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet id="teams-1.0.0" author="AnarCom">
+    <createTable tableName="teams">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="team_name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="category_id" type="bigserial">
+        <constraints nullable="false" foreignKeyName="team_competition_fk"
+          references="categories(id)" deleteCascade="true"/>
+      </column>
+      <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>

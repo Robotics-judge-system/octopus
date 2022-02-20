@@ -6,4 +6,6 @@
     <include file="liquibase/auth_table/auth-table-main.xml"/>
     <include file="liquibase/competitions_table/competions-table-main.xml"/>
     <include file="liquibase/categories_table/catogires-table-main.xml"/>
+    <include file="liquibase/teams_table/team-table-main.xml"/>
+    <include file="liquibase/participants_table/participant-table-main.xml"/>
 </databaseChangeLog>

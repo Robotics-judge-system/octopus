@@ -1,0 +1,25 @@
+{
+  "id": 3,
+  "team_name": "deleted team",
+  "created": "2022-01-28T09:00:00Z",
+  "updated": "2022-01-28T09:00:00Z",
+  "status": "DELETED",
+  "participants": [
+    {
+      "id": 7,
+      "name": "cake coach",
+      "created": "2022-01-28T09:00:00Z",
+      "updated": "2022-01-28T09:00:00Z",
+      "status": "DELETED",
+      "team_role": "COACH"
+    },
+    {
+      "id": 8,
+      "name": "cake participant",
+      "created": "2022-01-28T09:00:00Z",
+      "updated": "2022-01-28T09:00:00Z",
+      "status": "ACTIVE",
+      "team_role": "PARTICIPANT"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": 1,
+  "team_name": "hello robot",
+  "created": "2022-01-29T00:00:00Z",
+  "updated": "2022-01-29T00:00:00Z",
+  "status": "ACTIVE",
+  "participants": [
+    {
+      "id": 1,
+      "name": "Ivan Ivanov",
+      "created": "2022-01-29T00:00:00Z",
+      "updated": "2022-01-29T00:00:00Z",
+      "status": "ACTIVE",
+      "team_role": "COACH"
+    },
+    {
+      "id": 2,
+      "name": "Семен cеменов",
+      "created": "2022-01-29T00:00:00Z",
+      "updated": "2022-01-29T00:00:00Z",
+      "status": "ACTIVE",
+      "team_role": "PARTICIPANT"
+    },
+    {
+      "id": 3,
+      "name": "Oleg g.",
+      "created": "2022-01-29T00:00:00Z",
+      "updated": "2022-01-29T00:00:00Z",
+      "status": "ACTIVE",
+      "team_role": "PARTICIPANT"
+    }
+  ]
+}

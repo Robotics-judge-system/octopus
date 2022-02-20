@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <teams
+    id="1"
+    category_id="11"
+    team_name="hello robot_2"
+    created="2022-01-29 00:00:00 +0000"
+    updated="2022-01-29 10:00:00 +0000"
+    status="ACTIVE"
+  />
+  <team_members
+    id="1"
+    team_id="1"
+    created="2022-01-29 00:00:00 +0000"
+    updated="2022-01-29 00:00:00 +0000"
+    status="ACTIVE"
+    team_role="COACH"
+    name="Ivan Ivanov"
+  />
+  <team_members
+    id="2"
+    team_id="1"
+    created="2022-01-29 00:00:00 +0000"
+    updated="2022-01-29 00:00:00 +0000"
+    status="ACTIVE"
+    team_role="PARTICIPANT"
+    name="Семен семенов"
+  />
+  <team_members
+    id="3"
+    team_id="1"
+    created="2022-01-29 00:00:00 +0000"
+    updated="2022-01-29 00:00:00 +0000"
+    status="ACTIVE"
+    team_role="PARTICIPANT"
+    name="Oleg g."
+  />
+
+  <teams
+    id="2"
+    category_id="11"
+    team_name="cake is fake"
+    created="2022-01-28 09:00:00 +0000"
+    updated="2022-01-28 09:00:00 +0000"
+    status="ACTIVE"
+  />
+  <team_members
+    id="4"
+    team_id="2"
+    created="2022-01-28 09:00:00 +0000"
+    updated="2022-01-28 09:00:00 +0000"
+    status="ACTIVE"
+    team_role="COACH"
+    name="cake coach"
+  />
+  <team_members
+    id="5"
+    team_id="2"
+    created="2022-01-28 09:00:00 +0000"
+    updated="2022-01-28 09:00:00 +0000"
+    status="ACTIVE"
+    team_role="PARTICIPANT"
+    name="cake participant"
+  />
+  <team_members
+    id="6"
+    team_id="2"
+    created="2022-01-28 09:00:00 +0000"
+    updated="2022-01-28 09:00:00 +0000"
+    status="DELETED"
+    team_role="PARTICIPANT"
+    name="cake deleted participant"
+  />
+
+  <teams
+    id="3"
+    category_id="11"
+    team_name="deleted team"
+    created="2022-01-28 09:00:00 +0000"
+    updated="2022-01-28 09:00:00 +0000"
+    status="DELETED"
+  />
+  <team_members
+    id="7"
+    team_id="3"
+    created="2022-01-28 09:00:00 +0000"
+    updated="2022-01-28 09:00:00 +0000"
+    status="DELETED"
+    team_role="COACH"
+    name="cake coach"
+  />
+  <team_members
+    id="8"
+    team_id="3"
+    created="2022-01-28 09:00:00 +0000"
+    updated="2022-01-28 09:00:00 +0000"
+    status="ACTIVE"
+    team_role="PARTICIPANT"
+    name="cake participant"
+  />
+</dataset>
