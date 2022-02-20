@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.anarcom.octopus.dto.team.ParticipantDto
 import ru.anarcom.octopus.facade.CategoryFacade
+import ru.anarcom.octopus.repo.ParticipantRepository
 import ru.anarcom.octopus.service.ParticipantService
 import ru.anarcom.octopus.service.TeamService
 
@@ -15,14 +16,30 @@ class ParticipantController(
     private val participantService: ParticipantService,
     private val teamService: TeamService,
     private val categoryFacade: CategoryFacade,
+    private val participantRepository: ParticipantRepository
 ) {
-    fun addParticipants() {
+//    @PostMapping
+//    fun addParticipants(
+//        @PathVariable("competition_id") compId: Long,
+//        @PathVariable("category_id") catId: Long,
+//        @PathVariable("team_id") teamId: Long,
+//        @RequestBody participantDto: ParticipantDto
+//    ): ParticipantDto {
+//        val category = categoryFacade.getOneCategory(catId, compId)
+//        val team = teamService.getByCategoryAndId(category, teamId)
+//        var participant = Participant(
+//            team = team,
+//            name = participantDto.name,
+//            teamRole = ParticipantRole.valueOf(participantDto.teamRole),
+//            status = Status.ACTIVE
+//        )
+//        participant = participantService.add(participant)
+//        return ParticipantDto.fromParticipant(participant)
+//    }
 
-    }
-
-    fun deleteParticipant() {
-
-    }
+//    fun deleteParticipant() {
+//
+//    }
 
     // TODO implement with method
 //    @GetMapping("{participant_id}")
@@ -47,7 +64,7 @@ class ParticipantController(
         return ParticipantDto.fromParticipant(participants)
     }
 
-    fun updateParticipant() {
-
-    }
+//    fun updateParticipant() {
+//
+//    }
 }
