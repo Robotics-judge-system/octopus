@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
-import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
@@ -65,40 +64,40 @@ class ParticipantControllerTest : TestWithDb() {
             )
     }
 
-    @Test
-    @DisplayName("add participant")
-    @DatabaseSetup(
-        value = [
-            "/db/auth/user.xml",
-            "/db/rest/CompetitionControllerTest/default_competition.xml",
-            "/db/rest/CategoryControllerTest/some_categories.xml",
-            "/db/team-participant/before/three-teams.xml"
-        ]
-    )
-    fun addParticipant() {
-        mockMvc.perform(
-            MockMvcRequestBuilders.post(
-                "/api/v1/competition/1/category/11/team/1/participant"
-            )
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(
-                    ResourceReader.getResource(
-                        "json/controllers/participant/addNewParticipant.json"
-                    )
-                )
-                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
-        )
-            .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().isOk)
-//            .andExpect(
-//                MockMvcResultMatchers.content()
-//                    .json(
-//                        ResourceReader.getResource(
-//                            "json/controllers/participant/getTeamParticipants.json"
-//                        )
-//                    )
+//    @Test
+//    @DisplayName("add participant")
+//    @DatabaseSetup(
+//        value = [
+//            "/db/auth/user.xml",
+//            "/db/rest/CompetitionControllerTest/default_competition.xml",
+//            "/db/rest/CategoryControllerTest/some_categories.xml",
+//            "/db/team-participant/before/three-teams.xml"
+//        ]
+//    )
+//    fun addParticipant() {
+//        mockMvc.perform(
+//            MockMvcRequestBuilders.post(
+//                "/api/v1/competition/1/category/11/team/1/participant"
 //            )
-    }
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                .content(
+//                    ResourceReader.getResource(
+//                        "json/controllers/participant/addNewParticipant.json"
+//                    )
+//                )
+//                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+//        )
+//            .andDo(MockMvcResultHandlers.print())
+//            .andExpect(MockMvcResultMatchers.status().isOk)
+////            .andExpect(
+////                MockMvcResultMatchers.content()
+////                    .json(
+////                        ResourceReader.getResource(
+////                            "json/controllers/participant/getTeamParticipants.json"
+////                        )
+////                    )
+////            )
+//    }
 
 
 }
