@@ -71,31 +71,7 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json("{" +
-                            "\"id\":1," +
-                            "\"team_name\":\"hello robot\"," +
-                            "\"created\":\"2022-01-29T00:00:00Z\"," +
-                            "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                            "\"status\":\"ACTIVE\"," +
-                            "\"participants\":[" +
-                            "{\"id\":1," +
-                            "\"name\":\"Ivan Ivanov\"," +
-                            "\"created\":\"2022-01-29T00:00:00Z\"," +
-                            "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                            "\"status\":\"ACTIVE\",\"team_role\":\"COACH\"}," +
-                            "{\"id\":2,\"name\":\"Семен семенов\"," +
-                            "\"created\":\"2022-01-29T00:00:00Z\"," +
-                            "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                            "\"status\":\"ACTIVE\"," +
-                            "\"team_role\":\"PARTICIPANT\"}," +
-                            "{\"id\":3," +
-                            "\"name\":\"Oleg g.\"," +
-                            "\"created\":\"2022-01-29T00:00:00Z\"," +
-                            "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                            "\"status\":\"ACTIVE\"," +
-                            "\"team_role\":\"PARTICIPANT\"}" +
-                            "]}"
-                    )
+                    .json( ResourceReader.getResource("json/controllers/team/normalTeamRegister.json"))
             )
     }
 
@@ -124,49 +100,7 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "[{\"id\":1,\"team_name\":\"hello robot\"," +
-                                "\"created\":\"2022-01-29T00:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                                "\"status\":\"ACTIVE\",\"participants\":[{" +
-                                "\"id\":1," +
-                                "\"name\":\"Ivan Ivanov\"," +
-                                "\"created\":\"2022-01-29T00:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"COACH\"},{" +
-                                "\"id\":2," +
-                                "\"name\":\"Семен семенов\"," +
-                                "\"created\":\"2022-01-29T00:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"PARTICIPANT\"},{" +
-                                "\"id\":3," +
-                                "\"name\":\"Oleg g.\"," +
-                                "\"created\":\"2022-01-29T00:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"PARTICIPANT\"}]},{" +
-                                "\"id\":2," +
-                                "\"team_name\":\"cake is fake\"," +
-                                "\"created\":\"2022-01-28T09:00:00Z\"," +
-                                "\"updated\":\"2022-01-28T09:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"participants\":[{" +
-                                "\"id\":4," +
-                                "\"name\":\"cake coach\"," +
-                                "\"created\":\"2022-01-28T09:00:00Z\"," +
-                                "\"updated\":\"2022-01-28T09:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"COACH\"},{" +
-                                "\"id\":5,\"name\":\"cake participant\"," +
-                                "\"created\":\"2022-01-28T09:00:00Z\"," +
-                                "\"updated\":\"2022-01-28T09:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"PARTICIPANT\"}" +
-                                "]}" +
-                                "]"
-                    )
+                    .json( ResourceReader.getResource("json/controllers/team/getAllTeamsNormalTest.json"))
             )
     }
 
@@ -195,34 +129,7 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{" +
-                                "\"id\":1," +
-                                "\"team_name\":\"hello robot\"," +
-                                "\"created\":\"2022-01-29T00:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"participants\":[" +
-                                "{\"id\":1," +
-                                "\"name\":\"Ivan Ivanov\"," +
-                                "\"created\":\"2022-01-29T00:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"COACH\"}," +
-                                "{\"id\":2," +
-                                "\"name\":\"Семен семенов\"," +
-                                "\"created\":\"2022-01-29T00:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"PARTICIPANT\"}," +
-                                "{\"id\":3," +
-                                "\"name\":\"Oleg g.\"," +
-                                "\"created\":\"2022-01-29T00:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T00:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"PARTICIPANT\"}" +
-                                "]}"
-                    )
+                    .json( ResourceReader.getResource("json/controllers/team/getOneNotDeletedTeamTest.json"))
             )
     }
 
@@ -251,22 +158,7 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{" +
-                                "\"id\":3," +
-                                "\"team_name\":\"deleted team\"," +
-                                "\"created\":\"2022-01-28T09:00:00Z\"," +
-                                "\"updated\":\"2022-01-28T09:00:00Z\"," +
-                                "\"status\":\"DELETED\"," +
-                                "\"participants\":[{" +
-                                "\"id\":8," +
-                                "\"name\":\"cake participant\"," +
-                                "\"created\":\"2022-01-28T09:00:00Z\"," +
-                                "\"updated\":\"2022-01-28T09:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"PARTICIPANT\"}" +
-                                "]}"
-                    )
+                    .json(ResourceReader.getResource("json/controllers/team/getOneDeletedTeamTest.json"))
             )
     }
 
@@ -299,26 +191,8 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{" +
-                                "\"id\":2," +
-                                "\"team_name\":\"cake is fake\"," +
-                                "\"created\":\"2022-01-28T09:00:00Z\"," +
-                                "\"updated\":\"2022-01-29T09:00:00Z\"," +
-                                "\"status\":\"DELETED\"," +
-                                "\"participants\":[{" +
-                                "\"id\":4,\"name\":\"cake coach\"," +
-                                "\"created\":\"2022-01-28T09:00:00Z\"," +
-                                "\"updated\":\"2022-01-28T09:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"COACH\"" +
-                                "},{" +
-                                "\"id\":5," +
-                                "\"name\":\"cake participant\"," +
-                                "\"created\":\"2022-01-28T09:00:00Z\"," +
-                                "\"updated\":\"2022-01-28T09:00:00Z\"," +
-                                "\"status\":\"ACTIVE\"," +
-                                "\"team_role\":\"PARTICIPANT\"}]}"
+                    .json( ResourceReader.getResource("json/controllers/team/deleteTeamTest.json")
+
                     )
             )
     }
@@ -353,9 +227,7 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(
-                        ResourceReader.getResource(
-                            "json/controllers/team/alreadyDeletedTest.json"
-                        )
+                        ResourceReader.getResource("json/controllers/team/alreadyDeletedTest.json")
                     )
             )
     }
@@ -394,8 +266,7 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(
-                        ResourceReader.getResource(
-                            "json/controllers/team/teamAfterNormalUpdateTest.json"
+                        ResourceReader.getResource("json/controllers/team/teamAfterNormalUpdateTest.json"
                         )
                     )
             )
@@ -435,8 +306,7 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(
-                        ResourceReader.getResource(
-                            "json/controllers/team/notChangedTeamNameTest.json"
+                        ResourceReader.getResource("json/controllers/team/notChangedTeamNameTest.json"
                         )
                     )
             )
@@ -476,8 +346,7 @@ class TeamControllerTest : TestWithDb() {
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(
-                        ResourceReader.getResource(
-                            "json/controllers/team/updateNameOfDeletedTeamTest.json"
+                        ResourceReader.getResource("json/controllers/team/updateNameOfDeletedTeamTest.json"
                         )
                     )
             )

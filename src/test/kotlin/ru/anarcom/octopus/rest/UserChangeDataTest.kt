@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import ru.anarcom.octopus.TestWithDb
 import ru.anarcom.octopus.repo.UserRepository
 import ru.anarcom.octopus.util.TestClock
+import ru.anarcom.octopus.utilus.ResourceReader
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
@@ -68,15 +69,7 @@ class UserChangeDataTest:TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
-                content().json(
-                    "{\n" +
-                            "    \"id\": 1,\n" +
-                            "    \"username\": \"username\",\n" +
-                            "    \"name\": \"new name1\",\n" +
-                            "    \"email\": \"email@email.ts\",\n" +
-                            "    \"status\": \"ACTIVE\"\n" +
-                            "}"
-                )
+                content().json( ResourceReader.getResource("json/controllers/team/changeUserData.json"))
             )
     }
 
@@ -103,14 +96,7 @@ class UserChangeDataTest:TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
-                content().json(
-                    "{\n" +
-                            "    \"id\": 1,\n" +
-                            "    \"username\": \"username\",\n" +
-                            "    \"name\": \"name\",\n" +
-                            "    \"email\": \"email@email.ts\",\n" +
-                            "    \"status\": \"ACTIVE\"\n" +
-                            "}"
+                content().json(ResourceReader.getResource("json/controllers/team/changePasswordTest.json")
                 )
             )
 
@@ -150,12 +136,8 @@ class UserChangeDataTest:TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isForbidden)
             .andExpect(
                 content().json(
-                    "{" +
-                            "\"human_message\":\"Something wrong with password.\"," +
-                            "\"exception_message\":\"Password incorrect\"" +
-                            "}"
+                    ResourceReader.getResource("json/controllers/team/incorrectPasswordToChangeTest.json")
                 )
             )
     }
-
 }

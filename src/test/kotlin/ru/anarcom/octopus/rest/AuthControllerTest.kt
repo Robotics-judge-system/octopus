@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import ru.anarcom.octopus.TestWithDb
 import ru.anarcom.octopus.util.TestClock
+import ru.anarcom.octopus.utilus.ResourceReader
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
@@ -61,10 +62,7 @@ class AuthControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 content().json(
-                    "{\"id\":1," +
-                            "\"username\":\"username\"," +
-                            "\"name\":\"name\"," +
-                            "\"email\":\"email@email.ts\"}"
+                    ResourceReader.getResource("json/controllers/team/correctAuthAndSelfDataTest.json")
                 )
             )
     }
@@ -106,10 +104,7 @@ class AuthControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 content().json(
-                    "{\"id\":1," +
-                            "\"username\":\"username\"," +
-                            "\"name\":\"name\"," +
-                            "\"email\":\"email@email.ts\"}"
+                    ResourceReader.getResource("json/controllers/team/refreshTokenTest.json")
                 )
             )
         mockMvc
@@ -146,34 +141,11 @@ class AuthControllerTest : TestWithDb() {
             .andExpect(status().isForbidden)
             .andExpect(
                 content().json(
-                    "{" +
-                            "\"human_message\":\"Login or password is incorrect.\"," +
-                            "\"exception_message\":\"Invalid username or password.\"" +
-                            "}"
+                    ResourceReader.getResource("json/controllers/team/loginWithIncorrectLoginTest.json")
                 )
             )
 
-        mockMvc
-            .perform(
-                post("/api/v1/auth/login")
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(
-                        "{\n" +
-                                "    \"username\":\"username\",\n" +
-                                "    \"password\":\"wrong_test\"\n" +
-                                "}"
-                    )
-            )
-            .andDo(MockMvcResultHandlers.print())
-            .andExpect(status().isForbidden)
-            .andExpect(
-                content().json(
-                    "{" +
-                            "\"human_message\":\"Login or password is incorrect.\"," +
-                            "\"exception_message\":\"Invalid username or password.\"" +
-                            "}"
-                )
-            )
+
     }
 
     @Test

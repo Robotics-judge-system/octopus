@@ -1,0 +1,25 @@
+{
+  "id": 2,
+  "team_name": "cake is fake",
+  "created": "2022-01-28T09:00:00Z",
+  "updated": "2022-01-29T09:00:00Z",
+  "status": "DELETED",
+  "participants": [
+    {
+      "id": 4,
+      "name": "cake coach",
+      "created": "2022-01-28T09:00:00Z",
+      "updated": "2022-01-28T09:00:00Z",
+      "status": "ACTIVE",
+      "team_role": "COACH"
+    },
+    {
+      "id": 5,
+      "name": "cake participant",
+      "created": "2022-01-28T09:00:00Z",
+      "updated": "2022-01-28T09:00:00Z",
+      "status": "ACTIVE",
+      "team_role": "PARTICIPANT"
+    }
+  ]
+}
