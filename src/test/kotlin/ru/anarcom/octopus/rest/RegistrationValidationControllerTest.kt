@@ -25,29 +25,33 @@ class RegistrationValidationControllerTest : TestWithDb() {
             Arguments.of(
                 "/api/v1/registration/validation/username",
                 "{\"username\":\"username\"}",
-                "{\"message\":\"already used\"}"
+                "{\"message\":\"already used\"}",
+                409,
             ),
             Arguments.of(
                 "/api/v1/registration/validation/username",
                 "{\"username\":\"username1\"}",
-                "{\"message\":\"ok\"}"
+                "{\"message\":\"ok\"}",
+                200,
             ),
             Arguments.of(
                 "/api/v1/registration/validation/email",
                 "{\"email\":\"email@email.ts\"}",
-                "{\"message\":\"already used\"}"
+                "{\"message\":\"already used\"}",
+                409,
             ),
             Arguments.of(
                 "/api/v1/registration/validation/email",
                 "{\"email\":\"email231@email.ts\"}",
-                "{\"message\":\"ok\"}"
+                "{\"message\":\"ok\"}",
+                200,
             ),
         )
 
     @ParameterizedTest
     @MethodSource("getValidationDataForTest")
     @DatabaseSetup("/db/auth/user.xml")
-    fun registrationValidationTest(path: String, req: String, resp: String) {
+    fun registrationValidationTest(path: String, req: String, resp: String, code: Int) {
         mockMvc
             .perform(
                 MockMvcRequestBuilders.post(path)
@@ -55,7 +59,7 @@ class RegistrationValidationControllerTest : TestWithDb() {
                     .content(req)
             )
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.status().`is`(code))
             .andExpect(MockMvcResultMatchers.content().json(resp))
     }
 }
