@@ -1,5 +1,7 @@
 package ru.anarcom.octopus.controller.validation
 
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,18 +20,20 @@ class RegistrationValidationController(
     fun validateByUsername(
         @RequestBody usernameValidationDto: UsernameValidationDto
     ) = if (!userService.existsByUsername(usernameValidationDto.username)) {
-        ValidationMessageDto(OK_MESSAGE)
+        ResponseEntity.ok(ValidationMessageDto(OK_MESSAGE))
     } else {
-        ValidationMessageDto(ALREADY_USED_MESSAGE)
+        ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(ValidationMessageDto(ALREADY_USED_MESSAGE))
     }
 
     @PostMapping("email")
     fun validateByEmail(
         @RequestBody emailValidationDto: EmailValidationDto
     ) = if (!userService.existsByEmail(emailValidationDto.email)) {
-        ValidationMessageDto(OK_MESSAGE)
+        ResponseEntity.ok(ValidationMessageDto(OK_MESSAGE))
     } else {
-        ValidationMessageDto(ALREADY_USED_MESSAGE)
+        ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(ValidationMessageDto(ALREADY_USED_MESSAGE))
     }
 
     companion object {
