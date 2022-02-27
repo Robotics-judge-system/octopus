@@ -15,6 +15,7 @@ import ru.anarcom.octopus.TestWithDb
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.repo.UserRepository
 import ru.anarcom.octopus.util.TestClock
+import ru.anarcom.octopus.utilus.ResourceReader
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
@@ -57,14 +58,7 @@ class RegisterUserControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
-                MockMvcResultMatchers.content().json(
-                    "{\n" +
-                            "    \"id\": 2,\n" +
-                            "    \"username\": \"username_1\",\n" +
-                            "    \"name\": \"Василий\",\n" +
-                            "    \"email\": \"email@email.email\"\n" +
-                            "}"
-                )
+               MockMvcResultMatchers.content().json( ResourceReader.getResource("json/controllers/team/registrationUserTest.json"))
             )
         assert(userRepository.count().toInt() == 2)
 

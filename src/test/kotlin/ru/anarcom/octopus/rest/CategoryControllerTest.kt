@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import ru.anarcom.octopus.TestWithDb
 import ru.anarcom.octopus.util.TestClock
+import ru.anarcom.octopus.utilus.ResourceReader
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
@@ -58,45 +59,8 @@ class CategoryControllerTest : TestWithDb() {
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(
-                        "[" +
-                                "{" +
-                                "\"id\":11," +
-                                "\"competition_id\":1," +
-                                "\"competition\":{" +
-                                "\"id\":1," +
-                                "\"name\":\"name\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2017-03-31T09:30:20Z\"," +
-                                "\"date_to\":null," +
-                                "\"date_from\":null," +
-                                "\"status\":\"ACTIVE\"" +
-                                "}," +
-                                "\"name\":\"Senior\"," +
-                                "\"date_from\":null," +
-                                "\"date_to\":null," +
-                                "\"created\":\"2021-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2021-03-31T09:30:20Z\"," +
-                                "\"status\":\"ACTIVE\"" +
-                                "},{" +
-                                "\"id\":13," +
-                                "\"competition_id\":1," +
-                                "\"competition\":{" +
-                                "\"id\":1," +
-                                "\"name\":\"name\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2017-03-31T09:30:20Z\"," +
-                                "\"date_to\":null," +
-                                "\"date_from\":null," +
-                                "\"status\":\"ACTIVE\"" +
-                                "}," +
-                                "\"name\":\"Junior\"," +
-                                "\"date_from\":null," +
-                                "\"date_to\":null," +
-                                "\"created\":\"2018-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2018-03-31T09:30:20Z\"," +
-                                "\"status\":\"ACTIVE\"" +
-                                "}" +
-                                "]"
+                        ResourceReader.getResource("json/controllers/team/getCategoriesTest.json")
+
                     )
             )
     }
@@ -131,26 +95,7 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{\n" +
-                                "    \"id\": 1,\n" +
-                                "    \"competition_id\": 1,\n" +
-                                "    \"competition\": {\n" +
-                                "        \"id\": 1,\n" +
-                                "        \"name\": \"name\",\n" +
-                                "        \"created\": \"2017-03-31T09:30:20Z\",\n" +
-                                "        \"updated\": \"2017-03-31T09:30:20Z\",\n" +
-                                "        \"date_to\": null,\n" +
-                                "        \"date_from\": null,\n" +
-                                "        \"status\": \"ACTIVE\"\n" +
-                                "    },\n" +
-                                "    \"name\": \"Senior\",\n" +
-                                "    \"date_from\": \"2021-03-30T09:30:20Z\",\n" +
-                                "    \"date_to\": \"2021-03-31T09:30:20Z\",\n" +
-                                "    \"created\": \"2021-10-20T00:00:00Z\",\n" +
-                                "    \"updated\": \"2021-10-20T00:00:00Z\",\n" +
-                                "    \"status\": \"ACTIVE\"\n" +
-                                "}"
+                    .json(ResourceReader.getResource("json/controllers/team/createCategoryForCompetitionTest.json")
                     )
             )
     }
@@ -186,26 +131,7 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{\n" +
-                                "    \"id\": 1,\n" +
-                                "    \"competition_id\": 1,\n" +
-                                "    \"competition\": {\n" +
-                                "        \"id\": 1,\n" +
-                                "        \"name\": \"name\",\n" +
-                                "        \"created\": \"2017-03-31T09:30:20Z\",\n" +
-                                "        \"updated\": \"2017-03-31T09:30:20Z\",\n" +
-                                "        \"date_to\": null,\n" +
-                                "        \"date_from\": null,\n" +
-                                "        \"status\": \"ACTIVE\"\n" +
-                                "    },\n" +
-                                "    \"name\": \"Senior_1\",\n" +
-                                "    \"date_from\": \"2021-03-29T09:30:20Z\",\n" +
-                                "    \"date_to\": \"2021-03-30T09:30:20Z\",\n" +
-                                "    \"created\": \"2021-10-19T00:00:00Z\",\n" +
-                                "    \"updated\": \"2021-10-20T00:00:00Z\",\n" +
-                                "    \"status\": \"ACTIVE\"\n" +
-                                "}"
+                    .json( ResourceReader.getResource("json/controllers/team/updateCategoryTest.json")
                     )
             )
     }
@@ -233,26 +159,7 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{\n" +
-                                "    \"id\": 1,\n" +
-                                "    \"competition_id\": 1,\n" +
-                                "    \"competition\": {\n" +
-                                "        \"id\": 1,\n" +
-                                "        \"name\": \"name\",\n" +
-                                "        \"created\": \"2017-03-31T09:30:20Z\",\n" +
-                                "        \"updated\": \"2017-03-31T09:30:20Z\",\n" +
-                                "        \"date_to\": null,\n" +
-                                "        \"date_from\": null,\n" +
-                                "        \"status\": \"ACTIVE\"\n" +
-                                "    },\n" +
-                                "    \"name\": \"Senior\",\n" +
-                                "    \"date_from\": \"2021-03-30T09:30:20Z\",\n" +
-                                "    \"date_to\": \"2021-03-31T09:30:20Z\",\n" +
-                                "    \"created\": \"2021-10-19T00:00:00Z\",\n" +
-                                "    \"updated\": \"2021-10-20T00:00:00Z\",\n" +
-                                "    \"status\": \"DELETED\"\n" +
-                                "}"
+                    .json( ResourceReader.getResource("json/controllers/team/deleteCategoryTest.json")
                     )
             )
     }
@@ -276,26 +183,7 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{\n" +
-                                "    \"id\": 1,\n" +
-                                "    \"competition_id\": 1,\n" +
-                                "    \"competition\": {\n" +
-                                "        \"id\": 1,\n" +
-                                "        \"name\": \"name\",\n" +
-                                "        \"created\": \"2017-03-31T09:30:20Z\",\n" +
-                                "        \"updated\": \"2017-03-31T09:30:20Z\",\n" +
-                                "        \"date_to\": null,\n" +
-                                "        \"date_from\": null,\n" +
-                                "        \"status\": \"ACTIVE\"\n" +
-                                "    },\n" +
-                                "    \"name\": \"Senior\",\n" +
-                                "    \"date_from\": \"2021-03-30T09:30:20Z\",\n" +
-                                "    \"date_to\": \"2021-03-31T09:30:20Z\",\n" +
-                                "    \"created\": \"2021-10-19T00:00:00Z\",\n" +
-                                "    \"updated\": \"2021-10-19T00:00:00Z\",\n" +
-                                "    \"status\": \"ACTIVE\"\n" +
-                                "}"
+                    .json( ResourceReader.getResource("json/controllers/team/getOneByCompetitionAndId.json")
                     )
             )
     }

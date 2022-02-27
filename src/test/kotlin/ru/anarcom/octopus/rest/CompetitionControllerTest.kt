@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import ru.anarcom.octopus.TestWithDb
 import ru.anarcom.octopus.util.TestClock
+import ru.anarcom.octopus.utilus.ResourceReader
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
@@ -57,16 +58,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{" +
-                                "\"id\":1," +
-                                "\"name\":\"competition_name\"," +
-                                "\"created\":\"2021-09-01T00:00:00Z\"," +
-                                "\"updated\":\"2021-09-01T00:00:00Z\"," +
-                                "\"date_to\":null," +
-                                "\"date_from\":null" +
-                                "}"
-                    )
+                    .json( ResourceReader.getResource("json/controllers/team/createCompetitionTest.json"))
             )
     }
 
@@ -98,16 +90,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{" +
-                                "\"id\":1," +
-                                "\"name\":\"new_name\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2021-09-01T00:00:00Z\"," +
-                                "\"date_to\":null," +
-                                "\"date_from\":null" +
-                                "}"
-                    )
+                    .json( ResourceReader.getResource("json/controllers/team/updateCompetitionTest.json") )
             )
     }
 
@@ -130,36 +113,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "[" +
-                                "{" +
-                                "\"id\":1," +
-                                "\"name\":\"name1\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2017-03-31T09:30:20Z\"," +
-                                "\"date_to\":null,\"date_from\":null" +
-                                "},{" +
-                                "\"id\":3," +
-                                "\"name\":\"name3\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2017-03-31T09:30:20Z\"," +
-                                "\"date_to\":null,\"date_from\":null" +
-                                "},{" +
-                                "\"id\":5," +
-                                "\"name\":\"name5\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2017-03-31T09:30:20Z\"," +
-                                "\"date_to\":null,\"date_from\":null" +
-                                "},{" +
-                                "\"id\":7," +
-                                "\"name\":\"name7\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2017-03-31T09:30:20Z\"," +
-                                "\"date_to\":null," +
-                                "\"date_from\":null" +
-                                "}" +
-                                "]\n"
-                    )
+                    .json( ResourceReader.getResource("json/controllers/team/allMethodTest.json"))
             )
     }
 
@@ -182,15 +136,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{" +
-                                "\"id\":1," +
-                                "\"name\":\"name1\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2017-03-31T09:30:20Z\"," +
-                                "\"date_to\":null,\"date_from\":null" +
-                                "}"
-                    )
+                    .json( ResourceReader.getResource("json/controllers/team/getOneMethodTest.json"))
             )
     }
 
@@ -217,17 +163,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(
-                        "{" +
-                                "\"id\":1," +
-                                "\"name\":\"name1\"," +
-                                "\"created\":\"2017-03-31T09:30:20Z\"," +
-                                "\"updated\":\"2021-09-01T00:00:00Z\"," +
-                                "\"date_to\":null," +
-                                "\"date_from\":null," +
-                                "\"status\":\"DELETED\""+
-                                "}"
-                    )
+                    .json(ResourceReader.getResource("json/controllers/team/deleteMethodTest.json"))
             )
     }
 }
