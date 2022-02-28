@@ -1,0 +1,34 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet id="formula-protocols-0.0.1" author="Anarcom">
+    <createTable tableName="formulas_protocols">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="name" type="VARCHAR(200)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="protocol_description" type="jsonb">
+        <constraints nullable="true"/>
+      </column>
+      <column name="formula_description" type="jsonb">
+        <constraints nullable="true"/>
+      </column>
+      <column name="category_id" type="bigserial">
+        <constraints nullable="false" foreignKeyName="formula_protocol_category_fk"
+          references="categories(id)" deleteCascade="true"/>
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>
