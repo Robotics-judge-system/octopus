@@ -78,7 +78,6 @@ class FormulaProtocolController(
         )
     }
 
-    // update formulaProtocol
     @PostMapping("{formula-protocol-id}")
     fun update(
         @PathVariable("competition_id") competitionId: Long,
@@ -96,7 +95,6 @@ class FormulaProtocolController(
         if(flag){
            formulaProtocol = formulaProtocolService.save(formulaProtocol)
         }
-        return FormulaProtocolDto.fromFormulaProtocol(formulaProtocol   )
-
+        return FormulaProtocolDto.fromFormulaProtocol(formulaProtocol)
     }
 }
