@@ -32,7 +32,7 @@
     </createTable>
   </changeSet>
   <changeSet id="attempts-0.0.1" author="Anarcom">
-    <createTable tableName="attemps">
+    <createTable tableName="attempts">
       <column name="id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>
@@ -53,8 +53,11 @@
           references="categories(id)" deleteCascade="true"/>
       </column>
       <column name="formula_protocol_id" type="bigserial">
-        <constraints nullable="false" foreignKeyName="attempt_formulas_protocols_fk"
+        <constraints nullable="true" foreignKeyName="attempt_formulas_protocols_fk"
           references="formulas_protocols(id)" deleteCascade="true"/>
+      </column>
+      <column name="is_active" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
       </column>
     </createTable>
   </changeSet>

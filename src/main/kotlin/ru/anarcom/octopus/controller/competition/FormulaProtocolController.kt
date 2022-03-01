@@ -46,6 +46,10 @@ class FormulaProtocolController(
     ): FormulaProtocolDto {
         val category = categoryFacade.getOneCategory(categoryId, competitionId)
         var activeFormula = formulaProtocolRepository.getOneByCategoryAndId(category, formulaId)
+
+        /* TODO добавить валидацию, что данная формула не используется нигде,
+          (attempt results + attempt). status использования != DELETED */
+
         if (activeFormula.status != Status.DELETED) {
             activeFormula.status = Status.DELETED
             activeFormula = formulaProtocolService.save(activeFormula)
