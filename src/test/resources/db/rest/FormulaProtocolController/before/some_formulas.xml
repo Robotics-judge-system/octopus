@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <formulas_protocols
+    id="1"
+    name="basic_part"
+    created="2022-03-31 09:30:20 +0000"
+    updated="2022-03-31 09:30:20 +0000"
+    status="ACTIVE"
+    category_id="13"
+  />
+  <formulas_protocols
+    id="2"
+    name="with first additional task"
+    created="2022-03-31 09:30:20 +0000"
+    updated="2022-03-31 09:30:20 +0000"
+    status="ACTIVE"
+    category_id="13"
+  />
+  <formulas_protocols
+    id="3"
+    name="with mistake"
+    created="2022-03-31 09:30:20 +0000"
+    updated="2022-03-31 09:30:20 +0000"
+    status="DELETED"
+    category_id="13"
+  />
+</dataset>
