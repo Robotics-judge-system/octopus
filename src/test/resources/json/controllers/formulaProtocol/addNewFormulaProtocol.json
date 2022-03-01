@@ -1,0 +1,26 @@
+{
+  "id": 1,
+  "name": "additional task",
+  "category": {
+    "id": 13,
+    "competition_id": 1,
+    "competition": {
+      "id": 1,
+      "name": "name",
+      "created": "2017-03-31T09:30:20Z",
+      "updated": "2017-03-31T09:30:20Z",
+      "date_to": null,
+      "date_from": null,
+      "status": "ACTIVE"
+    },
+    "name": "Junior",
+    "date_from": null,
+    "date_to": null,
+    "created": "2018-03-31T09:30:20Z",
+    "updated": "2018-03-31T09:30:20Z",
+    "status": "ACTIVE"
+  },
+  "created": "2021-09-01T00:00:00Z",
+  "updated": "2021-09-01T00:00:00Z",
+  "status": "ACTIVE"
+}
