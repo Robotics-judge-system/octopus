@@ -22,7 +22,7 @@ class Attempt(
 
     @ManyToOne
     @JoinColumn(name = "formula_protocol_id")
-    var formulaProtocol: FormulaProtocol?,
+    var formulaProtocol: FormulaProtocol? = null,
 
     @Column(name = "is_active")
     var isActive: Boolean = false,

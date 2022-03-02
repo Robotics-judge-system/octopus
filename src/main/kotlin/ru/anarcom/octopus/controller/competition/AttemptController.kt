@@ -2,8 +2,10 @@ package ru.anarcom.octopus.controller.competition
 
 import org.springframework.web.bind.annotation.*
 import ru.anarcom.octopus.dto.competition.AttemptDto
+import ru.anarcom.octopus.entity.Attempt
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.exceptions.CannotActivateException
+import ru.anarcom.octopus.exceptions.ValidationException
 import ru.anarcom.octopus.facade.CategoryFacade
 import ru.anarcom.octopus.repo.AttemptRepository
 import ru.anarcom.octopus.repo.FormulaProtocolRepository
@@ -17,48 +19,63 @@ class AttemptController(
     private val categoryFacade: CategoryFacade,
     private val formulaProtocolRepository: FormulaProtocolRepository,
 ) {
-    // get all
     @GetMapping
     fun gelAll(
         @PathVariable("competition_id") comId: Long,
         @PathVariable("category_id") catId: Long,
     ): List<AttemptDto> {
-        val category = categoryFacade.getOneCategory(comId, catId)
+        val category = categoryFacade.getOneCategory(catId, comId)
         return AttemptDto.fromAttempt(
             attemptRepository.getAllByCategoryAndStatusNot(category, Status.DELETED)
         )
     }
 
-    // get one
     @GetMapping("{attempt_id}")
     fun getOne(
         @PathVariable("competition_id") comId: Long,
         @PathVariable("category_id") catId: Long,
         @PathVariable("attempt_id") attemptId: Long,
     ): AttemptDto {
-        val category = categoryFacade.getOneCategory(comId, catId)
+        val category = categoryFacade.getOneCategory(catId, comId)
+        val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         return AttemptDto.fromAttempt(
-            attemptRepository.getOneByCategoryAndId(category, attemptId)
+            attempt
         )
     }
 
-    // create new
     @PostMapping
     fun addNew(
         @PathVariable("competition_id") comId: Long,
         @PathVariable("category_id") catId: Long,
-    ) = "add new"
+        @RequestBody attemptDto: AttemptDto,
+    ): AttemptDto {
+        if (attemptDto.name.isBlank() || attemptDto.name.isEmpty()) {
+            throw ValidationException("name should not be blank or empty")
+        }
+        val category = categoryFacade.getOneCategory(catId, comId)
+        return AttemptDto.fromAttempt(
+            attemptService.saveNew(
+                Attempt(
+                    id = 0,
+                    category = category,
+                    isActive = false,
+                    name = attemptDto.name,
+                    status = Status.ACTIVE
+                )
+            )
+        )
+    }
 
-    // delete
     @DeleteMapping("{attempt_id}")
     fun delete(
         @PathVariable("competition_id") comId: Long,
         @PathVariable("category_id") catId: Long,
         @PathVariable("attempt_id") attemptId: Long,
     ): AttemptDto {
-        val category = categoryFacade.getOneCategory(comId, catId)
-        var attempt = attemptRepository.getOneByCategoryAndId(category, attemptId)
+        val category = categoryFacade.getOneCategory(catId, comId)
+        var attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         if (attempt.status != Status.DELETED) {
+            attempt.status = Status.DELETED
             attempt = attemptService.save(attempt)
         }
         return AttemptDto.fromAttempt(attempt)
@@ -70,7 +87,19 @@ class AttemptController(
         @PathVariable("competition_id") comId: Long,
         @PathVariable("category_id") catId: Long,
         @PathVariable("attempt_id") attemptId: Long,
-    ) = "update"
+        @RequestBody attemptDto: AttemptDto,
+    ): AttemptDto {
+        val category = categoryFacade.getOneCategory(catId, comId)
+        val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
+        if(attemptDto.name.isNotBlank() && attemptDto.name.isNotEmpty()){
+            attempt.name = attemptDto.name
+        } else {
+            throw  ValidationException("name should not be empty or blank")
+        }
+        return AttemptDto.fromAttempt(
+            attemptService.save(attempt)
+        )
+    }
 
     // formulaProtocol to this
     // TODO добавить способ поставить null для formulaProtocol (действие должно работать, если нет
@@ -83,7 +112,7 @@ class AttemptController(
         @PathVariable("formula_protocol_id") formulaProtocolId: Long,
     ): AttemptDto {
         val category = categoryFacade.getOneCategory(comId, catId)
-        val attempt = attemptRepository.getOneByCategoryAndId(category, attemptId)
+        val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         val formula = formulaProtocolRepository.getOneByCategoryAndId(category, formulaProtocolId)
         attempt.formulaProtocol = formula
         return AttemptDto.fromAttempt(
@@ -100,7 +129,7 @@ class AttemptController(
         @PathVariable("status") newStatus: String,
     ): AttemptDto? {
         val category = categoryFacade.getOneCategory(comId, catId)
-        val attempt = attemptRepository.getOneByCategoryAndId(category, attemptId)
+        val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         if (attempt.formulaProtocol == null) {
             throw CannotActivateException("formula-protocol is null")
         }

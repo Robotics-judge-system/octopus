@@ -2,6 +2,8 @@ package ru.anarcom.octopus.service.impl
 
 import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.Attempt
+import ru.anarcom.octopus.entity.Category
+import ru.anarcom.octopus.exceptions.NotFoundException
 import ru.anarcom.octopus.repo.AttemptRepository
 import ru.anarcom.octopus.service.AttemptService
 import java.time.Clock
@@ -20,4 +22,9 @@ class AttemptServiceImpl(
         attempt.created = clock.instant()
         return save(attempt)
     }
+
+    override fun findAttemptByCategoryAndIdOrThrow(category: Category, id: Long): Attempt =
+        attemptRepository.findOneByCategoryAndId(category, id)
+            ?: throw NotFoundException("No such attempt")
+
 }

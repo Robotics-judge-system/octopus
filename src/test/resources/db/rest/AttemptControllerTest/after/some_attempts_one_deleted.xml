@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <attempts
+    id="1"
+    name="attempt 1"
+    category_id="11"
+    created="2022-03-02 00:00:00 +0000"
+    updated="2022-03-03 00:00:00 +0000"
+    is_active="false"
+    status="DELETED"
+  />
+  <attempts
+    id="2"
+    name="attempt 2"
+    category_id="11"
+    created="2022-03-02 00:00:00 +0000"
+    updated="2022-03-02 00:00:00 +0000"
+    is_active="false"
+    status="ACTIVE"
+  />
+  <attempts
+    id="3"
+    name="attempt 3"
+    category_id="11"
+    created="2022-03-02 00:00:00 +0000"
+    updated="2022-03-02 00:00:00 +0000"
+    is_active="false"
+    status="DELETED"
+  />
+  <attempts
+    id="4"
+    name="attempt 4"
+    category_id="12"
+    created="2022-03-02 00:00:00 +0000"
+    updated="2022-03-02 00:00:00 +0000"
+    is_active="false"
+    status="ACTIVE"
+  />
+</dataset>

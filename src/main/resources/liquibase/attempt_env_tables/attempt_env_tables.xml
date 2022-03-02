@@ -52,7 +52,7 @@
         <constraints nullable="false" foreignKeyName="attempt_category_fk"
           references="categories(id)" deleteCascade="true"/>
       </column>
-      <column name="formula_protocol_id" type="bigserial">
+      <column name="formula_protocol_id" type="integer">
         <constraints nullable="true" foreignKeyName="attempt_formulas_protocols_fk"
           references="formulas_protocols(id)" deleteCascade="true"/>
       </column>

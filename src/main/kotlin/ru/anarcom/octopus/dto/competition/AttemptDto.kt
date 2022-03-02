@@ -9,8 +9,8 @@ import java.time.Instant
 class AttemptDto(
     var id: Long = 0,
     var name: String = "",
-    var category: CategoryDto,
-    var formulaProtocol: FormulaProtocolDto?,
+    var category: CategoryDto? = null,
+    var formulaProtocol: FormulaProtocolDto? = null,
 
     @field:JsonProperty("is_active")
     var isActive: Boolean = false,

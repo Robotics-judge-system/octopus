@@ -7,5 +7,5 @@ import ru.anarcom.octopus.entity.Status
 
 interface AttemptRepository : JpaRepository<Attempt, Long> {
     fun getAllByCategoryAndStatusNot(category: Category, status: Status): List<Attempt>
-    fun getOneByCategoryAndId(category: Category, id: Long): Attempt
+    fun findOneByCategoryAndId(category: Category, id: Long): Attempt?
 }
