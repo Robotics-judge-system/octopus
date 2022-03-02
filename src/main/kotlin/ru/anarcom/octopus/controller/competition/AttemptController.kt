@@ -81,7 +81,6 @@ class AttemptController(
         return AttemptDto.fromAttempt(attempt)
     }
 
-    // update
     @PostMapping("{attempt_id}")
     fun update(
         @PathVariable("competition_id") comId: Long,
@@ -111,12 +110,15 @@ class AttemptController(
         @PathVariable("attempt_id") attemptId: Long,
         @PathVariable("formula_protocol_id") formulaProtocolId: Long,
     ): AttemptDto {
-        val category = categoryFacade.getOneCategory(comId, catId)
+        val category = categoryFacade.getOneCategory(catId, comId)
         val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         val formula = formulaProtocolRepository.getOneByCategoryAndId(category, formulaProtocolId)
+        if (formula.status == Status.DELETED) {
+            throw ValidationException("Formula-protocol is already deleted")
+        }
         attempt.formulaProtocol = formula
         return AttemptDto.fromAttempt(
-            attemptRepository.save(attempt)
+            attemptService.save(attempt)
         )
     }
 
@@ -128,7 +130,7 @@ class AttemptController(
         @PathVariable("attempt_id") attemptId: Long,
         @PathVariable("status") newStatus: String,
     ): AttemptDto? {
-        val category = categoryFacade.getOneCategory(comId, catId)
+        val category = categoryFacade.getOneCategory(catId, comId)
         val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         if (attempt.formulaProtocol == null) {
             throw CannotActivateException("formula-protocol is null")

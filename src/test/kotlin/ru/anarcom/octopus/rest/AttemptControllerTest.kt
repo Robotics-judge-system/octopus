@@ -313,10 +313,73 @@ class AttemptControllerTest : TestWithDb() {
 //            .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                   "{\"human_message\":\"Unknown Exception.\"," +
-                           "\"exception_message\":\"name should not be empty or blank\"}"
+                    "{\"human_message\":\"Unknown Exception.\"," +
+                            "\"exception_message\":\"name should not be empty or blank\"}"
                 )
             )
     }
 
+    @Test
+    @DisplayName("add formula-protocol to attempt")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/some_categories.xml",
+            "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/AttemptControllerTest/after/after_adding_formula_protocol_to_attempt.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT,
+    )
+    fun addFormulaProtocolToAttemptTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/11/attempt/1/attach/formula-protocol/1"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(
+                MockMvcResultMatchers.content().json(
+                    ResourceReader.getResource(
+                        "json/controllers/attempt/addFormulaProtocol.json"
+                    )
+                )
+            )
+    }
+
+    @Test
+    @DisplayName("add formula-protocol to attempt with deleted status")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/some_categories.xml",
+            "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT,
+    )
+    fun addFormulaProtocolToAttemptWithDeletedStatusTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/11/attempt/1/attach/formula-protocol/2"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            // TODO add http code
+//            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(
+                MockMvcResultMatchers.content().json(
+                    "{\"human_message\":\"Unknown Exception.\"," +
+                            "\"exception_message\":\"Formula-protocol is already deleted\"}"
+                )
+            )
+    }
 }
