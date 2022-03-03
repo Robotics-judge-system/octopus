@@ -132,6 +132,9 @@ class AttemptController(
     ): AttemptDto? {
         val category = categoryFacade.getOneCategory(catId, comId)
         val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
+        if(attempt.status == Status.DELETED){
+            throw CannotActivateException("attempt is deleted")
+        }
         if (attempt.formulaProtocol == null) {
             throw CannotActivateException("formula-protocol is null")
         }
@@ -146,8 +149,11 @@ class AttemptController(
                 attempt.isActive = true
             } else {
                 // TODO проверка на наличие существующих результатов
+                attempt.isActive = false
             }
         }
-        return AttemptDto.fromAttempt(attempt)
+        return AttemptDto.fromAttempt(
+            attemptService.save(attempt)
+        )
     }
 }

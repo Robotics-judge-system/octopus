@@ -382,4 +382,132 @@ class AttemptControllerTest : TestWithDb() {
                 )
             )
     }
+
+    @Test
+    @DisplayName("normal attempt activation")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/some_categories.xml",
+            "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/AttemptControllerTest/after/after_normal_activation.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT,
+    )
+    fun normalAttemptActivationTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/11/attempt/2/activate"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            // TODO add http code
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(
+                MockMvcResultMatchers.content().json(
+                    ResourceReader.getResource(
+                        "json/controllers/attempt/normalAttemptActivation.json"
+                    )
+                )
+            )
+    }
+
+    @Test
+    @DisplayName("attempt activation with null in formula-protocol")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/some_categories.xml",
+            "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT,
+    )
+    fun nullInFormulaProtocolActivationTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/11/attempt/1/activate"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+        // TODO add http code
+//            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(
+                MockMvcResultMatchers.content().json(
+                    "{\"human_message\":\"Unknown Exception.\"," +
+                            "\"exception_message\":\"formula-protocol is null\"}"
+                )
+            )
+        //
+    }
+
+    @Test
+    @DisplayName("deleted attempt activation")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/some_categories.xml",
+            "/db/rest/AttemptControllerTest/before/some_attempt_for_activation.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/AttemptControllerTest/before/some_attempt_for_activation.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT,
+    )
+    fun activationOfDeletedAttemptTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/11/attempt/4/activate"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+//            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(
+                MockMvcResultMatchers.content().json(
+                    "{\"human_message\":\"Unknown Exception.\"," +
+                            "\"exception_message\":\"attempt is deleted\"}"
+                )
+            )
+    }
+    @Test
+    @DisplayName("normal deactivation")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/some_categories.xml",
+            "/db/rest/AttemptControllerTest/before/some_attempt_for_activation.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/AttemptControllerTest/after/after_deactivation.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT,
+    )
+    fun normalDeactivationTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/11/attempt/3/deactivate"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(
+                MockMvcResultMatchers.content().json(
+                    ResourceReader.getResource(
+                        "json/controllers/attempt/afterNormalDeactivation.json"
+                    )
+                )
+            )
+    }
 }
