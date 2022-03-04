@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <attempts_results
+    id="1"
+    created="2022-03-31 09:30:20 +0000"
+    updated="2022-03-31 09:30:20 +0000"
+    status="ACTIVE"
+
+    team_id="1"
+    formula_protocol_id="1"
+    last_user_id="1"
+    attempt_id="3"
+    calculation_status="NOT_CALCULATED"
+    attempt_score="10"
+    attempt_time="100"
+    attempt_data='{"hello":"hello"}'
+  />
+</dataset>
+

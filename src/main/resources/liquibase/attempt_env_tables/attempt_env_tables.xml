@@ -61,4 +61,52 @@
       </column>
     </createTable>
   </changeSet>
+  <changeSet id="attempt-results-0.0.1" author="Anarcom">
+    <createTable tableName="attempts_results">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="team_id" type="bigserial">
+        <constraints nullable="true" foreignKeyName="attempts_results_test_id_fk"
+          references="formulas_protocols(id)" deleteCascade="true"/>
+      </column>
+      <column name="formula_protocol_id" type="bigserial">
+        <constraints nullable="true" foreignKeyName="attempts_results_formulas_protocols_fk"
+          references="formulas_protocols(id)" deleteCascade="true"/>
+      </column>
+      <column name="last_user_id" type="bigserial">
+        <constraints nullable="true" foreignKeyName="attempts_results_user_fk"
+          references="users(id)" deleteCascade="true"/>
+      </column>
+      <column name="attempt_id" type="bigserial">
+        <constraints nullable="true" foreignKeyName="attempts_results_attempt_fk"
+          references="attempts(id)" deleteCascade="true"/>
+      </column>
+
+
+      <column name="calculation_status" type="VARCHAR(20)" defaultValue="NOT_CALCULATED">
+        <constraints nullable="false"/>
+      </column>
+      <column name="attempt_time" type="integer">
+        <constraints nullable="true"/>
+      </column>
+      <column name="attempt_score" type="integer">
+        <constraints nullable="true"/>
+      </column>
+
+      <column name="attempt_data" type="jsonb">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
 </databaseChangeLog>

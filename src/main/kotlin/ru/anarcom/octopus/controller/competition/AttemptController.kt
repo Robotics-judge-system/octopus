@@ -100,7 +100,6 @@ class AttemptController(
         )
     }
 
-    // formulaProtocol to this
     // TODO добавить способ поставить null для formulaProtocol (действие должно работать, если нет
     // результатов или их статус == DELETED)
     @PostMapping("{attempt_id}/attach/formula-protocol/{formula_protocol_id}")
@@ -122,7 +121,6 @@ class AttemptController(
         )
     }
 
-    // activate/deactivate
     @PostMapping("{attempt_id}/{status}")
     fun activateDeactivate(
         @PathVariable("competition_id") comId: Long,
@@ -145,12 +143,13 @@ class AttemptController(
         }
 
         if (isActive != attempt.isActive) {
-            if(isActive){
-                attempt.isActive = true
-            } else {
-                // TODO проверка на наличие существующих результатов
-                attempt.isActive = false
-            }
+//            if(isActive){
+//                attempt.isActive = true
+//            } else {
+//                // TODO проверка на наличие существующих результатов
+//                attempt.isActive = false
+//            }
+            attempt.isActive = isActive
         }
         return AttemptDto.fromAttempt(
             attemptService.save(attempt)

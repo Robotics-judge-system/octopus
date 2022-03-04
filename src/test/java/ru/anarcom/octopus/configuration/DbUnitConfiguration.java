@@ -3,10 +3,10 @@ package ru.anarcom.octopus.configuration;
 import com.github.springtestdbunit.bean.DatabaseConfigBean;
 import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 import javax.sql.DataSource;
-import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.anarcom.octopus.NewPostgresqlDataTypeFactory;
 
 @Configuration
 public class DbUnitConfiguration {
@@ -17,7 +17,7 @@ public class DbUnitConfiguration {
   @Bean
   public DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection() {
     DatabaseConfigBean bean = new DatabaseConfigBean();
-    bean.setDatatypeFactory(new PostgresqlDataTypeFactory());
+    bean.setDatatypeFactory(new NewPostgresqlDataTypeFactory());
 
     DatabaseDataSourceConnectionFactoryBean dbConnFact =
         new DatabaseDataSourceConnectionFactoryBean(dataSource);
