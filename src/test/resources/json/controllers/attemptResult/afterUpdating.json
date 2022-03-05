@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "created": "2022-03-04T00:00:00Z",
+  "updated": "2022-03-05T00:00:00Z",
+  "status": "ACTIVE",
+  "team_id": 1,
+  "formula_protocol_id": 1,
+  "last_edited_by_id": 1,
+  "attempt_id": 3,
+  "calculation_status": "CALCULATED",
+  "attempt_time": 123,
+  "attempt_score": 14,
+  "attempt_data": {
+    "a": "13",
+    "b": "12"
+  }
+}

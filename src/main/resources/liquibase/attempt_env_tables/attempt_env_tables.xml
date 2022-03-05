@@ -2,7 +2,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet id="formula-protocols-0.0.1" author="Anarcom">
+  <changeSet id="attempt-env-0.0.1" author="Anarcom">
     <createTable tableName="formulas_protocols">
       <column name="id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
@@ -31,7 +31,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet id="attempts-0.0.1" author="Anarcom">
+  <changeSet id="attempt-env-0.0.2" author="Anarcom">
     <createTable tableName="attempts">
       <column name="id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
@@ -61,7 +61,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet id="attempt-results-0.0.1" author="Anarcom">
+  <changeSet id="attempt-env-0.0.3" author="Anarcom">
     <createTable tableName="attempts_results">
       <column name="id" type="bigserial" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>

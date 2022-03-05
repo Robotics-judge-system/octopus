@@ -78,8 +78,8 @@ class AttemptResultController(
             attemptResult.attemptScore = 12
             attemptResult.attemptTime = 124
         }
-        attemptResult.calculationStatus = AttemptResultCalculationStatus.CALCULATED
 
+        attemptResult.calculationStatus = AttemptResultCalculationStatus.CALCULATED
         return AttemptResultDto.fromAttemptResult(
             attemptResultService.save(attemptResult)
         )
@@ -91,7 +91,6 @@ class AttemptResultController(
         @PathVariable("category_id") categoryId: Long,
         @PathVariable("team_id") teamId: Long,
         @PathVariable("attempt_id") attemptId: Long,
-        @RequestBody attemptData: Map<String, String>,
         principal: Principal,
     ): AttemptResultDto {
         val category = categoryFacade.getOneCategory(categoryId, competitionId)
@@ -110,7 +109,9 @@ class AttemptResultController(
         val attemptResult = attemptResultRepository.getByAttemptAndTeam(attempt, team)
         attemptResult.status = Status.DELETED
         attemptResult.user = user
-        return AttemptResultDto.fromAttemptResult(attemptResult)
+        return AttemptResultDto.fromAttemptResult(
+            attemptResultService.save(attemptResult)
+        )
     }
 
     //    getAllByTeam
@@ -127,15 +128,14 @@ class AttemptResultController(
         // TODO выбрасывать 404, если команда не принадлежит категории (+ я бы изменил метод репы)
         return AttemptResultDto.fromAttemptResult(results)
     }
-//    get one by team and attempt
 
+    //    get one by team and attempt
     @GetMapping("{attempt_id}")
     fun getByTeamAndAttempt(
         @PathVariable("competition_id") competitionId: Long,
         @PathVariable("category_id") categoryId: Long,
         @PathVariable("team_id") teamId: Long,
         @PathVariable("attempt_id") attemptId: Long,
-        @RequestBody attemptData: Map<String, String>,
     ): AttemptResultDto {
         val category = categoryFacade.getOneCategory(categoryId, competitionId)
         val team = teamRepository.findById(teamId).orElseThrow()
@@ -144,10 +144,15 @@ class AttemptResultController(
         if (!attemptResultRepository.existsByAttemptAndTeam(attempt, team)) {
             throw NotFoundException("No attemptResults for this team in that attempt")
         }
-
-        return AttemptResultDto.fromAttemptResult(
-            attemptResultRepository.getByAttemptAndTeam(attempt, team)
+        // TODO throw if null
+        val attemptResult = attemptResultRepository.getByAttemptAndTeamAndStatusNot(
+            attempt,
+            team,
+            Status.DELETED
         )
 
+        return AttemptResultDto.fromAttemptResult(
+            attemptResult
+        )
     }
 }
