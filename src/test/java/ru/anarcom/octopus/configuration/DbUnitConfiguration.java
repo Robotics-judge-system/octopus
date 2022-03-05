@@ -6,7 +6,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.anarcom.octopus.NewPostgresqlDataTypeFactory;
+import ru.anarcom.octopus.JsonbDataFactory;
 
 @Configuration
 public class DbUnitConfiguration {
@@ -17,7 +17,7 @@ public class DbUnitConfiguration {
   @Bean
   public DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection() {
     DatabaseConfigBean bean = new DatabaseConfigBean();
-    bean.setDatatypeFactory(new NewPostgresqlDataTypeFactory());
+    bean.setDatatypeFactory(new JsonbDataFactory());
 
     DatabaseDataSourceConnectionFactoryBean dbConnFact =
         new DatabaseDataSourceConnectionFactoryBean(dataSource);
