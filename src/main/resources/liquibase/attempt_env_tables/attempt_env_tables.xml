@@ -1,0 +1,112 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet id="attempt-env-0.0.1" author="Anarcom">
+    <createTable tableName="formulas_protocols">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="name" type="VARCHAR(200)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="protocol_description" type="jsonb">
+        <constraints nullable="true"/>
+      </column>
+      <column name="formula_description" type="jsonb">
+        <constraints nullable="true"/>
+      </column>
+      <column name="category_id" type="bigserial">
+        <constraints nullable="false" foreignKeyName="formula_protocol_category_fk"
+          references="categories(id)" deleteCascade="true"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet id="attempt-env-0.0.2" author="Anarcom">
+    <createTable tableName="attempts">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="name" type="VARCHAR(200)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="category_id" type="bigserial">
+        <constraints nullable="false" foreignKeyName="attempt_category_fk"
+          references="categories(id)" deleteCascade="true"/>
+      </column>
+      <column name="formula_protocol_id" type="integer">
+        <constraints nullable="true" foreignKeyName="attempt_formulas_protocols_fk"
+          references="formulas_protocols(id)" deleteCascade="true"/>
+      </column>
+      <column name="is_active" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet id="attempt-env-0.0.3" author="Anarcom">
+    <createTable tableName="attempts_results">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="created" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated" type="TIMESTAMPTZ" defaultValueComputed="timezone('utc', now())">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="team_id" type="bigserial">
+        <constraints nullable="true" foreignKeyName="attempts_results_test_id_fk"
+          references="formulas_protocols(id)" deleteCascade="true"/>
+      </column>
+      <column name="formula_protocol_id" type="bigserial">
+        <constraints nullable="true" foreignKeyName="attempts_results_formulas_protocols_fk"
+          references="formulas_protocols(id)" deleteCascade="true"/>
+      </column>
+      <column name="last_user_id" type="bigserial">
+        <constraints nullable="true" foreignKeyName="attempts_results_user_fk"
+          references="users(id)" deleteCascade="true"/>
+      </column>
+      <column name="attempt_id" type="bigserial">
+        <constraints nullable="true" foreignKeyName="attempts_results_attempt_fk"
+          references="attempts(id)" deleteCascade="true"/>
+      </column>
+
+
+      <column name="calculation_status" type="VARCHAR(20)" defaultValue="NOT_CALCULATED">
+        <constraints nullable="false"/>
+      </column>
+      <column name="attempt_time" type="integer">
+        <constraints nullable="true"/>
+      </column>
+      <column name="attempt_score" type="integer">
+        <constraints nullable="true"/>
+      </column>
+
+      <column name="attempt_data" type="jsonb">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>

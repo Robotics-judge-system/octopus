@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "created": "2022-03-04T00:00:00Z",
+    "updated": "2022-03-04T00:00:00Z",
+    "status": "ACTIVE",
+    "team_id": 1,
+    "formula_protocol_id": 1,
+    "last_edited_by_id": 1,
+    "attempt_id": 3,
+    "calculation_status": "CALCULATED",
+    "attempt_time": 123,
+    "attempt_score": 12,
+    "attempt_data": {
+      "a": "11",
+      "b": "12"
+    }
+  },
+  {
+    "id": 2,
+    "created": "2022-03-04T00:00:00Z",
+    "updated": "2022-03-04T00:00:00Z",
+    "status": "DELETED",
+    "team_id": 1,
+    "formula_protocol_id": 1,
+    "last_edited_by_id": 1,
+    "attempt_id": 2,
+    "calculation_status": "CALCULATED",
+    "attempt_time": 123,
+    "attempt_score": 12,
+    "attempt_data": {
+      "a": "11",
+      "b": "12"
+    }
+  }
+]

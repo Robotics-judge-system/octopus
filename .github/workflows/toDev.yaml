@@ -1,4 +1,4 @@
-name: To prod
+name: To dev
 # Task for sending file to dev server. Only by action button.
 on:
   workflow_dispatch:
