@@ -209,12 +209,12 @@ class FormulaProtocolControllerTest : TestWithDb() {
                 .content("{\"name\":\"\"}")
         )
             .andDo(MockMvcResultHandlers.print())
-                // TODO добавить проверку на http код ошибки
+            .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(
-                        "{\"human_message\":\"Unknown Exception.\"," +
-                                "\"exception_message\":\"field 'name' should not be null\"}"
+                        "{\"human_message\":\"field 'name' should not be null\"," +
+                                "\"exception_message\":\"field 'name' should not be null\"}\n"
                     )
             )
     }

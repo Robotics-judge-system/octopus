@@ -92,12 +92,11 @@ class AttemptControllerTest : TestWithDb() {
                 )
         )
             .andDo(MockMvcResultHandlers.print())
-            // TODO добавить проверку на код возврата
-//            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"Unknown Exception.\"," +
-                            "\"exception_message\":\"name should not be blank or empty\"}"
+                    "{\"human_message\":\"name should not be blank or empty\"," +
+                            "\"exception_message\":\"name should not be blank or empty\"}\n"
                 )
             )
     }
@@ -309,12 +308,11 @@ class AttemptControllerTest : TestWithDb() {
                 )
         )
             .andDo(MockMvcResultHandlers.print())
-            // TODO проставить http код
-//            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"Unknown Exception.\"," +
-                            "\"exception_message\":\"name should not be empty or blank\"}"
+                    "{\"human_message\":\"name should not be empty or blank\"," +
+                            "\"exception_message\":\"name should not be empty or blank\"}\n"
                 )
             )
     }
@@ -373,12 +371,11 @@ class AttemptControllerTest : TestWithDb() {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
-            // TODO add http code
-//            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"Unknown Exception.\"," +
-                            "\"exception_message\":\"Formula-protocol is already deleted\"}"
+                    "{\"human_message\":\"Formula-protocol is already deleted\"," +
+                            "\"exception_message\":\"Formula-protocol is already deleted\"}\n"
                 )
             )
     }
@@ -438,15 +435,13 @@ class AttemptControllerTest : TestWithDb() {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
-        // TODO add http code
-//            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"Unknown Exception.\"," +
+                    "{\"human_message\":\"formula-protocol is null\"," +
                             "\"exception_message\":\"formula-protocol is null\"}"
                 )
             )
-        //
     }
 
     @Test
@@ -471,10 +466,10 @@ class AttemptControllerTest : TestWithDb() {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
-//            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"Unknown Exception.\"," +
+                    "{\"human_message\":\"attempt is deleted\"," +
                             "\"exception_message\":\"attempt is deleted\"}"
                 )
             )

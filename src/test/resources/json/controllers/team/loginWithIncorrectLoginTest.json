@@ -1,4 +1,5 @@
 {
-  "human_message": "Login or password is incorrect.",
+  "human_message": "login or password incorrect",
   "exception_message": "Invalid username or password."
 }
+
