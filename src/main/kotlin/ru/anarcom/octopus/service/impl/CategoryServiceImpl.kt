@@ -5,6 +5,7 @@ import ru.anarcom.octopus.dto.competition.CategoryDto
 import ru.anarcom.octopus.entity.Category
 import ru.anarcom.octopus.entity.Competition
 import ru.anarcom.octopus.entity.Status
+import ru.anarcom.octopus.exceptions.NotFoundException
 import ru.anarcom.octopus.repo.CategoryRepository
 import ru.anarcom.octopus.service.CategoryService
 import java.time.Clock
@@ -64,8 +65,9 @@ class CategoryServiceImpl(
             Status.ACTIVE,
         )
 
-    override fun getOneCategory(categoryId: Long, competition: Competition): Category =
-        categoryRepository.getOneByIdAndCompetition(categoryId, competition)
+    override fun getOneCategoryOrThrow(categoryId: Long, competition: Competition): Category =
+        categoryRepository.findOneByIdAndCompetition(categoryId, competition)
+            ?: throw NotFoundException("no such attempt for category and competition")
 
     /**
      * updates instant and updates 'updated' field
