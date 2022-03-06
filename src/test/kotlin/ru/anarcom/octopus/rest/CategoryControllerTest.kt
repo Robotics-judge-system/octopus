@@ -63,6 +63,7 @@ class CategoryControllerTest : TestWithDb() {
 
                     )
             )
+            .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
@@ -98,6 +99,7 @@ class CategoryControllerTest : TestWithDb() {
                     .json(ResourceReader.getResource("json/controllers/team/createCategoryForCompetitionTest.json")
                     )
             )
+            .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
@@ -134,6 +136,7 @@ class CategoryControllerTest : TestWithDb() {
                     .json( ResourceReader.getResource("json/controllers/team/updateCategoryTest.json")
                     )
             )
+            .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
@@ -162,6 +165,7 @@ class CategoryControllerTest : TestWithDb() {
                     .json( ResourceReader.getResource("json/controllers/team/deleteCategoryTest.json")
                     )
             )
+            .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
@@ -186,5 +190,30 @@ class CategoryControllerTest : TestWithDb() {
                     .json( ResourceReader.getResource("json/controllers/team/getOneByCompetitionAndId.json")
                     )
             )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    @DisplayName("Create 0 category test")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+        ]
+    )
+    fun getZeroCategoriesTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(
+                "/api/v1/competition/1/category"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json( "[]"
+                    )
+            )
+            .andExpect(MockMvcResultMatchers.status().isOk)
     }
 }
