@@ -37,7 +37,7 @@ interface CategoryService {
     /**
      * Gets one category by id from competition.
      */
-    fun getOneCategory(
+    fun getOneCategoryOrThrow(
         categoryId: Long,
         competition: Competition
     ):Category

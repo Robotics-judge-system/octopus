@@ -43,7 +43,7 @@ class CategoryFacadeImpl(
         )
 
     override fun getOneCategory(categoryId: Long, competitionId: Long): Category =
-        categoryService.getOneCategory(
+        categoryService.getOneCategoryOrThrow(
             categoryId,
             competitionService.getById(competitionId)
         )
