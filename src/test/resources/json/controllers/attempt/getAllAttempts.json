@@ -21,7 +21,7 @@
       "updated": "2021-03-31T09:30:20Z",
       "status": "ACTIVE"
     },
-    "formulaProtocol": null,
+    "formula_protocol": null,
     "is_active": false,
     "created": "2022-03-02T00:00:00Z",
     "updated": "2022-03-02T00:00:00Z",
@@ -49,7 +49,7 @@
       "updated": "2021-03-31T09:30:20Z",
       "status": "ACTIVE"
     },
-    "formulaProtocol": null,
+    "formula_protocol": null,
     "is_active": false,
     "created": "2022-03-02T00:00:00Z",
     "updated": "2022-03-02T00:00:00Z",

@@ -20,7 +20,7 @@
     "updated": "2021-03-31T09:30:20Z",
     "status": "ACTIVE"
   },
-  "formulaProtocol": {
+  "formula_protocol": {
     "id": 1,
     "name": "basic_part",
     "category": {

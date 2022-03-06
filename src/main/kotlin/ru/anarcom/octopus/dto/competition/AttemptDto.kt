@@ -10,6 +10,7 @@ class AttemptDto(
     var id: Long = 0,
     var name: String = "",
     var category: CategoryDto? = null,
+    @field:JsonProperty("formula_protocol")
     var formulaProtocol: FormulaProtocolDto? = null,
 
     @field:JsonProperty("is_active")
