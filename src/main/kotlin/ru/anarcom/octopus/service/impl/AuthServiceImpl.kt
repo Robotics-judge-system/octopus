@@ -1,12 +1,12 @@
 package ru.anarcom.octopus.service.impl
 
-import javassist.NotFoundException
 import org.apache.commons.lang3.RandomStringUtils
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.anarcom.octopus.entity.Auth
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
+import ru.anarcom.octopus.exceptions.NotFoundException
 import ru.anarcom.octopus.repo.AuthRepository
 import ru.anarcom.octopus.service.AuthService
 import ru.anarcom.octopus.util.logger
@@ -33,21 +33,18 @@ class AuthServiceImpl(
         )
 
         auth.created = clock.instant()
-        auth.updated = clock.instant()
         auth.status = Status.ACTIVE
-        authRepository.save(auth)
+        save(auth)
         return refreshToken
     }
 
     override fun getUserByRefreshToken(token: String): User {
-        if (!authRepository.existsByRefreshToken(token)) {
-            log.warn("getted not existed refresh token (token)")
-            throw NotFoundException("User with that refresh token not found")
-        }
         var auth = authRepository.findByRefreshTokenAndStatus(token, Status.ACTIVE)
+            ?: throw  NotFoundException("User with that refresh token not found")
+
         auth.updated = clock.instant()
         auth = authRepository.save(auth)
-        return auth.user!!
+        return auth.user
     }
 
     @Transactional

@@ -43,6 +43,7 @@ class AuthControllerTest : TestWithDb() {
     private lateinit var mockMvc: MockMvc
 
     @Test
+    @DisplayName("Login with correct login/password")
     @DatabaseSetup("/db/auth/user.xml")
     @ExpectedDatabase(
         value = "/db/auth/user.xml",
@@ -68,6 +69,31 @@ class AuthControllerTest : TestWithDb() {
     }
 
     @Test
+    @DisplayName("Incorrect login and password")
+    @DatabaseSetup("/db/auth/user.xml")
+    fun loginWithIncorrectLoginTest() {
+        mockMvc
+            .perform(
+                post("/api/v1/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(
+                        "{\n" +
+                                "    \"username\":\"wrong_login\",\n" +
+                                "    \"password\":\"test\"\n" +
+                                "}"
+                    )
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isForbidden)
+            .andExpect(
+                content().json(
+                    ResourceReader.getResource("json/controllers/team/loginWithIncorrectLoginTest.json")
+                )
+            )
+    }
+
+    @Test
+    @DisplayName("Correct refresh token")
     @DatabaseSetup("/db/auth/user.xml")
     @ExpectedDatabase(
         value = "/db/auth/user.xml",
@@ -123,29 +149,43 @@ class AuthControllerTest : TestWithDb() {
     }
 
     @Test
-    @DisplayName("Incorrect login and password")
+    @DisplayName("incorrect refresh token")
     @DatabaseSetup("/db/auth/user.xml")
-    fun loginWithIncorrectLoginTest() {
+    fun incorrectRefreshTokenTest() {
         mockMvc
             .perform(
                 post("/api/v1/auth/login")
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .content(
                         "{\n" +
-                                "    \"username\":\"wrong_login\",\n" +
+                                "    \"login\":\"username\",\n" +
                                 "    \"password\":\"test\"\n" +
                                 "}"
                     )
             )
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(status().isForbidden)
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.username", `is`("username")))
+
+        val refreshToken = "exactly bad token"
+        mockMvc
+            .perform(
+                post("/api/v1/auth/refresh")
+                    .content(
+                        "{\n" +
+                                "    \"refresh\":\"$refreshToken\"\n" +
+                                "}"
+                    )
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isNotFound)
             .andExpect(
                 content().json(
-                    ResourceReader.getResource("json/controllers/team/loginWithIncorrectLoginTest.json")
+                    "{\"human_message\":\"not found\"," +
+                            "\"exception_message\":\"User with that refresh token not found\"}"
                 )
             )
-
-
     }
 
     @Test

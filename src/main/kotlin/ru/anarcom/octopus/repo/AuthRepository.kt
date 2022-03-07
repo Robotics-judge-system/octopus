@@ -6,7 +6,7 @@ import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
 
 interface AuthRepository: JpaRepository<Auth, Long> {
-    fun findByRefreshTokenAndStatus(token: String, status: Status): Auth
+    fun findByRefreshTokenAndStatus(token: String, status: Status): Auth?
     fun existsByRefreshToken(token: String): Boolean
     fun findByIdAndUser(token: Long, user: User): Auth?
     fun findAllByUser(user: User): List<Auth>
