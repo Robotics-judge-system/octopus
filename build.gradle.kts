@@ -29,24 +29,24 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-security:2.6.3")
-	implementation("org.springframework.boot:spring-boot-starter-web:2.6.3")
-	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.6.3")
+	implementation("org.springframework.boot:spring-boot-starter-security:2.6.4")
+	implementation("org.springframework.boot:spring-boot-starter-web:2.6.4")
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.6.4")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("javax.validation:validation-api:2.0.1.Final")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.6.3")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.6.4")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.apache.commons:commons-lang3:3.12.0")
-	implementation("org.liquibase:liquibase-core:4.7.1")
+	implementation("org.liquibase:liquibase-core:4.8.0")
 	implementation("com.vladmihalcea:hibernate-types-52:2.14.0")
 
 	compileOnly("org.projectlombok:lombok:1.18.22")
-	runtimeOnly("org.postgresql:postgresql:42.3.2")
+	runtimeOnly("org.postgresql:postgresql:42.3.3")
 	annotationProcessor("org.projectlombok:lombok:1.18.22")
-	testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.3")
-	testImplementation("org.springframework.security:spring-security-test:5.5.1")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.4")
+	testImplementation("org.springframework.security:spring-security-test:5.6.2")
 
 	testImplementation("io.zonky.test:embedded-database-spring-test:2.1.1")
 	testImplementation("io.zonky.test:embedded-postgres:1.3.1")
@@ -54,7 +54,7 @@ dependencies {
 	testImplementation("org.mockito:mockito-all:1.10.19")
 	testImplementation("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
 	testImplementation("org.dbunit:dbunit:2.7.2")
-	testImplementation("org.springframework.boot:spring-boot-starter-web:2.6.3")
+	testImplementation("org.springframework.boot:spring-boot-starter-web:2.6.4")
 	implementation("com.google.guava:guava:31.0.1-jre")
 
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
