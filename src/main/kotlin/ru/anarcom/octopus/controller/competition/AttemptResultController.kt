@@ -26,7 +26,6 @@ class AttemptResultController(
     private val attemptResultService: AttemptResultService,
 ) {
 
-    // create\update
     @PostMapping("{attempt_id}")
     fun createAndUpdate(
         @PathVariable("competition_id") competitionId: Long,
@@ -114,7 +113,6 @@ class AttemptResultController(
         )
     }
 
-    //    getAllByTeam
     @GetMapping
     fun getAllResultByTeam(
         @PathVariable("competition_id") competitionId: Long,
@@ -129,7 +127,6 @@ class AttemptResultController(
         return AttemptResultDto.fromAttemptResult(results)
     }
 
-    //    get one by team and attempt
     @GetMapping("{attempt_id}")
     fun getByTeamAndAttempt(
         @PathVariable("competition_id") competitionId: Long,

@@ -402,7 +402,6 @@ class AttemptControllerTest : TestWithDb() {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
         )
             .andDo(MockMvcResultHandlers.print())
-            // TODO add http code
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(
                 MockMvcResultMatchers.content().json(
