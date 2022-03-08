@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+  <auths
+    id="1"
+    user_id="1"
+    refresh_token="aaa"
+    status="ACTIVE"
+    created="2022-03-07 00:00:00 +0000"
+    updated="2022-03-08 00:00:00 +0000"
+  />
+  <auths
+    id="2"
+    user_id="1"
+    refresh_token="bbb"
+    status="ACTIVE"
+    created="2020-03-08 00:00:00 +0000"
+    updated="2022-01-08 00:00:00 +0000"
+  />
+  <auths
+    id="3"
+    user_id="1"
+    refresh_token="ccc"
+    status="DELETED"
+    created="2021-03-08 00:00:00 +0000"
+    updated="2021-03-08 00:00:00 +0000"
+  />
+</dataset>

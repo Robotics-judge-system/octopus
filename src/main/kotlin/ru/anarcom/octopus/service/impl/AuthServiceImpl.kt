@@ -1,6 +1,7 @@
 package ru.anarcom.octopus.service.impl
 
 import org.apache.commons.lang3.RandomStringUtils
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.anarcom.octopus.entity.Auth
@@ -11,6 +12,7 @@ import ru.anarcom.octopus.repo.AuthRepository
 import ru.anarcom.octopus.service.AuthService
 import ru.anarcom.octopus.util.logger
 import java.time.Clock
+import java.time.Instant
 
 @Service
 class AuthServiceImpl(
@@ -60,6 +62,15 @@ class AuthServiceImpl(
 
     override fun getActiveAuthsForUser(user: User): List<Auth> =
         authRepository.findAllByUserAndStatus(user, Status.ACTIVE)
+
+    override fun getAllAuthsForInstanceBefore(limitTime: Instant, pageData: Pageable): List<Auth> {
+        val page = authRepository.findAllByUpdatedBeforeAndStatusNot(
+            limitTime,
+            pageData,
+            Status.DELETED
+        )
+        return page.content
+    }
 
     private fun save(auth: Auth): Auth {
         auth.updated = clock.instant()

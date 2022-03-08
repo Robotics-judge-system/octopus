@@ -9,6 +9,11 @@
       "name": "jwt.token.expired",
       "type": "java.lang.Long",
       "description": "Time (in ms) after that token will expire."
+    },
+    {
+      "name": "job.auth.invalidate_after_days",
+      "type": "java.lang.Long",
+      "description": "Invalidate refresh token after that number of days."
     }
   ]
 }
