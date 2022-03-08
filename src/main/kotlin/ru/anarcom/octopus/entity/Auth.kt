@@ -21,7 +21,7 @@ class Auth(
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    var user: User? = null,
+    var user: User,
 
     @Column(name = "refresh_token", unique = true)
     var refreshToken: String = "",
