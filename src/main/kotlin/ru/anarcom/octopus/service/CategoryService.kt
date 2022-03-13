@@ -23,8 +23,6 @@ interface CategoryService {
         categoryId: Long,
         competition: Competition,
         name: String? = null,
-        dateFrom: Instant? = null,
-        dateTo: Instant? = null
     ): Category
 
     /**

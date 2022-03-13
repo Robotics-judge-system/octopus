@@ -87,9 +87,7 @@ class CategoryControllerTest : TestWithDb() {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(
                     "{\n" +
-                            "        \"name\": \"Senior\",\n" +
-                            "        \"date_from\": \"2021-03-30T09:30:20Z\",\n" +
-                            "        \"date_to\": \"2021-03-31T09:30:20Z\"\n" +
+                            "        \"name\": \"Senior\"" +
                             "}"
                 )
         )
@@ -124,9 +122,7 @@ class CategoryControllerTest : TestWithDb() {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(
                     "{\n" +
-                            "        \"name\": \"Senior_1\",\n" +
-                            "        \"date_from\": \"2021-03-29T09:30:20Z\",\n" +
-                            "        \"date_to\": \"2021-03-30T09:30:20Z\"\n" +
+                            "        \"name\": \"Senior_1\"" +
                             "}"
                 )
         )
@@ -140,7 +136,7 @@ class CategoryControllerTest : TestWithDb() {
     }
 
     @Test
-    @DisplayName("update category test")
+    @DisplayName("delete category test")
     @DatabaseSetup(
         value = [
             "/db/auth/user.xml",
@@ -169,7 +165,7 @@ class CategoryControllerTest : TestWithDb() {
     }
 
     @Test
-    @DisplayName("update category test")
+    @DisplayName("get category test")
     @DatabaseSetup(
         value = [
             "/db/auth/user.xml",
