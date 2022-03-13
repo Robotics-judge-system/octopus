@@ -12,7 +12,7 @@ interface UserService {
      * Hard deletes user from DB.
      *
      *
-     * Note: Be sure that it is a time to delete User from DB, may be you have to use delete?
+     * Note: Be sure that it is a time to delete User from DB, maybe you have to use delete?
      *
      *
      * @param id Id of user to delete.

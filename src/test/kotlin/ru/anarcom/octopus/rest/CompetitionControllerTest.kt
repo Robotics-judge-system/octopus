@@ -70,7 +70,7 @@ class CompetitionControllerTest : TestWithDb() {
         ]
     )
     @ExpectedDatabase(
-        "/db/rest/CompetitionControllerTest/renamed_competiton.xml",
+        "/db/rest/CompetitionControllerTest/renamed_competition.xml",
         assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED
     )
     @DisplayName("testing of competitionUpdate")
