@@ -71,4 +71,31 @@ class RegisterUserControllerTest : TestWithDb() {
         assertEquals(Instant.parse("2021-09-01T00:00:00.00Z"), registeredUser.updated)
         assertEquals(Status.ACTIVE,registeredUser.status)
     }
+
+    @Test
+    @DisplayName("Registration with existed name")
+    @DatabaseSetup("/db/auth/user.xml")
+    fun registrationWithExistedLogin(){
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.post("/api/v1/register")
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(
+                        "{" +
+                                "\"username\":\"username\"," +
+                                "\"email\":\"email@email.ts\"," +
+                                "\"name\":\"Василий\"," +
+                                "\"password\":\"password\"" +
+                                "}"
+                    )
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().`is`(409))
+            .andExpect(
+                MockMvcResultMatchers.content().json(
+                 "{\"human_message\":\"username or email is already in use\"," +
+                         "\"exception_message\":\"username or email is already in use\"}"
+                )
+            )
+    }
 }
