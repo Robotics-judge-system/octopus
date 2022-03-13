@@ -1,11 +1,11 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <include file="classpath:liquibase/db.changelog-1.0.xml"/>
     <include file="liquibase/auth_table/auth-table-main.xml"/>
-    <include file="liquibase/competitions_table/competions-table-main.xml"/>
-    <include file="liquibase/categories_table/catogires-table-main.xml"/>
+    <include file="liquibase/competitions_table/competitions-table-main.xml"/>
+    <include file="liquibase/categories_table/categories-table-main.xml"/>
     <include file="liquibase/teams_table/team-table-main.xml"/>
     <include file="liquibase/participants_table/participant-table-main.xml"/>
     <include file="liquibase/attempt_env_tables/attempt_env_tables.xml"/>
