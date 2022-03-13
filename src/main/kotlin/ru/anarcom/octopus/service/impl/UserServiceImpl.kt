@@ -10,6 +10,7 @@ import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
 import ru.anarcom.octopus.exceptions.IncorrectPasswordException
 import ru.anarcom.octopus.exceptions.InvalidLoginOrPasswordException
+import ru.anarcom.octopus.exceptions.ValidationException
 import ru.anarcom.octopus.repo.UserRepository
 import ru.anarcom.octopus.service.UserService
 import ru.anarcom.octopus.util.logger
@@ -49,14 +50,23 @@ class UserServiceImpl(
     }
 
     override fun registerUser(username: String, email: String, name: String, password: String): User {
-        val user = User()
-        user.email = email
-        user.name = name
-        user.username = username
-        user.password = passwordEncoder.encode(password)
-        user.created = clock.instant()
-        user.updated = clock.instant()
-        user.status = Status.ACTIVE
+        if (
+            userRepository.existsByEmail(email) ||
+            userRepository.existsByUsername(name)
+        ) {
+            throw ValidationException("username or email is already in use")
+        }
+        val time = clock.instant()
+        val user = User(
+            email = email,
+            name = name,
+            username = username,
+            password = passwordEncoder.encode(password),
+            created = time,
+            updated = time,
+            status = Status.ACTIVE
+        )
+
         return userRepository.save(user)
     }
 
