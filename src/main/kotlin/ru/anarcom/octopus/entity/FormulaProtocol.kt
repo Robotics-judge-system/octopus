@@ -20,7 +20,7 @@ TODO в таблице уже есть поля formula_description и protocol_
     @Column(name = "name")
     var name: String = "",
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "category_id")
     var category: Category,
 

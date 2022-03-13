@@ -35,7 +35,7 @@ class CompetitionController(
         )
     )
 
-    @GetMapping()
+    @GetMapping
     fun getAllCompetitionsForUser(
         principal: Principal,
     ): List<CompetitionDto> = CompetitionDto.fromCompetition(

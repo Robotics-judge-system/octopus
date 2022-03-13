@@ -10,7 +10,7 @@ import ru.anarcom.octopus.service.UserService
 
 @RestController
 @RequestMapping("api/v1")
-class UserRegistationController(
+class UserRegistrationController(
     val userService: UserService
 ) {
     @PostMapping("register")

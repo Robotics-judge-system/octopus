@@ -127,7 +127,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
     }
 
     @Test
-    @DisplayName("Delete alredy deleted formula")
+    @DisplayName("Delete already deleted formula")
     @DatabaseSetup(
         value = [
             "/db/rest/CompetitionControllerTest/default_competition.xml",

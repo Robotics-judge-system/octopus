@@ -31,13 +31,8 @@ data class ParticipantDto(
             teamRole = participant.teamRole.toString(),
         )
         fun fromParticipant(participants:List<Participant>) = participants.map {
-            Companion.fromParticipant(it)
+            fromParticipant(it)
         }
 
-//        fun toParticipant(participantDto: ParticipantDto) = Participant(
-//            id = participantDto.id,
-//            name = participantDto.name,
-//            teamRole = participantDto.teamRole
-//        )
     }
 }
