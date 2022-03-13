@@ -79,6 +79,41 @@ class AttemptResultControllerTest : TestWithDb() {
             )
     }
 
+    @Test
+    @DisplayName("add attempt result to not active attempt")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/some_categories.xml",
+            "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+            "/db/team-participant/before/three-teams.xml",
+        ]
+    )
+    fun addResultToNotActiveAttempt() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/11/team/1/attempt/2"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(
+                    "{" +
+                            "\"a\":\"11\"," +
+                            "\"b\":\"12\"" +
+                            "}"
+                )
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().`is`(409))
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json(
+                        "{\"human_message\":\"attempt is not active\"," +
+                                "\"exception_message\":\"attempt is not active\"}"
+                    )
+            )
+    }
 
     @Test
     @DisplayName("update attempt")

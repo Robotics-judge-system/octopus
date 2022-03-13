@@ -12,4 +12,5 @@ interface TeamRepository : JpaRepository<Team, Long> {
     fun findAllByCategory(category: Category): List<Team>
     fun findAllByCategoryAndStatusNot(category: Category, status: Status): List<Team>
     fun getByCategoryAndId(category: Category, id: Long): Team
+    fun findByCategoryAndId(category: Category, id: Long): Team?
 }

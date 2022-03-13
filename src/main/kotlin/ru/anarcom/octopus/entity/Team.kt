@@ -15,7 +15,7 @@ class Team(
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
-    var category: Category?=null,
+    var category: Category,
 
     @Column(name = "team_name")
     var teamName: String = "",
