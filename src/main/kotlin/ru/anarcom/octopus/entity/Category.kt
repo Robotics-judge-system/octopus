@@ -17,12 +17,6 @@ class Category(
     @Column(name = "name")
     var name: String,
 
-    @Column(name = "date_from")
-    var dateFrom: Instant? = null,
-
-    @Column(name = "date_to")
-    var dateTo: Instant? = null,
-
     @Column(name = "created")
     var created: Instant,
 

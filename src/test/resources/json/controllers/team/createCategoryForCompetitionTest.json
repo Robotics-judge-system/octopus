@@ -6,13 +6,9 @@
     "name": "name",
     "created": "2017-03-31T09:30:20Z",
     "updated": "2017-03-31T09:30:20Z",
-    "date_to": null,
-    "date_from": null,
     "status": "ACTIVE"
   },
   "name": "Senior",
-  "date_from": "2021-03-30T09:30:20Z",
-  "date_to": "2021-03-31T09:30:20Z",
   "created": "2021-10-20T00:00:00Z",
   "updated": "2021-10-20T00:00:00Z",
   "status": "ACTIVE"

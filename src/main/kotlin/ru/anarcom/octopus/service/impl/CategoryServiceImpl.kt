@@ -21,8 +21,6 @@ class CategoryServiceImpl(
             Category(
                 competition = competition,
                 name = categoryDto.name!!,
-                dateFrom = categoryDto.dateFrom,
-                dateTo = categoryDto.dateTo,
                 created = clock.instant(),
                 updated = clock.instant(),
                 status = Status.ACTIVE,
@@ -39,21 +37,11 @@ class CategoryServiceImpl(
         categoryId: Long,
         competition: Competition,
         name: String?,
-        dateFrom: Instant?,
-        dateTo: Instant?
     ): Category {
         val category = categoryRepository.getCategoryByIdAndCompetition(categoryId, competition)
 
         if (name != null) {
             category.name = name
-        }
-
-        if (dateFrom != null) {
-            category.dateFrom = dateFrom
-        }
-
-        if (dateTo != null) {
-            category.dateTo = dateTo
         }
 
         return save(category)

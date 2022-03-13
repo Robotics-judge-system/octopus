@@ -17,12 +17,6 @@ class CategoryDto(
 
     var name: String? = null,
 
-    @field:JsonProperty("date_from")
-    var dateFrom: Instant? = null,
-
-    @field:JsonProperty("date_to")
-    var dateTo: Instant? = null,
-
     var created: Instant? = null,
 
     var updated: Instant? = null,
@@ -36,8 +30,6 @@ class CategoryDto(
                 competitionId = category.competition.id,
                 competition = CompetitionDto.fromCompetition(category.competition),
                 name = category.name,
-                dateFrom = category.dateFrom,
-                dateTo = category.dateTo,
                 created = category.created,
                 updated = category.updated,
                 status = category.status.toString(),

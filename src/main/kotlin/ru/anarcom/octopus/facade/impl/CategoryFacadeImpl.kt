@@ -32,9 +32,7 @@ class CategoryFacadeImpl(
         categoryService.updateCategory(
             categoryId,
             competitionService.getById(competitionId),
-            categoryDto.name,
-            categoryDto.dateFrom,
-            categoryDto.dateTo,
+            categoryDto.name
         )
 
     override fun getByCompetition(competitionId: Long): List<Category> =
