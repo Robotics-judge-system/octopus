@@ -5,6 +5,7 @@ import ru.anarcom.octopus.entity.Category
 import ru.anarcom.octopus.entity.Participant
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.Team
+import ru.anarcom.octopus.exceptions.NotFoundException
 import ru.anarcom.octopus.repo.TeamRepository
 import ru.anarcom.octopus.service.TeamService
 import java.time.Clock
@@ -57,9 +58,14 @@ class TeamServiceImpl(
 
     override fun renameTeam(id: Long, category: Category, newName: String): Team {
         val team = teamRepository.getByIdAndCategory(id, category)
-        if(team.status == Status.DELETED || team.teamName == newName)
+        if (team.status == Status.DELETED || team.teamName == newName)
             return team
         team.teamName = newName
         return save(team)
+    }
+
+    override fun getByIdAndCategoryOrThrow(id: Long, category: Category): Team {
+        return teamRepository.findByCategoryAndId(category, id)
+            ?: throw NotFoundException("team for that data not found")
     }
 }

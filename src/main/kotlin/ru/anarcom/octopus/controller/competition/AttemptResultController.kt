@@ -1,17 +1,20 @@
 package ru.anarcom.octopus.controller.competition
 
 import org.springframework.web.bind.annotation.*
+import ru.anarcom.octopus.calculation.AttemptResultCalculator
+import ru.anarcom.octopus.calculation.FormulaProtocolValidator
 import ru.anarcom.octopus.dto.competition.AttemptResultDto
 import ru.anarcom.octopus.entity.AttemptResult
 import ru.anarcom.octopus.entity.AttemptResultCalculationStatus
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.exceptions.NotFoundException
-import ru.anarcom.octopus.exceptions.UpdateAttemptResultException
+import ru.anarcom.octopus.exceptions.ValidationException
 import ru.anarcom.octopus.facade.CategoryFacade
 import ru.anarcom.octopus.repo.AttemptResultRepository
 import ru.anarcom.octopus.repo.TeamRepository
 import ru.anarcom.octopus.service.AttemptResultService
 import ru.anarcom.octopus.service.AttemptService
+import ru.anarcom.octopus.service.TeamService
 import ru.anarcom.octopus.service.UserService
 import java.security.Principal
 
@@ -24,6 +27,9 @@ class AttemptResultController(
     private val teamRepository: TeamRepository,
     private val userService: UserService,
     private val attemptResultService: AttemptResultService,
+    private val formulaProtocolValidator: FormulaProtocolValidator,
+    private val teamService: TeamService,
+    private val attemptResultCalculator: AttemptResultCalculator,
 ) {
 
     @PostMapping("{attempt_id}")
@@ -35,15 +41,22 @@ class AttemptResultController(
         @RequestBody attemptData: Map<String, String>,
         principal: Principal,
     ): AttemptResultDto {
-        // TODO добавить проверку на активность attempt -> else throw exception
         val category = categoryFacade.getOneCategory(categoryId, competitionId)
-        val team = teamRepository.findById(teamId).orElseThrow()
+        val team = teamService.getByIdAndCategoryOrThrow(teamId, category)
         val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         val user = userService.findByUsernameOrThrow(principal.name)
 
-        if (team.category!!.id != attempt.category.id) {
-            throw UpdateAttemptResultException("This team is not from this category")
-            // TODO перенести получение команды и выбрасывание ошибки в сервис команд
+        if (!attempt.isActive) {
+            throw ValidationException("attempt is not active")
+        }
+
+        // TODO add test
+        if (!formulaProtocolValidator.validate(
+                attempt.formulaProtocol!!,
+                attemptData
+            )
+        ) {
+            throw ValidationException("attempt data not valid for formula-protocols")
         }
 
         var attemptResult: AttemptResult
@@ -70,13 +83,13 @@ class AttemptResultController(
             attemptResult = attemptResultService.saveNew(attemptResult)
         }
 
-        if (attemptResult.attemptData.containsKey("a")) {
-            attemptResult.attemptScore = attemptData["a"]?.toLong()?.plus(1)
-            attemptResult.attemptTime = 123
-        } else {
-            attemptResult.attemptScore = 12
-            attemptResult.attemptTime = 124
-        }
+        val data = attemptResultCalculator.calculateAttemptResult(
+            attemptResult.formulaProtocol,
+            attemptResult.attemptData,
+        )
+
+        attemptResult.attemptScore = data.first
+        attemptResult.attemptTime = data.second
 
         attemptResult.calculationStatus = AttemptResultCalculationStatus.CALCULATED
         return AttemptResultDto.fromAttemptResult(
@@ -93,14 +106,10 @@ class AttemptResultController(
         principal: Principal,
     ): AttemptResultDto {
         val category = categoryFacade.getOneCategory(categoryId, competitionId)
-        val team = teamRepository.findById(teamId).orElseThrow()
+        val team = teamService.getByIdAndCategoryOrThrow(teamId, category)
         val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         val user = userService.findByUsernameOrThrow(principal.name)
 
-        if (team.category!!.id != attempt.category.id) {
-            throw UpdateAttemptResultException("This team is not from this category")
-            // TODO перенести получение команды и выбрасывание ошибки в сервис команд
-        }
         if (!attemptResultRepository.existsByAttemptAndTeam(attempt, team)) {
             throw NotFoundException("No attemptResults for this team in that attempt")
         }
@@ -121,9 +130,9 @@ class AttemptResultController(
         principal: Principal,
     ): List<AttemptResultDto> {
         val category = categoryFacade.getOneCategory(categoryId, competitionId)
-        val team = teamRepository.findById(teamId).orElseThrow()
+        val team = teamService.getByIdAndCategoryOrThrow(teamId, category)
         val results = attemptResultRepository.getAllByTeam(team)
-        // TODO выбрасывать 404, если команда не принадлежит категории (+ я бы изменил метод репы)
+
         return AttemptResultDto.fromAttemptResult(results)
     }
 
