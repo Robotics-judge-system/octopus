@@ -7,6 +7,6 @@ import org.slf4j.LoggerFactory
  * Util for auto creating of logger in class.
  * (like @slf4j in Lombok)
  */
-inline fun <reified T> T.logger(): Logger {
+inline fun <reified T> logger(): Logger {
     return LoggerFactory.getLogger(T::class.java)
 }
