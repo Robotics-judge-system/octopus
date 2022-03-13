@@ -46,9 +46,7 @@
   </changeSet>
 
   <changeSet id="category-1.0.1" author="KillReal">
-    <dropColumn tableName="categories" columnName="date_from">
-    </dropColumn>
-    <dropColumn tableName="categories" columnName="date_to">
-    </dropColumn>
+    <dropColumn tableName="categories" columnName="date_from"/>
+    <dropColumn tableName="categories" columnName="date_to"/>
   </changeSet>
 </databaseChangeLog>
