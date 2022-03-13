@@ -122,6 +122,28 @@ class CompetitionControllerTest : TestWithDb() {
         value = [
             "/db/auth/user.xml",
             "/db/auth/another_user.xml",
+        ]
+    )
+    @DisplayName("test of getting zero competitions")
+    fun getZeroCompetitionsTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(
+                "/api/v1/competition"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json("[]")
+            )
+    }
+
+    @Test
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/auth/another_user.xml",
             "/db/rest/CompetitionControllerTest/many_users_and_competitions.xml",
         ]
     )
