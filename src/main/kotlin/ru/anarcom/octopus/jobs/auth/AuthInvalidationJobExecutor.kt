@@ -16,7 +16,7 @@ class AuthInvalidationJobExecutor(
 ) {
     val logger = logger()
 
-    @Scheduled(cron = "* * 0/1 * * ?")
+    @Scheduled(cron = "0 0 0/1 * * ?")
     fun invalidateAuths() {
         logger.info("Auth invalidation work started at ${clock.instant()}")
         authInvalidationJob.invalidate(invalidateAfterDays)
