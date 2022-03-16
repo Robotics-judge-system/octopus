@@ -1,3 +1,6 @@
 package ru.anarcom.octopus.exceptions
 
-class InvalidLoginOrPasswordException:RuntimeException("Invalid username or password.")
+import org.springframework.http.HttpStatus
+
+class InvalidLoginOrPasswordException
+    : BaseException("invalid username or password", HttpStatus.FORBIDDEN)

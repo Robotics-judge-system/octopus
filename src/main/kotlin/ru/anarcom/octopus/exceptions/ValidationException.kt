@@ -1,3 +1,5 @@
 package ru.anarcom.octopus.exceptions
 
-class ValidationException(message: String) : RuntimeException(message)
+import org.springframework.http.HttpStatus
+
+class ValidationException(message: String) : BaseException(message, HttpStatus.CONFLICT)

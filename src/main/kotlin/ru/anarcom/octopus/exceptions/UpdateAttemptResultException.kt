@@ -1,5 +1,7 @@
 package ru.anarcom.octopus.exceptions
 
+import org.springframework.http.HttpStatus
+
 class UpdateAttemptResultException(
-    override val message:String
-): RuntimeException()
+    message: String
+) : BaseException(message, HttpStatus.CONFLICT)

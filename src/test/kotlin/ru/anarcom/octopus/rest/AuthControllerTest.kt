@@ -182,8 +182,7 @@ class AuthControllerTest : TestWithDb() {
             .andExpect(status().isNotFound)
             .andExpect(
                 content().json(
-                    "{\"human_message\":\"not found\"," +
-                            "\"exception_message\":\"User with that refresh token not found\"}"
+                    "{\"exception_message\":\"User with that refresh token not found\"}"
                 )
             )
     }

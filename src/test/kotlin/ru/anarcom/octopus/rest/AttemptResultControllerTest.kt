@@ -109,8 +109,7 @@ class AttemptResultControllerTest : TestWithDb() {
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(
-                        "{\"human_message\":\"attempt is not active\"," +
-                                "\"exception_message\":\"attempt is not active\"}"
+                        "{\"exception_message\":\"attempt is not active\"}"
                     )
             )
     }

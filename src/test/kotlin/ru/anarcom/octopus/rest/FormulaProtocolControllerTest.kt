@@ -213,8 +213,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(
-                        "{\"human_message\":\"field 'name' should not be null\"," +
-                                "\"exception_message\":\"field 'name' should not be null\"}\n"
+                        "{\"exception_message\":\"field 'name' should not be null\"}\n"
                     )
             )
     }

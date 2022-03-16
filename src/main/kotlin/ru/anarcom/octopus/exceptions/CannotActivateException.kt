@@ -1,3 +1,6 @@
 package ru.anarcom.octopus.exceptions
 
-class CannotActivateException(message: String) : RuntimeException(message)
+import org.springframework.http.HttpStatus
+
+class CannotActivateException(message: String) :
+        BaseException(message, HttpStatus.CONFLICT)

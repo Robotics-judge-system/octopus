@@ -1,3 +1,5 @@
 package ru.anarcom.octopus.exceptions
 
-class NotFoundException(message: String) : RuntimeException(message)
+import org.springframework.http.HttpStatus
+
+class NotFoundException(message: String) : BaseException(message, HttpStatus.NOT_FOUND)

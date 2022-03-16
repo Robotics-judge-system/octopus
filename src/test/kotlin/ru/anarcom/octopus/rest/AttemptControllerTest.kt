@@ -95,8 +95,7 @@ class AttemptControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"name should not be blank or empty\"," +
-                            "\"exception_message\":\"name should not be blank or empty\"}\n"
+                    "{\"exception_message\":\"name should not be blank or empty\"}\n"
                 )
             )
     }
@@ -311,8 +310,7 @@ class AttemptControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"name should not be empty or blank\"," +
-                            "\"exception_message\":\"name should not be empty or blank\"}\n"
+                    "{\"exception_message\":\"name should not be empty or blank\"}\n"
                 )
             )
     }
@@ -374,8 +372,7 @@ class AttemptControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"Formula-protocol is already deleted\"," +
-                            "\"exception_message\":\"Formula-protocol is already deleted\"}\n"
+                    "{\"exception_message\":\"Formula-protocol is already deleted\"}\n"
                 )
             )
     }
@@ -437,8 +434,7 @@ class AttemptControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"formula-protocol is null\"," +
-                            "\"exception_message\":\"formula-protocol is null\"}"
+                    "{\"exception_message\":\"formula-protocol is null\"}"
                 )
             )
     }
@@ -468,8 +464,7 @@ class AttemptControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().isConflict)
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                    "{\"human_message\":\"attempt is deleted\"," +
-                            "\"exception_message\":\"attempt is deleted\"}"
+                    "{\"exception_message\":\"attempt is deleted\"}"
                 )
             )
     }
