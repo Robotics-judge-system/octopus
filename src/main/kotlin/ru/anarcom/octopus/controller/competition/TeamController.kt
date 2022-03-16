@@ -13,7 +13,7 @@ class TeamController(
     private val categoryFacade: CategoryFacade,
     private val teamParticipantFacade: TeamParticipantFacade
 ) {
-    @GetMapping("register")
+    @PostMapping("register")
     fun registerTeam(
         @PathVariable("competition_id") compId: Long,
         @PathVariable("category_id") catId: Long,
