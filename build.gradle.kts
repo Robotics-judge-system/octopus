@@ -55,7 +55,7 @@ dependencies {
 	testImplementation("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
 	testImplementation("org.dbunit:dbunit:2.7.3")
 	testImplementation("org.springframework.boot:spring-boot-starter-web:2.6.4")
-	implementation("com.google.guava:guava:31.0.1-jre")
+	implementation("com.google.guava:guava:31.1-jre")
 
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
