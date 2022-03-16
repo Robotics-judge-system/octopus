@@ -93,8 +93,7 @@ class RegisterUserControllerTest : TestWithDb() {
             .andExpect(MockMvcResultMatchers.status().`is`(409))
             .andExpect(
                 MockMvcResultMatchers.content().json(
-                 "{\"human_message\":\"username or email is already in use\"," +
-                         "\"exception_message\":\"username or email is already in use\"}"
+                 "{\"exception_message\":\"username or email is already in use\"}"
                 )
             )
     }
