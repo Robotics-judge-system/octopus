@@ -47,5 +47,5 @@ jobs:
           port: ${{ secrets.SSH_DEV_PORT }}
           script: |
             cd ./prod_docker
-            sudo ./down.sh
-            sudo ./up.sh
+            ./down.sh
+            ./up.sh
