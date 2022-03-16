@@ -53,7 +53,7 @@ class TeamControllerTest : TestWithDb() {
     )
     fun normalTeamRegister() {
         mockMvc.perform(
-            MockMvcRequestBuilders.get(
+            MockMvcRequestBuilders.post(
                 "/api/v1/competition/1/category/11/team/register/"
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
