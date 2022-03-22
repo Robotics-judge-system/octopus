@@ -18,4 +18,5 @@ interface AttemptResultRepository : JpaRepository<AttemptResult, Long> {
     ): AttemptResult
 
     fun getAllByTeam(team: Team): List<AttemptResult>
+    fun countAllByAttemptAndStatus(attempt: Attempt, status: Status): Long
 }

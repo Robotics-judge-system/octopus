@@ -10,6 +10,7 @@ import ru.anarcom.octopus.exceptions.ValidationException
 import ru.anarcom.octopus.facade.CategoryFacade
 import ru.anarcom.octopus.repo.AttemptRepository
 import ru.anarcom.octopus.repo.FormulaProtocolRepository
+import ru.anarcom.octopus.service.AttemptResultService
 import ru.anarcom.octopus.service.AttemptService
 
 @RestController
@@ -19,6 +20,7 @@ class AttemptController(
     private val attemptRepository: AttemptRepository,
     private val categoryFacade: CategoryFacade,
     private val formulaProtocolRepository: FormulaProtocolRepository,
+    private val attemptResultService: AttemptResultService
 ) {
     @GetMapping
     fun gelAll(
@@ -172,13 +174,14 @@ class AttemptController(
         }
 
         if (isActive != attempt.isActive) {
-//            if(isActive){
-//                attempt.isActive = true
-//            } else {
-//                // TODO проверка на наличие существующих результатов
-//                attempt.isActive = false
-//            }
-            attempt.isActive = isActive
+            if(isActive){
+                attempt.isActive = true
+            } else {
+                if(!attemptResultService.isAttemptCanBeDeactivater(attempt)){
+                    throw CannotActivateException("Attempt has not deleted results")
+                }
+                attempt.isActive = false
+            }
         }
         return AttemptDto.fromAttempt(
             attemptService.save(attempt)

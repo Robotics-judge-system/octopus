@@ -1,7 +1,9 @@
 package ru.anarcom.octopus.service.impl
 
 import org.springframework.stereotype.Service
+import ru.anarcom.octopus.entity.Attempt
 import ru.anarcom.octopus.entity.AttemptResult
+import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.repo.AttemptResultRepository
 import ru.anarcom.octopus.service.AttemptResultService
 import java.time.Clock
@@ -20,4 +22,7 @@ class AttemptResultServiceImpl(
         attempt.created = clock.instant()
         return save(attempt)
     }
+
+    override fun isAttemptCanBeDeactivater(attempt: Attempt): Boolean =
+        attemptResultRepository.countAllByAttemptAndStatus(attempt, Status.ACTIVE) == 0L
 }
