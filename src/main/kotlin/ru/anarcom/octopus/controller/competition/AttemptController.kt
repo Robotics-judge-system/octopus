@@ -5,6 +5,7 @@ import ru.anarcom.octopus.dto.competition.AttemptDto
 import ru.anarcom.octopus.entity.Attempt
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.exceptions.CannotActivateException
+import ru.anarcom.octopus.exceptions.UpdateAttemptException
 import ru.anarcom.octopus.exceptions.ValidationException
 import ru.anarcom.octopus.facade.CategoryFacade
 import ru.anarcom.octopus.repo.AttemptRepository
@@ -100,8 +101,6 @@ class AttemptController(
         )
     }
 
-    // TODO добавить способ поставить null для formulaProtocol (действие должно работать, если нет
-    // результатов или их статус == DELETED)
     @PostMapping("{attempt_id}/attach/formula-protocol/{formula_protocol_id}")
     fun attachFormulaProtocol(
         @PathVariable("competition_id") comId: Long,
@@ -115,7 +114,37 @@ class AttemptController(
         if (formula.status == Status.DELETED) {
             throw ValidationException("Formula-protocol is already deleted")
         }
+        if (attempt.isActive) {
+            throw UpdateAttemptException("Attempt is active")
+        }
         attempt.formulaProtocol = formula
+        return AttemptDto.fromAttempt(
+            attemptService.save(attempt)
+        )
+    }
+
+    @PostMapping("{attempt_id}/attach/formula-protocol/null")
+    fun attachNullFormulaProtocol(
+        @PathVariable("competition_id") comId: Long,
+        @PathVariable("category_id") catId: Long,
+        @PathVariable("attempt_id") attemptId: Long,
+    ): AttemptDto {
+        val category = categoryFacade.getOneCategory(catId, comId)
+        val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
+
+        if (attempt.status == Status.DELETED) {
+            throw ValidationException("Attempt is already deleted")
+        }
+
+        if (attempt.isActive) {
+            throw UpdateAttemptException("Attempt is active")
+        }
+
+        if (attempt.formulaProtocol == null) {
+            return AttemptDto.fromAttempt(attempt)
+        }
+
+        attempt.formulaProtocol = null
         return AttemptDto.fromAttempt(
             attemptService.save(attempt)
         )
