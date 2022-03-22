@@ -5,10 +5,12 @@ import ru.anarcom.octopus.dto.competition.AttemptDto
 import ru.anarcom.octopus.entity.Attempt
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.exceptions.CannotActivateException
+import ru.anarcom.octopus.exceptions.UpdateAttemptException
 import ru.anarcom.octopus.exceptions.ValidationException
 import ru.anarcom.octopus.facade.CategoryFacade
 import ru.anarcom.octopus.repo.AttemptRepository
 import ru.anarcom.octopus.repo.FormulaProtocolRepository
+import ru.anarcom.octopus.service.AttemptResultService
 import ru.anarcom.octopus.service.AttemptService
 
 @RestController
@@ -18,6 +20,7 @@ class AttemptController(
     private val attemptRepository: AttemptRepository,
     private val categoryFacade: CategoryFacade,
     private val formulaProtocolRepository: FormulaProtocolRepository,
+    private val attemptResultService: AttemptResultService
 ) {
     @GetMapping
     fun gelAll(
@@ -100,8 +103,6 @@ class AttemptController(
         )
     }
 
-    // TODO добавить способ поставить null для formulaProtocol (действие должно работать, если нет
-    // результатов или их статус == DELETED)
     @PostMapping("{attempt_id}/attach/formula-protocol/{formula_protocol_id}")
     fun attachFormulaProtocol(
         @PathVariable("competition_id") comId: Long,
@@ -115,7 +116,37 @@ class AttemptController(
         if (formula.status == Status.DELETED) {
             throw ValidationException("Formula-protocol is already deleted")
         }
+        if (attempt.isActive) {
+            throw UpdateAttemptException("Attempt is active")
+        }
         attempt.formulaProtocol = formula
+        return AttemptDto.fromAttempt(
+            attemptService.save(attempt)
+        )
+    }
+
+    @PostMapping("{attempt_id}/attach/formula-protocol/null")
+    fun attachNullFormulaProtocol(
+        @PathVariable("competition_id") comId: Long,
+        @PathVariable("category_id") catId: Long,
+        @PathVariable("attempt_id") attemptId: Long,
+    ): AttemptDto {
+        val category = categoryFacade.getOneCategory(catId, comId)
+        val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
+
+        if (attempt.status == Status.DELETED) {
+            throw ValidationException("Attempt is already deleted")
+        }
+
+        if (attempt.isActive) {
+            throw UpdateAttemptException("Attempt is active")
+        }
+
+        if (attempt.formulaProtocol == null) {
+            return AttemptDto.fromAttempt(attempt)
+        }
+
+        attempt.formulaProtocol = null
         return AttemptDto.fromAttempt(
             attemptService.save(attempt)
         )
@@ -143,13 +174,14 @@ class AttemptController(
         }
 
         if (isActive != attempt.isActive) {
-//            if(isActive){
-//                attempt.isActive = true
-//            } else {
-//                // TODO проверка на наличие существующих результатов
-//                attempt.isActive = false
-//            }
-            attempt.isActive = isActive
+            if(isActive){
+                attempt.isActive = true
+            } else {
+                if(!attemptResultService.isAttemptCanBeDeactivater(attempt)){
+                    throw CannotActivateException("Attempt has not deleted results")
+                }
+                attempt.isActive = false
+            }
         }
         return AttemptDto.fromAttempt(
             attemptService.save(attempt)
