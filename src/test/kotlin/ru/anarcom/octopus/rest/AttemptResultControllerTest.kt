@@ -156,6 +156,49 @@ class AttemptResultControllerTest : TestWithDb() {
             )
     }
 
+
+    @Test
+    @DisplayName("update not in attempt")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/some_categories.xml",
+            "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+            "/db/team-participant/before/three-teams.xml",
+            "/db/rest/AttemptResultControllerTest/before/attempt_not_in.xml",
+        ]
+    )
+    @ExpectedDatabase(
+        value = "/db/rest/AttemptResultControllerTest/after/attempt_not_in_after.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED,
+    )
+    fun updateNotInAttempt() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post(
+                "/api/v1/competition/1/category/11/team/1/attempt/3"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(
+                    "{" +
+                            "\"a\":\"13\"," +
+                            "\"b\":\"12\"" +
+                            "}"
+                )
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json(
+                        ResourceReader.getResource(
+                            "json/controllers/attemptResult/afterUpdating.json"
+                        )
+                    )
+            )
+    }
+
     @Test
     @DisplayName("delete attempt")
     @DatabaseSetup(
@@ -191,8 +234,9 @@ class AttemptResultControllerTest : TestWithDb() {
             )
     }
 
+
     @Test
-    @DisplayName("get all attempts of team")
+    @DisplayName("get not deleted attempts of team")
     @DatabaseSetup(
         value = [
             "/db/auth/user.xml",
@@ -207,7 +251,7 @@ class AttemptResultControllerTest : TestWithDb() {
         value = "/db/rest/AttemptResultControllerTest/before/two_attempts.xml",
         assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED,
     )
-    fun getAllAttemptsByTeam() {
+    fun getAllNotDeletedAttemptsByTeam() {
         mockMvc.perform(
             MockMvcRequestBuilders.get(
                 "/api/v1/competition/1/category/11/team/1/attempt"
@@ -225,6 +269,7 @@ class AttemptResultControllerTest : TestWithDb() {
                     )
             )
     }
+
 
     @Test
     @DisplayName("get one attempts of team")
@@ -260,5 +305,7 @@ class AttemptResultControllerTest : TestWithDb() {
                     )
             )
     }
+
+
 //    TODO добавить тест для проверки, что не возвращается попытка со статусом DELETED
 }

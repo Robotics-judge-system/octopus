@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <attempts_results
+            id="2"
+            created="2022-03-04 00:00:00 +0000"
+            updated="2022-03-04 00:00:00 +0000"
+            status="DELETED"
+            team_id="1"
+            formula_protocol_id="1"
+            last_user_id="1"
+            attempt_id="3"
+            calculation_status="CALCULATED"
+            attempt_time="123"
+            attempt_score="12"
+            attempt_data='{"a": "11", "b": "12"}'
+    />
+</dataset>
