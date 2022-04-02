@@ -1,41 +1,29 @@
-package ru.anarcom.octopus.security.jwt;
+package ru.anarcom.octopus.security.jwt
 
-import java.io.IOException;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.GenericFilterBean
+import kotlin.Throws
+import java.io.IOException
+import javax.servlet.ServletException
+import javax.servlet.ServletRequest
+import javax.servlet.ServletResponse
+import javax.servlet.FilterChain
+import javax.servlet.http.HttpServletRequest
+import org.springframework.security.core.context.SecurityContextHolder
 
 /**
  * JWT token filter that handles all HTTP requests to application.
  *
  */
-
-public class JwtTokenFilter extends GenericFilterBean {
-
-    private final JwtTokenProvider jwtTokenProvider;
-
-    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
-
-    @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
-            throws IOException, ServletException {
-
-        String token = jwtTokenProvider.resolveToken((HttpServletRequest) req);
+class JwtTokenFilter(private val jwtTokenProvider: JwtTokenProvider) : GenericFilterBean() {
+    @Throws(IOException::class, ServletException::class)
+    override fun doFilter(req: ServletRequest, res: ServletResponse, filterChain: FilterChain) {
+        val token = jwtTokenProvider.resolveToken(req as HttpServletRequest)
         if (token != null && jwtTokenProvider.validateToken(token)) {
-            Authentication auth = jwtTokenProvider.getAuthentication(token);
-
+            val auth = jwtTokenProvider.getAuthentication(token)
             if (auth != null) {
-                SecurityContextHolder.getContext().setAuthentication(auth);
+                SecurityContextHolder.getContext().authentication = auth
             }
         }
-        filterChain.doFilter(req, res);
+        filterChain.doFilter(req, res)
     }
-
 }
