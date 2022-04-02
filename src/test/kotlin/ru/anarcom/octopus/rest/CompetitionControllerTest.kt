@@ -58,7 +58,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json( ResourceReader.getResource("json/controllers/team/createCompetitionTest.json"))
+                    .json(ResourceReader.getResource("json/controllers/team/createCompetitionTest.json"))
             )
     }
 
@@ -90,7 +90,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json( ResourceReader.getResource("json/controllers/team/updateCompetitionTest.json") )
+                    .json(ResourceReader.getResource("json/controllers/team/updateCompetitionTest.json"))
             )
     }
 
@@ -113,7 +113,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json( ResourceReader.getResource("json/controllers/team/allMethodTest.json"))
+                    .json(ResourceReader.getResource("json/controllers/team/allMethodTest.json"))
             )
     }
 
@@ -158,7 +158,7 @@ class CompetitionControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json( ResourceReader.getResource("json/controllers/team/getOneMethodTest.json"))
+                    .json(ResourceReader.getResource("json/controllers/team/getOneMethodTest.json"))
             )
     }
 
@@ -186,6 +186,30 @@ class CompetitionControllerTest : TestWithDb() {
             .andExpect(
                 MockMvcResultMatchers.content()
                     .json(ResourceReader.getResource("json/controllers/team/deleteMethodTest.json"))
+            )
+    }
+
+    @Test
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/auth/another_user.xml",
+            "/db/rest/CompetitionControllerTest/many_users_and_competitions.xml",
+        ]
+    )
+    @DisplayName("testing of wrong competition")
+    fun getWrongMethodTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(
+                "/api/v1/competition/9"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isNotFound)
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json("{\"exception_message\":\"Competition not found\"}")
             )
     }
 }

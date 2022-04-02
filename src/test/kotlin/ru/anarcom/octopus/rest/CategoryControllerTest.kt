@@ -94,7 +94,8 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json(ResourceReader.getResource("json/controllers/team/createCategoryForCompetitionTest.json")
+                    .json(
+                        ResourceReader.getResource("json/controllers/team/createCategoryForCompetitionTest.json")
                     )
             )
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -129,7 +130,8 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json( ResourceReader.getResource("json/controllers/team/updateCategoryTest.json")
+                    .json(
+                        ResourceReader.getResource("json/controllers/team/updateCategoryTest.json")
                     )
             )
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -158,7 +160,8 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json( ResourceReader.getResource("json/controllers/team/deleteCategoryTest.json")
+                    .json(
+                        ResourceReader.getResource("json/controllers/team/deleteCategoryTest.json")
                     )
             )
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -173,7 +176,7 @@ class CategoryControllerTest : TestWithDb() {
             "/db/rest/CategoryControllerTest/before/default_category.xml",
         ]
     )
-    fun getOneByCompetitionAndId(){
+    fun getOneByCompetitionAndId() {
         mockMvc.perform(
             MockMvcRequestBuilders.get(
                 "/api/v1/competition/1/category/1"
@@ -183,7 +186,8 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json( ResourceReader.getResource("json/controllers/team/getOneByCompetitionAndId.json")
+                    .json(
+                        ResourceReader.getResource("json/controllers/team/getOneByCompetitionAndId.json")
                     )
             )
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -207,9 +211,34 @@ class CategoryControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(
                 MockMvcResultMatchers.content()
-                    .json( "[]"
+                    .json(
+                        "[]"
                     )
             )
             .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    @DisplayName("get wrong category test")
+    @DatabaseSetup(
+        value = [
+            "/db/auth/user.xml",
+            "/db/rest/CompetitionControllerTest/default_competition.xml",
+            "/db/rest/CategoryControllerTest/before/default_category.xml",
+        ]
+    )
+    fun getWrongCategory() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(
+                "/api/v1/competition/1/category/2"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isNotFound)
+            .andExpect(
+                MockMvcResultMatchers.content()
+                    .json("{\"exception_message\":\"no such attempt for category and competition\"}")
+            )
     }
 }
