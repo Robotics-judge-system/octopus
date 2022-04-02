@@ -7,6 +7,8 @@ import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.exceptions.ValidationException
 import ru.anarcom.octopus.facade.CategoryFacade
 import ru.anarcom.octopus.repo.FormulaProtocolRepository
+import ru.anarcom.octopus.service.AttemptResultService
+import ru.anarcom.octopus.service.AttemptService
 import ru.anarcom.octopus.service.FormulaProtocolService
 import javax.validation.Valid
 
@@ -15,7 +17,9 @@ import javax.validation.Valid
 class FormulaProtocolController(
     private val formulaProtocolService: FormulaProtocolService,
     private val formulaProtocolRepository: FormulaProtocolRepository,
-    private val categoryFacade: CategoryFacade
+    private val attemptResultService: AttemptResultService,
+    private val categoryFacade: CategoryFacade,
+    private val attemptService: AttemptService,
 ) {
     @PostMapping
     fun add(
@@ -47,10 +51,15 @@ class FormulaProtocolController(
         val category = categoryFacade.getOneCategory(categoryId, competitionId)
         var activeFormula = formulaProtocolRepository.getOneByCategoryAndId(category, formulaId)
 
-        /* TODO добавить валидацию, что данная формула не используется нигде,
-          (attempt results + attempt). status использования != DELETED */
-
         if (activeFormula.status != Status.DELETED) {
+            // TODO add tests
+            if (!attemptResultService.isFormulaProtocolCanBeDeleted(activeFormula)) {
+                throw ValidationException("Formula protocol cannot be deleted due to active attempt results")
+            }
+            if(!attemptService.isFormulaProtocolCanBeDeleted(activeFormula)){
+                throw ValidationException("Formula protocol cannot be deleted due to existing attempt with that formula protocol")
+            }
+
             activeFormula.status = Status.DELETED
             activeFormula = formulaProtocolService.save(activeFormula)
         }
