@@ -150,7 +150,7 @@ class AttemptResultControllerTest : TestWithDb() {
                 MockMvcResultMatchers.content()
                     .json(
                         ResourceReader.getResource(
-                            "json/controllers/attemptResult/afterUpdating.json"
+                            "json/controllers/attemptResult/afterNormalUpdate.json"
                         )
                     )
             )

@@ -61,7 +61,6 @@ class AttemptResultController(
         }
 
         var attemptResult: AttemptResult
-        // TODO добавить andStatusNotIn
         if (attemptResultRepository.existsByAttemptAndTeamAndStatusNot(attempt,team, Status.DELETED)) {
             attemptResult = attemptResultRepository.getByAttemptAndTeam(attempt, team)
             attemptResult.attemptData = attemptData
