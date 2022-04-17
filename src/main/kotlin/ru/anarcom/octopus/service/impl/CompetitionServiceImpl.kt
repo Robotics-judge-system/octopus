@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.Competition
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.User
+import ru.anarcom.octopus.exceptions.NotFoundException
 import ru.anarcom.octopus.repo.CompetitionRepository
 import ru.anarcom.octopus.service.CompetitionService
 import ru.anarcom.octopus.util.logger
@@ -73,7 +74,7 @@ class CompetitionServiceImpl(
     }
 
     override fun getById(id: Long): Competition =
-        competitionRepository.getById(id)
+        competitionRepository.findById(id).orElseThrow{throw NotFoundException("Competition not found")}
 
     override fun deleteByIdAndUser(user: User, id: Long): Competition {
         val competition = competitionRepository.getById(id)
