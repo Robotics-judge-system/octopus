@@ -46,6 +46,7 @@ class AttemptResultController(
         val attempt = attemptService.findAttemptByCategoryAndIdOrThrow(category, attemptId)
         val user = userService.findByUsernameOrThrow(principal.name)
 
+
         if (!attempt.isActive) {
             throw ValidationException("attempt is not active")
         }
@@ -60,8 +61,7 @@ class AttemptResultController(
         }
 
         var attemptResult: AttemptResult
-        // TODO добавить andStatusNotIn
-        if (attemptResultRepository.existsByAttemptAndTeam(attempt, team)) {
+        if (attemptResultRepository.existsByAttemptAndTeamAndStatusNot(attempt,team, Status.DELETED)) {
             attemptResult = attemptResultRepository.getByAttemptAndTeam(attempt, team)
             attemptResult.attemptData = attemptData
             attemptResult.calculationStatus = AttemptResultCalculationStatus.NOT_CALCULATED
@@ -82,6 +82,7 @@ class AttemptResultController(
             )
             attemptResult = attemptResultService.saveNew(attemptResult)
         }
+
 
         val data = attemptResultCalculator.calculateAttemptResult(
             attemptResult.formulaProtocol,
@@ -131,9 +132,8 @@ class AttemptResultController(
     ): List<AttemptResultDto> {
         val category = categoryFacade.getOneCategory(categoryId, competitionId)
         val team = teamService.getByIdAndCategoryOrThrow(teamId, category)
-        val results = attemptResultRepository.getAllByTeam(team)
-
-        return AttemptResultDto.fromAttemptResult(results)
+        val resultsNotDeleted = attemptResultRepository.getAllByTeamAndStatusNot(team, Status.DELETED)
+        return AttemptResultDto.fromAttemptResult(resultsNotDeleted)
     }
 
     @GetMapping("{attempt_id}")
