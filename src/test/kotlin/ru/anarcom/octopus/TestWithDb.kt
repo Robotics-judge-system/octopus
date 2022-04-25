@@ -8,8 +8,6 @@ import io.zonky.test.db.AutoConfigureEmbeddedDatabase
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase.DatabaseProvider
 import org.hamcrest.Matchers
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.TestExecutionListeners
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener
@@ -25,17 +23,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 	provider = DatabaseProvider.DEFAULT,
 	refresh = AutoConfigureEmbeddedDatabase.RefreshMode.BEFORE_EACH_TEST_METHOD
 )
-@SpringBootTest(
-	webEnvironment = SpringBootTest.WebEnvironment.MOCK
-)
 @TestExecutionListeners(
 	DependencyInjectionTestExecutionListener::class,
 	DirtiesContextTestExecutionListener::class,
 	DbUnitTestExecutionListener::class,
 )
-@AutoConfigureMockMvc
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
-abstract class TestWithDb {
+abstract class TestWithDb: TestWithNoDb() {
 	@Autowired
 	private lateinit var mockMvc: MockMvc
 

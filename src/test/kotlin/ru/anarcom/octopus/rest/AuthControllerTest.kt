@@ -188,6 +188,26 @@ class AuthControllerTest : TestWithDb() {
     }
 
     @Test
+    @DisplayName("Auth as deleted user")
+    @DatabaseSetup("/db/auth/deleted_user.xml")
+    fun authDeletedUserTest(){
+        mockMvc
+            .perform(
+                post("/api/v1/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(
+                        "{\n" +
+                                "    \"login\":\"username\",\n" +
+                                "    \"password\":\"test\"\n" +
+                                "}"
+                    )
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isForbidden)
+            .andExpect(content().json("{\"exception_message\":\"invalid username or password\"}"))
+    }
+
+    @Test
     @DisplayName("Get all auths")
     @DatabaseSetup(
         value = ["/db/auth/user.xml", "/db/auth/auths.xml"]
