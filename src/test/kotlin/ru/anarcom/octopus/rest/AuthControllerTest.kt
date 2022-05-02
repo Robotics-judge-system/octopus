@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import ru.anarcom.octopus.TestWithDb
+import ru.anarcom.octopus.service.UserService
 import ru.anarcom.octopus.util.TestClock
 import ru.anarcom.octopus.utilus.ResourceReader
 import java.time.Clock
@@ -30,6 +31,9 @@ class AuthControllerTest : TestWithDb() {
 
     @Autowired
     private lateinit var clock: Clock
+
+    @Autowired
+    private lateinit var userService: UserService
 
     @BeforeEach
     fun setTime() {
@@ -205,6 +209,38 @@ class AuthControllerTest : TestWithDb() {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(status().isForbidden)
             .andExpect(content().json("{\"exception_message\":\"invalid username or password\"}"))
+    }
+
+    @Test
+    @DisplayName("Auth when becomes deleted")
+    @DatabaseSetup("/db/auth/user.xml")
+    fun testWithUserDeleting(){
+        mockMvc
+            .perform(
+                post("/api/v1/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(
+                        "{\n" +
+                                "    \"login\":\"username\",\n" +
+                                "    \"password\":\"test\"\n" +
+                                "}"
+                    )
+            )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.username", `is`("username")))
+        val token = getJwtTokenForDefaultUser()
+
+        userService.delete(1)
+
+        mockMvc.perform(
+            post(
+                "/api/v1/self"
+            )
+                .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isForbidden)
     }
 
     @Test
