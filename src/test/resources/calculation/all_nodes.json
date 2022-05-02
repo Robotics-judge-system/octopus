@@ -1,0 +1,316 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "2": {
+      "id": 2,
+      "data": {
+        "num": 1
+      },
+      "inputs": {},
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 6,
+              "input": "num1",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -603.1999816894531,
+        -269.7999725341797
+      ],
+      "name": "Number"
+    },
+    "3": {
+      "id": 3,
+      "data": {
+        "name": "Бочки",
+        "val": 0
+      },
+      "inputs": {},
+      "outputs": {
+        "val": {
+          "connections": [
+            {
+              "node": 6,
+              "input": "num2",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -601.6000061035156,
+        -118.60000610351562
+      ],
+      "name": "Input"
+    },
+    "5": {
+      "id": 5,
+      "data": {
+        "previewRes": 0,
+        "previewTime": 0
+      },
+      "inputs": {
+        "res": {
+          "connections": [
+            {
+              "node": 9,
+              "output": "result",
+              "data": {}
+            }
+          ]
+        },
+        "time": {
+          "connections": [
+            {
+              "node": 9,
+              "output": "result",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {},
+      "position": [
+        1147.8994798579424,
+        -425.1200060911326
+      ],
+      "name": "Output"
+    },
+    "6": {
+      "id": 6,
+      "data": {
+        "preview": "...",
+        "num1": 0,
+        "num2": 0
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+            {
+              "node": 2,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        },
+        "num2": {
+          "connections": [
+            {
+              "node": 3,
+              "output": "val",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 7,
+              "input": "num1",
+              "data": {}
+            },
+            {
+              "node": 7,
+              "input": "num2",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -264.79998779296875,
+        -257
+      ],
+      "name": "Add"
+    },
+    "7": {
+      "id": 7,
+      "data": {
+        "preview": "...",
+        "num1": 0,
+        "num2": 0
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+            {
+              "node": 6,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        },
+        "num2": {
+          "connections": [
+            {
+              "node": 6,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 8,
+              "input": "num1",
+              "data": {}
+            },
+            {
+              "node": 8,
+              "input": "num2",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        124.00006103515625,
+        -132.19998168945312
+      ],
+      "name": "Multiply"
+    },
+    "8": {
+      "id": 8,
+      "data": {
+        "preview": "...",
+        "num1": 0,
+        "num2": 0
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+            {
+              "node": 7,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        },
+        "num2": {
+          "connections": [
+            {
+              "node": 7,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out1": {
+          "connections": [
+            {
+              "node": 9,
+              "input": "condVal1",
+              "data": {}
+            }
+          ]
+        },
+        "out2": {
+          "connections": [
+            {
+              "node": 9,
+              "input": "condVal2",
+              "data": {}
+            }
+          ]
+        },
+        "out3": {
+          "connections": [
+            {
+              "node": 9,
+              "input": "then",
+              "data": {}
+            },
+            {
+              "node": 9,
+              "input": "else",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        447.13820598228085,
+        -300.04215760667535
+      ],
+      "name": "Divide"
+    },
+    "9": {
+      "id": 9,
+      "data": {
+        "cond": "0",
+        "textCond": "<"
+      },
+      "inputs": {
+        "condVal1": {
+          "connections": [
+            {
+              "node": 8,
+              "output": "out1",
+              "data": {}
+            }
+          ]
+        },
+        "condVal2": {
+          "connections": [
+            {
+              "node": 8,
+              "output": "out2",
+              "data": {}
+            }
+          ]
+        },
+        "then": {
+          "connections": [
+            {
+              "node": 8,
+              "output": "out3",
+              "data": {}
+            }
+          ]
+        },
+        "else": {
+          "connections": [
+            {
+              "node": 8,
+              "output": "out3",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "result": {
+          "connections": [
+            {
+              "node": 5,
+              "input": "res",
+              "data": {}
+            },
+            {
+              "node": 5,
+              "input": "time",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        760.2743818406514,
+        -393.2847688252908
+      ],
+      "name": "If"
+    }
+  }
+}

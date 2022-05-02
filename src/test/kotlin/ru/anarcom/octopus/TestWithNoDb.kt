@@ -7,5 +7,4 @@ import org.springframework.boot.test.context.SpringBootTest
     webEnvironment = SpringBootTest.WebEnvironment.MOCK
 )
 @AutoConfigureMockMvc
-class TestWithNoDb {
-}
+abstract class TestWithNoDb
