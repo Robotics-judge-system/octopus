@@ -27,8 +27,8 @@ class UserServiceImpl(
 
     private val log = logger()
 
-    override fun findByUsername(username: String): User? =
-        userRepository.findByUsername(username)
+    override fun findActiveByUsername(username: String): User? =
+        userRepository.findByUsernameAndStatus(username, Status.ACTIVE)
 
     override fun findById(id: Long): User? =
          userRepository.findById(id).orElse(null)

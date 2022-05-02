@@ -67,9 +67,15 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(
-            getUsernameFromJwtToken(token)
-        );
+        UserDetails userDetails;
+        try {
+            userDetails = this.userDetailsService.loadUserByUsername(
+                getUsernameFromJwtToken(token)
+            );
+        } catch (Exception e){
+            return null;
+        }
+
         return new UsernamePasswordAuthenticationToken(
             userDetails,
             "",

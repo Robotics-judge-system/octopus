@@ -38,7 +38,7 @@ class AuthenticationRestControllerV1(
             val user = if (login.contains("@")) {
                 userService.findByEmailOrThrow(login)
             } else {
-                userService.findByUsername(login)
+                userService.findActiveByUsername(login)
                     ?: throw InvalidLoginOrPasswordException()
             }
             val pair = jwtTokenProvider.createToken(user.username, user.roles)

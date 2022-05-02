@@ -3,7 +3,7 @@ package ru.anarcom.octopus.service
 import ru.anarcom.octopus.entity.User
 
 interface UserService {
-    fun findByUsername(username: String): User?
+    fun findActiveByUsername(username: String): User?
     fun findById(id: Long): User?
     fun findByUsernameOrThrow(username:String): User
 

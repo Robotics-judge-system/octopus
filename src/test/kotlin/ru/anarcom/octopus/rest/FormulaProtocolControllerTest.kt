@@ -42,6 +42,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
     @DisplayName("Get all formulaProtocols")
     @DatabaseSetup(
         value = [
+            "/db/auth/user.xml",
             "/db/rest/CompetitionControllerTest/default_competition.xml",
             "/db/rest/CategoryControllerTest/some_categories.xml",
             "/db/rest/FormulaProtocolController/before/some_formulas.xml"
@@ -70,6 +71,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
     @DisplayName("Get one formulaProtocol")
     @DatabaseSetup(
         value = [
+            "/db/auth/user.xml",
             "/db/rest/CompetitionControllerTest/default_competition.xml",
             "/db/rest/CategoryControllerTest/some_categories.xml",
             "/db/rest/FormulaProtocolController/before/some_formulas.xml"
@@ -98,6 +100,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
     @DisplayName("Delete one formula")
     @DatabaseSetup(
         value = [
+            "/db/auth/user.xml",
             "/db/rest/CompetitionControllerTest/default_competition.xml",
             "/db/rest/CategoryControllerTest/some_categories.xml",
             "/db/rest/FormulaProtocolController/before/some_formulas.xml"
@@ -130,6 +133,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
     @DisplayName("Delete already deleted formula")
     @DatabaseSetup(
         value = [
+            "/db/auth/user.xml",
             "/db/rest/CompetitionControllerTest/default_competition.xml",
             "/db/rest/CategoryControllerTest/some_categories.xml",
             "/db/rest/FormulaProtocolController/before/some_formulas.xml"
@@ -162,6 +166,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
     @DisplayName("Add new with validation")
     @DatabaseSetup(
         value = [
+            "/db/auth/user.xml",
             "/db/rest/CompetitionControllerTest/default_competition.xml",
             "/db/rest/CategoryControllerTest/some_categories.xml"
         ]
@@ -195,6 +200,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
     @DisplayName("Add new with error in validation")
     @DatabaseSetup(
         value = [
+            "/db/auth/user.xml",
             "/db/rest/CompetitionControllerTest/default_competition.xml",
             "/db/rest/CategoryControllerTest/some_categories.xml"
         ]
@@ -222,6 +228,7 @@ class FormulaProtocolControllerTest : TestWithDb() {
     @DisplayName("Update formula and protocol")
     @DatabaseSetup(
         value = [
+            "/db/auth/user.xml",
             "/db/rest/CompetitionControllerTest/default_competition.xml",
             "/db/rest/CategoryControllerTest/some_categories.xml",
             "/db/rest/FormulaProtocolController/before/some_formulas.xml"
