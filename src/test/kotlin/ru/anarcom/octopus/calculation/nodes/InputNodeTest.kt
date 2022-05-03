@@ -53,5 +53,4 @@ class InputNodeTest : NodeTest() {
             "No such field 'error_name'"
         )
     }
-
 }

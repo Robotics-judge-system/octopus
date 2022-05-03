@@ -69,5 +69,4 @@ class IfStatementNodeTest : NodeTest() {
             Arguments.of("/calculation/nodes/if_statement_node_b.json", "==", 4)
         )
     }
-
 }

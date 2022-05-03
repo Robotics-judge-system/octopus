@@ -5,7 +5,7 @@
       "id": 1,
       "data": {
         "cond": "0",
-        "textCond": "<"
+        "textCond": "<**"
       },
       "inputs": {
         "condVal1": {

@@ -51,7 +51,6 @@ public class IfNode extends AbstractNode {
         res = !Objects.equals(a, b);
         break;
       default:
-        //TODO exception text
         throw new CalculationException(
             String.format("No such comparator '%s'", data.textCond)
         );
