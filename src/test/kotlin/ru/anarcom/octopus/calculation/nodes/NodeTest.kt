@@ -8,5 +8,5 @@ open class NodeTest {
     fun getNodes(filePath: String): NodeGroup = ObjectMapper().readValue(
         ResourceReader.getResource(filePath),
         NodeGroup::class.java
-    )
+    )!!
 }

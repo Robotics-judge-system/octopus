@@ -11,12 +11,12 @@ class InputNodeTest : NodeTest() {
     @DisplayName("Key exists in protocol map")
     fun keyExistsInMapTest() {
         val nodes = getNodes("calculation/nodes/input_node.json")
-        val node = nodes.nodes["1"]
+        val node = nodes.nodes["1"]!!
 
         val protocolData = HashMap<String, Int>()
         protocolData["Blankets"] = 10
 
-        val res = node?.calculate(nodes.nodes, protocolData, "val")
+        val res = node.calculate(nodes.nodes, protocolData, "val")
         Assertions.assertEquals(10, res)
     }
 
@@ -24,14 +24,14 @@ class InputNodeTest : NodeTest() {
     @DisplayName("Key does not exists in protocol map")
     fun keyDoesNotExistsInMapTest() {
         val nodes = getNodes("calculation/nodes/input_node.json")
-        val node = nodes.nodes["1"]
+        val node = nodes.nodes["1"]!!
 
         val protocolData = HashMap<String, Int>()
 
         Assertions.assertThrows(
             CalculationException::class.java,
             {
-                node?.calculate(nodes.nodes, protocolData, "val")
+                node.calculate(nodes.nodes, protocolData, "val")
             },
             "Key 'Blankets' not found"
         )
@@ -41,14 +41,14 @@ class InputNodeTest : NodeTest() {
     @DisplayName("Mistake in output node name")
     fun errorInOutputValueNameTest() {
         val nodes = getNodes("calculation/nodes/input_node.json")
-        val node = nodes.nodes["1"]
+        val node = nodes.nodes["1"]!!
 
         val protocolData = HashMap<String, Int>()
 
         Assertions.assertThrows(
             CalculationException::class.java,
             {
-                node?.calculate(nodes.nodes, protocolData, "error_name")
+                node.calculate(nodes.nodes, protocolData, "error_name")
             },
             "No such field 'error_name'"
         )

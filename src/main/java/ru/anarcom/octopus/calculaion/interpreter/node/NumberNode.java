@@ -5,6 +5,7 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import ru.anarcom.octopus.calculaion.interpreter.node.parent.AbstractNode;
+import ru.anarcom.octopus.exceptions.CalculationException;
 
 @JsonTypeName("Number")
 public class NumberNode extends AbstractNode {
@@ -19,7 +20,9 @@ public class NumberNode extends AbstractNode {
       Map<String, Integer> protocolData,
       String outputValue) {
     if (!outputValue.equals("num")) {
-      throw new RuntimeException("unexpected output value");
+      throw new CalculationException(
+          String.format("No such field '%s'", outputValue)
+      );
     }
     // TODO add check for null
     return data.num;
