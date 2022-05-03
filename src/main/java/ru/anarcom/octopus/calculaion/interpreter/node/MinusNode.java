@@ -5,6 +5,7 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import ru.anarcom.octopus.calculaion.interpreter.node.parent.AbstractNode;
+import ru.anarcom.octopus.exceptions.CalculationException;
 
 @JsonTypeName("Minus")
 @Getter
@@ -16,8 +17,9 @@ public class MinusNode extends AbstractMathNode {
   public Integer calculate(Map<String, AbstractNode> nodeMap, Map<String, Integer> protocolData,
       String outputValue) {
     if (!outputValue.equals("num")) {
-      // TODO normal text
-      throw new RuntimeException("");
+      throw new CalculationException(
+          String.format("No such field '%s'", outputValue)
+      );
     }
     return getA(nodeMap, protocolData) - getB(nodeMap, protocolData);
 

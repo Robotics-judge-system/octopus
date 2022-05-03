@@ -1,0 +1,33 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "1": {
+      "id": 1,
+      "data": {
+        "preview": "...",
+        "num1": 7,
+        "num2": 17
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+          ]
+        },
+        "num2": {
+          "connections": [
+          ]
+        }
+      },
+      "outputs": {
+        "num": {
+          "connections": []
+        }
+      },
+      "position": [
+        -269.6000061035156,
+        -253.8000030517578
+      ],
+      "name": "Minus"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "1": {
+      "id": 1,
+      "data": {
+        "preview": "...",
+        "num1": 0,
+        "num2": 0
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+          ]
+        },
+        "num2": {
+          "connections": [
+          ]
+        }
+      },
+      "outputs": {
+        "num": {
+          "connections": []
+        }
+      },
+      "position": [
+        45.79998779296875,
+        -175.39999389648438
+      ],
+      "name": "Multiply"
+    }
+  }
+}

@@ -35,7 +35,6 @@ class NumberNodeTest : NodeTest() {
             },
             "No such field 'error_name'"
         )
-
     }
 
 }

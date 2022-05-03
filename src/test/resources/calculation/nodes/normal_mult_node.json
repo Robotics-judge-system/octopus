@@ -1,0 +1,89 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "1": {
+      "id": 1,
+      "data": {
+        "preview": "...",
+        "num1": 0,
+        "num2": 0
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+            {
+              "node": 2,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        },
+        "num2": {
+          "connections": [
+            {
+              "node": 3,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "num": {
+          "connections": []
+        }
+      },
+      "position": [
+        45.79998779296875,
+        -175.39999389648438
+      ],
+      "name": "Multiply"
+    },
+    "2": {
+      "id": 2,
+      "data": {
+        "num": 2
+      },
+      "inputs": {},
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 1,
+              "input": "num1",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -290.1999816894531,
+        -147.39996337890625
+      ],
+      "name": "Number"
+    },
+    "3": {
+      "id": 3,
+      "data": {
+        "num": 1
+      },
+      "inputs": {},
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 1,
+              "input": "num2",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -287.857151109345,
+        -0.14284408613873079
+      ],
+      "name": "Number"
+    }
+  }
+}
