@@ -2,7 +2,6 @@ package ru.anarcom.octopus.calculaion.interpreter.node.parent;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,12 +15,12 @@ import ru.anarcom.octopus.calculaion.interpreter.node.MinusNode;
 import ru.anarcom.octopus.calculaion.interpreter.node.MultiplyNode;
 import ru.anarcom.octopus.calculaion.interpreter.node.NumberNode;
 import ru.anarcom.octopus.calculaion.interpreter.node.OutputNode;
+import ru.anarcom.octopus.exceptions.CalculationException;
 
 @Getter
 @Setter
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
-    include = As.PROPERTY,
     property = "name")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = AddNode.class, name = "Add"),
@@ -64,8 +63,16 @@ public abstract class AbstractNode {
       Map<String, AbstractNode> nodeMap,
       Map<String, Integer> protocolData) {
 
+    if(!getInputs().containsKey(key)){
+      throw new CalculationException(
+          String.format("No such key '%s'", key)
+      );
+    }
+
     if (getInputs().get(key).getConnections().length == 0) {
-      throw new RuntimeException("Key is not available");
+      throw new CalculationException(
+          String.format("'%s' cannot be computed", key)
+      );
     }
 
     Integer res = nodeMap.get(
