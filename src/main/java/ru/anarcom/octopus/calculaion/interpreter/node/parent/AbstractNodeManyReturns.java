@@ -2,6 +2,7 @@ package ru.anarcom.octopus.calculaion.interpreter.node.parent;
 
 import java.util.Map;
 import ru.anarcom.octopus.calculaion.interpreter.OutputCalculator;
+import ru.anarcom.octopus.exceptions.CalculationException;
 
 public abstract class AbstractNodeManyReturns extends AbstractNode{
 
@@ -15,9 +16,10 @@ public abstract class AbstractNodeManyReturns extends AbstractNode{
       throw new RuntimeException("Node not ready");
     }
 
-    // TODO: write key that has not been found
     if(!functions.containsKey(outputValue)){
-      throw new RuntimeException("key not found");
+      throw new CalculationException(
+          String.format("No such field '%s'", outputValue)
+      );
     }
 
     return functions.get(outputValue).getValue(nodeMap, protocolData);

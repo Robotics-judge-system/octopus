@@ -1,0 +1,39 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "1": {
+      "id": 1,
+      "data": {
+        "preview": "...",
+        "num1": 16,
+        "num2": 0
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+          ]
+        },
+        "num2": {
+          "connections": [
+          ]
+        }
+      },
+      "outputs": {
+        "out1": {
+          "connections": []
+        },
+        "out2": {
+          "connections": []
+        },
+        "out3": {
+          "connections": []
+        }
+      },
+      "position": [
+        -303.20001220703125,
+        -304.99998474121094
+      ],
+      "name": "Divide"
+    }
+  }
+}
