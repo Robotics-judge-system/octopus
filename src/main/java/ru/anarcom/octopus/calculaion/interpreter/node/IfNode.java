@@ -6,13 +6,16 @@ import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import ru.anarcom.octopus.calculaion.interpreter.node.parent.AbstractNode;
+import ru.anarcom.octopus.exceptions.CalculationException;
 
 
 @Getter
 @Setter
 public class IfNode extends AbstractNode {
 
-  private IfData data;
+  @Getter
+  @Setter
+  private IfData data = new IfData();
 
   @Override
   public Integer calculate(
@@ -22,7 +25,9 @@ public class IfNode extends AbstractNode {
   ) {
 
     if (!outputValue.equals("result")) {
-      throw new RuntimeException("hello my dear boy next door");
+      throw new CalculationException(
+          String.format("No such field '%s'", outputValue)
+      );
     }
 
     // throw if nothing connected
@@ -47,7 +52,9 @@ public class IfNode extends AbstractNode {
         break;
       default:
         //TODO exception text
-        throw new RuntimeException("");
+        throw new CalculationException(
+            String.format("No such comparator '%s'", data.textCond)
+        );
     }
 
     if (res) {
@@ -72,11 +79,9 @@ public class IfNode extends AbstractNode {
     );
   }
 
-  @Getter
-  @Setter
-  static class IfData {
+  public static class IfData {
 
-    private String cond;
-    private String textCond;
+    public String cond;
+    public String textCond;
   }
 }
