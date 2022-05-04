@@ -1,0 +1,22 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "1": {
+      "id": 1,
+      "data": {
+        "num": -290
+      },
+      "inputs": {},
+      "outputs": {
+        "num": {
+          "connections": []
+        }
+      },
+      "position": [
+        -179,
+        -163.39999389648438
+      ],
+      "name": "Number"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "1": {
+      "id": 1,
+      "data": {
+        "preview": "...",
+        "num1": 18,
+        "num2": 6
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+          ]
+        },
+        "num2": {
+          "connections": [
+            {
+              "node": 3,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out1": {
+          "connections": []
+        },
+        "out2": {
+          "connections": []
+        },
+        "out3": {
+          "connections": []
+        }
+      },
+      "position": [
+        -303.20001220703125,
+        -304.99998474121094
+      ],
+      "name": "Divide"
+    },
+    "3": {
+      "id": 3,
+      "data": {
+        "num": 5
+      },
+      "inputs": {},
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 1,
+              "input": "num2",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -712.7999954223633,
+        -97
+      ],
+      "name": "Number"
+    }
+  }
+}

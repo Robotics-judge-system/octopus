@@ -1,0 +1,61 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "1": {
+      "id": 1,
+      "data": {
+        "preview": "...",
+        "num1": 1,
+        "num2": 0
+      },
+      "inputs": {
+        "num1": {
+          "connections": [
+          ]
+        },
+        "num2": {
+          "connections": [
+            {
+              "node": 4,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "num": {
+          "connections": []
+        }
+      },
+      "position": [
+        39.4000244140625,
+        -190.60000610351562
+      ],
+      "name": "Add"
+    },
+    "4": {
+      "id": 4,
+      "data": {
+        "num": 2
+      },
+      "inputs": {},
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 1,
+              "input": "num2",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -354.81483178672175,
+        -16.793575632487563
+      ],
+      "name": "Number"
+    }
+  }
+}

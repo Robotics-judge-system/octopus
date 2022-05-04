@@ -1,0 +1,79 @@
+{
+  "id": "demo@0.1.0",
+  "nodes": {
+    "1": {
+      "id": 1,
+      "data": {
+        "previewRes": 0,
+        "previewTime": 0
+      },
+      "inputs": {
+        "res": {
+          "connections": [
+          ]
+        },
+        "time": {
+          "connections": [
+            {
+              "node": 3,
+              "output": "num",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {},
+      "position": [
+        13.000039127894993,
+        -219.39999738420866
+      ],
+      "name": "Output"
+    },
+    "2": {
+      "id": 2,
+      "data": {
+        "num": 1
+      },
+      "inputs": {},
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 1,
+              "input": "res",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -370.1999816894531,
+        -198.60000610351562
+      ],
+      "name": "Number"
+    },
+    "3": {
+      "id": 3,
+      "data": {
+        "num": 2
+      },
+      "inputs": {},
+      "outputs": {
+        "num": {
+          "connections": [
+            {
+              "node": 1,
+              "input": "time",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -365.39998626708984,
+        -41.7999267578125
+      ],
+      "name": "Number"
+    }
+  }
+}
