@@ -1,6 +1,7 @@
 package ru.anarcom.octopus.dto.competition
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import ru.anarcom.octopus.calculaion.interpreter.env.NodeGroup
 import ru.anarcom.octopus.entity.FormulaProtocol
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.entity.protocol.ProtocolFieldDescription
@@ -14,8 +15,12 @@ class FormulaProtocolDto(
     var created: Instant = Clock.systemDefaultZone().instant(),
     var updated: Instant = Clock.systemDefaultZone().instant(),
     var status: String = Status.NONE.name,
+
     @set:JsonProperty("protocol_description")
-    var protocolDescription: List<ProtocolFieldDescription>
+    var protocolDescription: List<ProtocolFieldDescription>,
+
+    @set:JsonProperty("formula_description")
+    var formulaDescription: NodeGroup,
 ) {
     companion object {
         fun fromFormulaProtocol(formulaProtocol: FormulaProtocol) =
@@ -27,6 +32,7 @@ class FormulaProtocolDto(
                 updated = formulaProtocol.updated,
                 status = formulaProtocol.status.name,
                 protocolDescription = formulaProtocol.protocolDescription,
+                formulaDescription = formulaProtocol.formulaDescription
             )
 
         fun fromFormulaProtocol(formulaProtocols: List<FormulaProtocol>) =

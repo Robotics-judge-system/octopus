@@ -33,6 +33,7 @@ class FormulaProtocolController(
             category = category,
             status = Status.ACTIVE,
             protocolDescription = formulaProtocolDto.protocolDescription,
+            formulaDescription = formulaProtocolDto.formulaDescription,
         )
         return FormulaProtocolDto.fromFormulaProtocol(
             formulaProtocolService.saveNew(formulaProtocol)

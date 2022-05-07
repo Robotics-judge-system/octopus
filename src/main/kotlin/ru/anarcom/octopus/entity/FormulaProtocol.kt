@@ -6,6 +6,7 @@ import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
+import ru.anarcom.octopus.calculaion.interpreter.env.NodeGroup
 import ru.anarcom.octopus.entity.protocol.ProtocolFieldDescription
 import java.time.Clock
 import java.time.Instant
@@ -21,13 +22,13 @@ class FormulaProtocol(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-/*
-TODO в таблице уже есть поля formula_description и protocol_description
-    */
-
     @Column(name = "protocol_description")
     @Type(type = "jsonb")
     var protocolDescription:List<ProtocolFieldDescription>,
+
+    @Column(name = "formula_description")
+    @Type(type = "jsonb")
+    val formulaDescription: NodeGroup,
 
     @Column(name = "name")
     var name: String = "",
