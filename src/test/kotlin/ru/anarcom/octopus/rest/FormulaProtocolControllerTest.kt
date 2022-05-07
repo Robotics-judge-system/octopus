@@ -182,7 +182,11 @@ class FormulaProtocolControllerTest : TestWithDb() {
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"additional task\"}")
+                .content(
+                    ResourceReader.getResource(
+                        "json/controllers/formulaProtocol/request/createNewFormulaProtocol.json"
+                    )
+                )
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)

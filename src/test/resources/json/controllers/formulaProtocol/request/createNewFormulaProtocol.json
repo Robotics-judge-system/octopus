@@ -1,0 +1,11 @@
+{
+  "name": "additional task",
+  "protocol_description": [
+    {
+      "type": "time",
+      "min": null,
+      "max": null,
+      "name": "Time of attempt"
+    }
+  ]
+}
