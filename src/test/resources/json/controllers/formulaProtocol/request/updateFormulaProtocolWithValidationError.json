@@ -1,26 +1,5 @@
 {
-  "id": 1,
-  "name": "new name",
-  "category": {
-    "id": 13,
-    "competition_id": 1,
-    "competition": {
-      "id": 1,
-      "name": "name",
-      "created": "2017-03-31T09:30:20Z",
-      "updated": "2017-03-31T09:30:20Z",
-      "date_to": null,
-      "date_from": null,
-      "status": "ACTIVE"
-    },
-    "name": "Junior",
-    "created": "2018-03-31T09:30:20Z",
-    "updated": "2018-03-31T09:30:20Z",
-    "status": "ACTIVE"
-  },
-  "created": "2022-03-31T09:30:20Z",
-  "updated": "2021-09-01T00:00:00Z",
-  "status": "ACTIVE",
+  "name": "",
   "protocol_description": [
     {
       "type": "time",
@@ -33,12 +12,10 @@
     "id": "demo@0.1.0",
     "nodes": {
       "1": {
-        "name": "Number",
         "id": 1,
-        "position": [
-          -478.3999938964844,
-          -306.6000213623047
-        ],
+        "data": {
+          "num": 1
+        },
         "inputs": {},
         "outputs": {
           "num": {
@@ -51,17 +28,17 @@
             ]
           }
         },
-        "data": {
-          "num": 1
-        }
+        "position": [
+          -478.3999938964844,
+          -306.6000213623047
+        ],
+        "name": "Number"
       },
       "2": {
-        "name": "Number",
         "id": 2,
-        "position": [
-          -471.20001220703125,
-          -140.19998168945312
-        ],
+        "data": {
+          "num": 2
+        },
         "inputs": {},
         "outputs": {
           "num": {
@@ -74,17 +51,18 @@
             ]
           }
         },
-        "data": {
-          "num": 2
-        }
+        "position": [
+          -471.20001220703125,
+          -140.19998168945312
+        ],
+        "name": "Number"
       },
       "3": {
-        "name": "Output",
         "id": 3,
-        "position": [
-          0.2874759717563098,
-          -314.02181913844004
-        ],
+        "data": {
+          "previewRes": 0,
+          "previewTime": 0
+        },
         "inputs": {
           "res": {
             "connections": [
@@ -106,10 +84,11 @@
           }
         },
         "outputs": {},
-        "data": {
-          "previewRes": 0,
-          "previewTime": 0
-        }
+        "position": [
+          0.2874759717563098,
+          -314.02181913844004
+        ],
+        "name": "Output"
       }
     }
   }

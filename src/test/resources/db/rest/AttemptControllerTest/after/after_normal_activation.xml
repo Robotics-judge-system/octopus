@@ -7,6 +7,8 @@
     updated="2022-03-31 09:30:20 +0000"
     status="ACTIVE"
     category_id="11"
+    protocol_description='[{"max": null, "min": null, "name": "Time of attempt", "type": "time"}]'
+    formula_description='{"id": "demo@0.1.0", "nodes": {"1": {"id": 1, "data": {"num": 1}, "name": "Number", "inputs": {}, "outputs": {"num": {"connections": [{"data": {}, "node": 3, "input": "res"}]}}, "position": [-478.3999938964844, -306.6000213623047]}, "2": {"id": 2, "data": {"num": 2}, "name": "Number", "inputs": {}, "outputs": {"num": {"connections": [{"data": {}, "node": 3, "input": "time"}]}}, "position": [-471.20001220703125, -140.19998168945312]}, "3": {"id": 3, "data": {"previewRes": 0, "previewTime": 0}, "name": "Output", "inputs": {"res": {"connections": [{"data": {}, "node": 1, "output": "num"}]}, "time": {"connections": [{"data": {}, "node": 2, "output": "num"}]}}, "outputs": {}, "position": [0.2874759717563098, -314.02181913844004]}}}'
   />
   <formulas_protocols
     id="2"
@@ -15,6 +17,8 @@
     updated="2022-03-31 09:30:20 +0000"
     status="DELETED"
     category_id="11"
+    protocol_description='[{"max": null, "min": null, "name": "Time of attempt", "type": "time"}]'
+    formula_description='{"id": "demo@0.1.0", "nodes": {"1": {"id": 1, "data": {"num": 1}, "name": "Number", "inputs": {}, "outputs": {"num": {"connections": [{"data": {}, "node": 3, "input": "res"}]}}, "position": [-478.3999938964844, -306.6000213623047]}, "2": {"id": 2, "data": {"num": 2}, "name": "Number", "inputs": {}, "outputs": {"num": {"connections": [{"data": {}, "node": 3, "input": "time"}]}}, "position": [-471.20001220703125, -140.19998168945312]}, "3": {"id": 3, "data": {"previewRes": 0, "previewTime": 0}, "name": "Output", "inputs": {"res": {"connections": [{"data": {}, "node": 1, "output": "num"}]}, "time": {"connections": [{"data": {}, "node": 2, "output": "num"}]}}, "outputs": {}, "position": [0.2874759717563098, -314.02181913844004]}}}'
   />
   <attempts
     id="1"
