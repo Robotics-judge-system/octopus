@@ -9,6 +9,8 @@
       "name": "name",
       "created": "2017-03-31T09:30:20Z",
       "updated": "2017-03-31T09:30:20Z",
+      "date_to": null,
+      "date_from": null,
       "status": "ACTIVE"
     },
     "name": "Junior",
@@ -18,5 +20,97 @@
   },
   "created": "2022-03-31T09:30:20Z",
   "updated": "2021-09-01T00:00:00Z",
-  "status": "DELETED"
+  "status": "DELETED",
+  "protocol_description": [
+    {
+      "type": "time",
+      "min": null,
+      "max": null,
+      "name": "Time of attempt"
+    }
+  ],
+  "formula_description": {
+    "id": "demo@0.1.0",
+    "nodes": {
+      "1": {
+        "name": "Number",
+        "id": 1,
+        "position": [
+          -478.3999938964844,
+          -306.6000213623047
+        ],
+        "inputs": {},
+        "outputs": {
+          "num": {
+            "connections": [
+              {
+                "node": 3,
+                "input": "res",
+                "data": {}
+              }
+            ]
+          }
+        },
+        "data": {
+          "num": 1
+        }
+      },
+      "2": {
+        "name": "Number",
+        "id": 2,
+        "position": [
+          -471.20001220703125,
+          -140.19998168945312
+        ],
+        "inputs": {},
+        "outputs": {
+          "num": {
+            "connections": [
+              {
+                "node": 3,
+                "input": "time",
+                "data": {}
+              }
+            ]
+          }
+        },
+        "data": {
+          "num": 2
+        }
+      },
+      "3": {
+        "name": "Output",
+        "id": 3,
+        "position": [
+          0.2874759717563098,
+          -314.02181913844004
+        ],
+        "inputs": {
+          "res": {
+            "connections": [
+              {
+                "node": 1,
+                "output": "num",
+                "data": {}
+              }
+            ]
+          },
+          "time": {
+            "connections": [
+              {
+                "node": 2,
+                "output": "num",
+                "data": {}
+              }
+            ]
+          }
+        },
+        "outputs": {},
+        "data": {
+          "previewRes": 0,
+          "previewTime": 0
+        }
+      }
+    }
+  }
 }

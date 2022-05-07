@@ -216,7 +216,11 @@ class FormulaProtocolControllerTest : TestWithDb() {
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"\"}")
+                .content(
+                    ResourceReader.getResource(
+                        "json/controllers/formulaProtocol/request/updateFormulaProtocolWithValidationError.json"
+                    )
+                )
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isConflict)
@@ -249,7 +253,11 @@ class FormulaProtocolControllerTest : TestWithDb() {
             )
                 .header(HttpHeaders.AUTHORIZATION, "Bearer $token")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"new name\"}")
+                .content(
+                    ResourceReader.getResource(
+                        "json/controllers/formulaProtocol/request/updateFormulaProtocol.json"
+                    )
+                )
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)

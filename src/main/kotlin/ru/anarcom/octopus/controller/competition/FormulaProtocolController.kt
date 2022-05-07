@@ -98,6 +98,17 @@ class FormulaProtocolController(
             formulaProtocol.name = formulaProtocolDto.name
             flag = true
         }
+        // TODO add validation for new formula-protocol description
+        if(formulaProtocolDto.formulaDescription != formulaProtocol.formulaDescription){
+            formulaProtocol.formulaDescription = formulaProtocolDto.formulaDescription
+            flag = true
+        }
+
+        if(formulaProtocolDto.protocolDescription != formulaProtocol.protocolDescription){
+            formulaProtocol.protocolDescription = formulaProtocolDto.protocolDescription
+            flag = true
+        }
+
         if(flag){
            formulaProtocol = formulaProtocolService.save(formulaProtocol)
         }

@@ -28,7 +28,7 @@ class FormulaProtocol(
 
     @Column(name = "formula_description")
     @Type(type = "jsonb")
-    val formulaDescription: NodeGroup,
+    var formulaDescription: NodeGroup,
 
     @Column(name = "name")
     var name: String = "",
