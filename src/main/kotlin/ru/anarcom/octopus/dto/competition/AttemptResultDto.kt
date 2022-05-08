@@ -35,7 +35,7 @@ class AttemptResultDto(
     var attemptScore: Long? = null,
 
     @field:JsonProperty("attempt_data")
-    var attemptData: Map<String, String> = mapOf(),
+    var attemptData: Map<String, Int> = mapOf(),
 ) {
     companion object {
         fun fromAttemptResult(attemptResult: AttemptResult) =

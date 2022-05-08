@@ -8,7 +8,76 @@
     status="ACTIVE"
     category_id="11"
     protocol_description='[{"max": null, "min": null, "name": "Time of attempt", "type": "time"}, {"max": null, "min": 0, "name": "school", "type": "value"}]'
-    formula_description='{"id": "demo@0.1.0", "nodes": {"1": {"id": 1, "data": {"previewRes": 0, "previewTime": 0}, "name": "Output", "inputs": {"res": {"connections": [{"data": {}, "node": 2, "output": "val"}]}, "time": {"connections": [{"data": {}, "node": 3, "output": "val"}]}}, "outputs": {}, "position": [-160.79995727539062, -301.79998779296875]}, "2": {"id": 2, "data": {"val": 0, "name": "Time of attempt"}, "name": "Input", "inputs": {}, "outputs": {"val": {"connections": [{"data": {}, "node": 1, "input": "res"}]}}, "position": [-687.1999969482422, -225.8000030517578]}, "3": {"id": 3, "data": {"val": 0, "name": "school"}, "name": "Input", "inputs": {}, "outputs": {"val": {"connections": [{"data": {}, "node": 1, "input": "time"}]}}, "position": [-680, -20.2000732421875]}}}'  />
+    formula_description='{"id": "demo@0.1.0", "nodes": {"1": {"id": 1,
+"data": {"previewRes": 0,"previewTime": 0},"inputs": {"res": {"connections": [{"node": 2,"output": "val","data":{}}]},
+        "time": {
+          "connections": [
+            {
+              "node": 3,
+              "output": "val",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "outputs": {},
+      "position": [
+        -160.79995727539062,
+        -301.79998779296875
+      ],
+      "name": "Output"
+    },
+    "2": {
+      "id": 2,
+      "data": {
+        "name": "Time of attempt",
+        "val": 0
+      },
+      "inputs": {},
+      "outputs": {
+        "val": {
+          "connections": [
+            {
+              "node": 1,
+              "input": "res",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -687.1999969482422,
+        -225.8000030517578
+      ],
+      "name": "Input"
+    },
+    "3": {
+      "id": 3,
+      "data": {
+        "name": "school",
+        "val": 0
+      },
+      "inputs": {},
+      "outputs": {
+        "val": {
+          "connections": [
+            {
+              "node": 1,
+              "input": "time",
+              "data": {}
+            }
+          ]
+        }
+      },
+      "position": [
+        -680,
+        -20.2000732421875
+      ],
+      "name": "Input"
+    }
+  }
+}
+'/>
   <formulas_protocols
     id="2"
     name="with mistake"

@@ -9,5 +9,5 @@ import ru.anarcom.octopus.calculaion.interpreter.node.parent.AbstractNode;
 @Setter
 public class NodeGroup {
   private String id;
-  Map<String, AbstractNode> nodes;
+  public Map<String, AbstractNode> nodes;
 }

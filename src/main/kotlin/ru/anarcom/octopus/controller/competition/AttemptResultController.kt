@@ -38,7 +38,7 @@ class AttemptResultController(
         @PathVariable("category_id") categoryId: Long,
         @PathVariable("team_id") teamId: Long,
         @PathVariable("attempt_id") attemptId: Long,
-        @RequestBody attemptData: Map<String, String>,
+        @RequestBody attemptData: Map<String, Int>,
         principal: Principal,
     ): AttemptResultDto {
         val category = categoryFacade.getOneCategory(categoryId, competitionId)

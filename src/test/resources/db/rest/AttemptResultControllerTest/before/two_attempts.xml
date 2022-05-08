@@ -12,7 +12,7 @@
     calculation_status="CALCULATED"
     attempt_time="123"
     attempt_score="12"
-    attempt_data='{"a": "11", "b": "12"}'
+    attempt_data='{"a": 11, "b": 12}'
   />
   <attempts_results
     id="2"
@@ -26,6 +26,6 @@
     calculation_status="CALCULATED"
     attempt_time="123"
     attempt_score="12"
-    attempt_data='{"a": "11", "b": "12"}'
+    attempt_data='{"a": 11, "b": 12}'
   />
 </dataset>
