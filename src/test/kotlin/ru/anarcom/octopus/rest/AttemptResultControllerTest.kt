@@ -39,13 +39,14 @@ class AttemptResultControllerTest : TestWithDb() {
     }
 
     @Test
-    @DisplayName("add attempt")
+    @DisplayName("add attempt result")
     @DatabaseSetup(
         value = [
             "/db/auth/user.xml",
             "/db/rest/CompetitionControllerTest/default_competition.xml",
             "/db/rest/CategoryControllerTest/some_categories.xml",
-            "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+//            "/db/rest/AttemptControllerTest/before/some_attempts_and_formulas.xml",
+            "/db/rest/AttemptResultControllerTest/before/some_attempts_and_formulas_with_valid_descriptions.xml",
             "/db/team-participant/before/three-teams.xml",
         ]
     )
@@ -62,8 +63,8 @@ class AttemptResultControllerTest : TestWithDb() {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(
                     "{" +
-                            "\"a\":\"11\"," +
-                            "\"b\":\"12\"" +
+                            "\"Time of attempt\":1," +
+                            "\"school\":12" +
                             "}"
                 )
         )
@@ -139,8 +140,8 @@ class AttemptResultControllerTest : TestWithDb() {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(
                     "{" +
-                            "\"a\":\"13\"," +
-                            "\"b\":\"12\"" +
+                            "\"Time of attempt\":1," +
+                            "\"school\":12" +
                             "}"
                 )
         )
@@ -182,8 +183,8 @@ class AttemptResultControllerTest : TestWithDb() {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(
                     "{" +
-                            "\"a\":\"13\"," +
-                            "\"b\":\"12\"" +
+                            "\"Time of attempt\":1," +
+                            "\"school\":12" +
                             "}"
                 )
         )

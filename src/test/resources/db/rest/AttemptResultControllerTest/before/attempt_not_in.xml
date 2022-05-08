@@ -12,6 +12,6 @@
             calculation_status="CALCULATED"
             attempt_time="123"
             attempt_score="12"
-            attempt_data='{"a": "11", "b": "12"}'
+            attempt_data='{"Time of attempt":1, "school":12}'
     />
 </dataset>

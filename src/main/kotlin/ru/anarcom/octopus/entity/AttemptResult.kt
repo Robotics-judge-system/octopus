@@ -67,5 +67,5 @@ class AttemptResult(
 
     @Type(type = "jsonb")
     @Column(name = "attempt_data")
-    var attemptData: Map<String, String>,
+    var attemptData: Map<String, Int>,
 )

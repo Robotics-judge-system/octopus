@@ -8,10 +8,11 @@
   "last_edited_by_id": 1,
   "attempt_id": 3,
   "calculation_status": "CALCULATED",
-  "attempt_time": 123,
-  "attempt_score": 14,
+  "attempt_time": 12,
+  "attempt_score": 1,
   "attempt_data": {
-    "a": "13",
-    "b": "12"
+    "Time of attempt": 1,
+    "school": 12
   }
 }
+
