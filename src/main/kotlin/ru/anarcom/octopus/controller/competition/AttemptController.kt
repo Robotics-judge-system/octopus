@@ -177,7 +177,7 @@ class AttemptController(
             if(isActive){
                 attempt.isActive = true
             } else {
-                if(!attemptResultService.isAttemptCanBeDeactivater(attempt)){
+                if(!attemptResultService.isAttemptCanBeDeactivated(attempt)){
                     throw CannotActivateException("Attempt has not deleted results")
                 }
                 attempt.isActive = false

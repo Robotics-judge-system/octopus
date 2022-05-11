@@ -2,10 +2,7 @@ package ru.anarcom.octopus.repo
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import ru.anarcom.octopus.entity.Attempt
-import ru.anarcom.octopus.entity.AttemptResult
-import ru.anarcom.octopus.entity.Status
-import ru.anarcom.octopus.entity.Team
+import ru.anarcom.octopus.entity.*
 
 @Repository
 interface AttemptResultRepository : JpaRepository<AttemptResult, Long> {
@@ -21,4 +18,8 @@ interface AttemptResultRepository : JpaRepository<AttemptResult, Long> {
     fun getAllByTeam(team: Team): List<AttemptResult>
     fun getAllByTeamAndStatusNot(team: Team, status: Status): List<AttemptResult>
     fun countAllByAttemptAndStatus(attempt: Attempt, status: Status): Long
+    fun countAllByFormulaProtocolAndStatusNot(
+        formulaProtocol: FormulaProtocol,
+        status: Status
+    ):Long
 }

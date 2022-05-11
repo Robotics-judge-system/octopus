@@ -3,6 +3,7 @@ package ru.anarcom.octopus.service.impl
 import org.springframework.stereotype.Service
 import ru.anarcom.octopus.entity.Attempt
 import ru.anarcom.octopus.entity.AttemptResult
+import ru.anarcom.octopus.entity.FormulaProtocol
 import ru.anarcom.octopus.entity.Status
 import ru.anarcom.octopus.repo.AttemptResultRepository
 import ru.anarcom.octopus.service.AttemptResultService
@@ -23,6 +24,14 @@ class AttemptResultServiceImpl(
         return save(attempt)
     }
 
-    override fun isAttemptCanBeDeactivater(attempt: Attempt): Boolean =
+    override fun isAttemptCanBeDeactivated(attempt: Attempt): Boolean =
         attemptResultRepository.countAllByAttemptAndStatus(attempt, Status.ACTIVE) == 0L
+
+    override fun isFormulaProtocolCanBeDeleted(
+        formulaProtocol: FormulaProtocol
+    ): Boolean =
+        attemptResultRepository.countAllByFormulaProtocolAndStatusNot(
+            formulaProtocol,
+            Status.DELETED
+        ) == 0L
 }
