@@ -16,6 +16,9 @@ class AttemptResultDto(
     @field:JsonProperty("team_id")
     var teamId: Long = 0,
 
+    @field:JsonProperty("team_name")
+    var teamName: String = "",
+
     @field:JsonProperty("formula_protocol_id")
     var formulaProtocolId: Long = 0,
 
@@ -52,6 +55,7 @@ class AttemptResultDto(
                 attemptTime = attemptResult.attemptTime,
                 attemptScore = attemptResult.attemptScore,
                 attemptData = attemptResult.attemptData,
+                teamName = attemptResult.team.teamName,
             )
 
         fun fromAttemptResult(attemptResults: List<AttemptResult>) =
