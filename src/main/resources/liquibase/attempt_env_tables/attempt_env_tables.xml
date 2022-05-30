@@ -77,8 +77,8 @@
       </column>
 
       <column name="team_id" type="bigserial">
-        <constraints nullable="true" foreignKeyName="attempts_results_test_id_fk"
-          references="formulas_protocols(id)" deleteCascade="true"/>
+        <constraints nullable="true" foreignKeyName="attempts_results_team_id_fk"
+          references="teams(id)" deleteCascade="true"/>
       </column>
       <column name="formula_protocol_id" type="bigserial">
         <constraints nullable="true" foreignKeyName="attempts_results_formulas_protocols_fk"
